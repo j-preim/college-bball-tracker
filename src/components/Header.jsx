@@ -1,6 +1,6 @@
 import React from "react";
 import "./header.css";
-import bball from "../assets/bball.png";
+import bball from "/bball.png";
 
 export default function Header() {
   return (
