@@ -6,7 +6,7 @@ export default function ListGames(props) {
       <table className="table">
         <thead>
           <tr>
-            <th>Title</th>
+            <th>Round</th>
             <th>Region</th>
             <th>Tipoff</th>
             <th>Home</th>
@@ -17,7 +17,7 @@ export default function ListGames(props) {
         <tbody>
           {props.gamesData.map((game) => (
             <tr key={game.id}>
-              <td>{game.title}</td>
+              <td>{game.roundName}</td>
               <td>{game.bracket}</td>
               <td>{game.scheduled}</td>
               <td>

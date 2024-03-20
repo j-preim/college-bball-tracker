@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from './components/Header';
-import { Home, Matchups, Bracket } from "./pages"
+import Header from "./components/Header";
+import { Home, Matchups, Bracket } from "./pages";
 import initSchedDb from "../public/initialSchedule2024.json";
-import { getGamesForDay } from "./hooks/getGamesForDay"
-import './App.css'
+import { getGamesForDay } from "./hooks/getGamesForDay";
+import "./App.css";
 
 function App() {
   let rounds = [];
   let games = [];
-  
-  const [count, setCount] = useState(0)
+  let gameDatesArray = [];
+
+  const [count, setCount] = useState(0);
   const [initSched, setinitSched] = useState(initSchedDb);
   const [roundsData, setRoundsData] = useState(rounds);
   const [gamesData, setGamesData] = useState(games);
-  const [todaysGames, setTodaysGames] = useState([]);
+  const [gameDates, setGameDates] = useState(gameDatesArray);
 
   const today = new Date();
   const todayFormatted = today.toLocaleDateString();
@@ -28,6 +29,7 @@ function App() {
       let roundName = initSched.rounds[i].name;
       let roundId = initSched.rounds[i].id;
       let roundBrackets;
+
       if (roundName === "Final Four" || roundName === "National Championship") {
         roundBrackets = [
           {
@@ -40,7 +42,7 @@ function App() {
       }
 
       let brackets = [];
-      let roundDates = [];
+      let roundDates = new Set();
 
       for (let x = 0; x < roundBrackets.length; x++) {
         let bracket = {};
@@ -51,15 +53,23 @@ function App() {
 
         for (let y = 0; y < bracketGames.length; y++) {
           let rawDate = new Date(bracketGames[y].scheduled);
-          let formattedDate = rawDate.toLocaleString();
+          let formattedDateTime = rawDate.toLocaleString();
+          let formattedDate = rawDate.toLocaleDateString();
 
-          bracketGames[y].scheduled = formattedDate;
-          bracketGames[y].bracket = bracketName.slice(0, bracketName.indexOf(" "));
+          bracketGames[y].scheduled = formattedDateTime;
+          bracketGames[y].bracket = bracketName.slice(
+            0,
+            bracketName.indexOf(" ")
+          );
+          bracketGames[y].roundName = roundName;
 
           games.push(bracketGames[y]);
 
-          if (roundDates.indexOf(formattedDate) === -1) {
-            roundDates.push(rawDate.toLocaleDateString());
+          if (!roundDates.has(formattedDate)) {
+            roundDates.add(formattedDate);
+          }
+          if (gameDatesArray.indexOf(formattedDate) === -1) {
+            gameDatesArray.push(formattedDate);
           }
         }
 
@@ -80,11 +90,11 @@ function App() {
       rounds.push(round);
     }
 
-    console.log(games);
     setRoundsData(rounds);
     setGamesData(games);
+    setGameDates(gameDatesArray);
+    console.log(games);
   }
-
 
   useEffect(() => {
     if ((rounds = []) && (games = [])) {
@@ -94,24 +104,43 @@ function App() {
 
   return (
     <div>
-        <Header />
-        <BrowserRouter>
+      <Header />
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home todayFormatted={todayFormatted} gamesData={gamesData} getGamesForDay={getGamesForDay} />} />
-          <Route path="/matchups" element={<Matchups gamesData={gamesData} getGamesForDay={getGamesForDay} />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                todayFormatted={todayFormatted}
+                gamesData={gamesData}
+                getGamesForDay={getGamesForDay}
+              />
+            }
+          />
+          <Route
+            path="/matchups"
+            element={
+              <Matchups
+                todayFormatted={todayFormatted}
+                gamesData={gamesData}
+                getGamesForDay={getGamesForDay}
+                gameDates={gameDates}
+              />
+            }
+          />
           <Route path="/bracket" element={<Bracket />} />
           {/* <Route path="/auth" element={<Auth />} /> */}
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
-      
+
       {/* <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
       </div> */}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
