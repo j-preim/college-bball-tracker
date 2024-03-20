@@ -61,6 +61,7 @@ export default function Home() {
           let formattedDate = rawDate.toLocaleString();
 
           bracketGames[y].scheduled = formattedDate;
+          bracketGames[y].bracket = bracketName.slice(0, bracketName.indexOf(" "));
 
           games.push(bracketGames[y]);
 
@@ -91,18 +92,6 @@ export default function Home() {
     setGamesData(games);
   }
 
-  function getTodaysGames(gamesData) {
-    for (let i = 0; i < allGames.length; i++) {
-      let dateTime = new Date(allGames[i].scheduled);
-      let gameDateFormatted = dateTime.toLocaleDateString();
-      console.log(gameDateFormatted);
-
-      if (gameDateFormatted === props.date) {
-        todaysGames.push(allGames[i]);
-        console.log("pushed");
-      }
-    }
-  }
 
   useEffect(() => {
     if ((rounds = []) && (games = [])) {

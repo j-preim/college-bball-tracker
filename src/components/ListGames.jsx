@@ -7,6 +7,7 @@ export default function ListGames(props) {
         <thead>
           <tr>
             <th>Title</th>
+            <th>Region</th>
             <th>Tipoff</th>
             <th>Home</th>
             <th>Away</th>
@@ -17,6 +18,7 @@ export default function ListGames(props) {
           {props.gamesData.map((game) => (
             <tr key={game.id}>
               <td>{game.title}</td>
+              <td>{game.bracket}</td>
               <td>{game.scheduled}</td>
               <td>
                 {game.home.seed} {game.home.name}
