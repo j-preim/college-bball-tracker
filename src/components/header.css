@@ -1,0 +1,42 @@
+header {
+  background: linear-gradient(to right, rgb(0, 164, 222), 70%, rgb(0, 17, 114));
+  color: white;
+  border-bottom: 10px double white;
+}
+
+h1 {
+  padding-top: 10px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-size: 120%;
+}
+
+a:hover {
+  color: white;
+  text-decoration: solid underline rgb(241, 85, 35, 0.5) 5px;
+  text-underline-offset: 10px;
+}
+
+.logo {
+  height: 2em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: logo-spin infinite 4s linear;
+  }
+}
