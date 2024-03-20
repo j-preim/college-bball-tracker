@@ -1,9 +1,13 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import ListGames from "../components/ListGames";
 
-export default function Matchups() {
+// const [selectedDay, setSelectedDay] = useState();
+
+
+export default function Matchups(props) {
   return (
     <div>
-      
+      <ListGames gamesData={getGamesForDay(todayFormatted, props.gamesData)} />
     </div>
   );
 }

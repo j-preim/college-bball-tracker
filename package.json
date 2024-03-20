@@ -1,9 +1,10 @@
 {
-  "name": "project-payday-react",
+  "name": "college-bball-tracker",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "serve -s build",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -12,7 +13,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "serve": "^14.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",

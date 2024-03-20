@@ -8,7 +8,7 @@ export default function Header() {
       <header className="d-flex row justify-content-between p-3 align-items-center">
         <div className="d-flex col-auto align-items-center">
           <img src={bball} className="logo" />
-          <h1 className="konkhmer-sleokchher-regular">&nbsp; <strong>Project Payday Tracker</strong> &nbsp;</h1>
+          <h1 className="konkhmer-sleokchher-regular">&nbsp; <strong>College Basketball Tracker</strong> &nbsp;</h1>
           <img src={bball} className="logo" />
         </div>
         
