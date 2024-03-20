@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ListGames from "../components/ListGames";
-import initSchedDb from "../assets/initialSchedule2024.json";
+import initSchedDb from "../../public/initialSchedule2024.json";
+import { getGamesForDay } from "../hooks/getGamesForDay";
 
 export default function Home() {
   let rounds = [];
@@ -9,13 +10,13 @@ export default function Home() {
   const [initSched, setinitSched] = useState(initSchedDb);
   const [roundsData, setRoundsData] = useState(rounds);
   const [gamesData, setGamesData] = useState(games);
+  const [todaysGames, setTodaysGames] = useState([]);
 
   const today = new Date();
   const todayFormatted = today.toLocaleDateString();
 
   let gameDate = new Date(initSched.rounds[0].bracketed[0].games[0].scheduled);
   let gameDateFormatted = gameDate.toLocaleDateString();
-
 
   function getRounds() {
     for (let i = 0; i < initSched.rounds.length; i++) {
@@ -60,9 +61,9 @@ export default function Home() {
           let formattedDate = rawDate.toLocaleString();
 
           bracketGames[y].scheduled = formattedDate;
-          
+
           games.push(bracketGames[y]);
-          
+
           if (roundDates.indexOf(formattedDate) === -1) {
             roundDates.push(rawDate.toLocaleDateString());
           }
@@ -90,6 +91,19 @@ export default function Home() {
     setGamesData(games);
   }
 
+  function getTodaysGames(gamesData) {
+    for (let i = 0; i < allGames.length; i++) {
+      let dateTime = new Date(allGames[i].scheduled);
+      let gameDateFormatted = dateTime.toLocaleDateString();
+      console.log(gameDateFormatted);
+
+      if (gameDateFormatted === props.date) {
+        todaysGames.push(allGames[i]);
+        console.log("pushed");
+      }
+    }
+  }
+
   useEffect(() => {
     if ((rounds = []) && (games = [])) {
       getRounds();
@@ -102,7 +116,11 @@ export default function Home() {
         <h4 className="lato-regular">Today's Matchups ({todayFormatted}):</h4>
       </div>
 
-      <div><ListGames date={todayFormatted} roundsData={roundsData} gamesData={gamesData} /></div>
+      <div> 
+        <ListGames
+          gamesData={getGamesForDay(todayFormatted, gamesData)}
+        />
+      </div>
     </>
   );
 }
