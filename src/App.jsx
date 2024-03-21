@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import { Home, Matchups, Bracket } from "./pages";
-import initSchedDb from "../public/initialSchedule2024.json";
+import initSchedDb from "../public/initSched.json";
 import { getGamesForDay } from "./hooks/getGamesForDay";
 import "./App.css";
 
@@ -92,7 +92,7 @@ function App() {
 
     setRoundsData(rounds);
     setGamesData(games);
-    setGameDates(gameDatesArray);
+    setGameDates(gameDatesArray.sort());
     console.log(games);
   }
 

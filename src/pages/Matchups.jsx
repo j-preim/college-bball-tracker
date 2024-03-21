@@ -8,14 +8,12 @@ export default function Matchups(props) {
 
   function handleInputChange(e) {
     setSelectedDay(e.target.value)
-    console.log(e.target.value)
-    console.log(selectedDay)
   }
 
   return (
     <>
     <div className="p-3">
-        <label htmlFor="dates"><h4 className="lato-regular">Select a day:</h4></label>
+        <label htmlFor="dates"><h4 className="lato-regular">Select a day:&nbsp;</h4></label>
         <select name="dates" value={selectedDay} onChange={handleInputChange}>
         {props.gameDates.map((date) => (
           <option value={date} key={date}>{date}</option>

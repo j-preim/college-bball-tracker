@@ -2,6 +2,40 @@ body {
   background-color: rgb(186, 186, 186);
 }
 
+.seed {
+  font-weight: 700;
+}
+
+.table {
+  border: .1rem solid rgb(114, 114, 114);
+  width: 92%;
+  margin: auto;
+}
+
+.table-head {
+  background-color: rgb(0, 164, 222);
+  color: white;
+  font-size: 120%;
+  border-top: .13rem solid rgb(114, 114, 114);
+  border-left: .13rem solid rgb(114, 114, 114);
+  border-right: .13rem solid rgb(114, 114, 114);
+  border-bottom: .13rem solid rgb(114, 114, 114);
+} 
+
+tr {
+  font-size: 90%;
+  /* border-top: .1rem solid rgb(162, 162, 162); */
+  border-bottom: .1rem solid rgb(162, 162, 162);
+}
+
+table .winner {
+  background-color: green;
+}
+
+table .loser {
+  background-color: red;
+}
+
 .konkhmer-sleokchher-regular {
   font-family: "Konkhmer Sleokchher", system-ui;
   font-weight: 400;

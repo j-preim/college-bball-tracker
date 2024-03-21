@@ -11,5 +11,8 @@ export const getGamesForDay = (day, games) => {
       selectedGames.push(games[i]);
     }
   }
+  selectedGames.sort((a, b) =>
+    (a.scheduled > b.scheduled ? 1 : b.scheduled > a.scheduled ? -1 : 0)
+  );
   return selectedGames;
 };
