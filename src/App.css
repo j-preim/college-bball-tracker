@@ -132,10 +132,6 @@ table .loser {
   body {
     font-size: 70%;
   }
-
-  tr {
-    font-size: 50%;
-  }
 }
 
 @media (max-width: 650px) {
@@ -151,10 +147,6 @@ table .loser {
 
   h1 {
     font-size: 200%;
-  }
-
-  tr {
-    font-size: 40%;
   }
 
 }
