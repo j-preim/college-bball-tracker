@@ -6,7 +6,7 @@ export default function Home(props) {
 
   return (
     <>
-      <div className="p-3">
+      <div className="p-3 headline">
         <h4 className="lato-regular">Today's Matchups ({props.todayFormatted}):</h4>
       </div>
 

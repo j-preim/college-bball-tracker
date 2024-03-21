@@ -3,12 +3,16 @@ import whoWon from "../hooks/whoWon";
 
 export default function ListGames(props) {
   
-
+function formatTime(dateTime) {
+  let oldDateTime = new Date(dateTime);
+  let oldTime = oldDateTime.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})
+  return oldTime;
+}
 
 
   return (
     <>
-      <table className="table table-striped">
+      <table className="table table-striped table-sm">
         <thead className="table-head">
           <tr>
             <th>Round</th>
@@ -25,7 +29,7 @@ export default function ListGames(props) {
             <tr key={game.id} className={(game.status === "inprogress" ? "table-warning" : "")}>
               <td>{game.roundName}</td>
               <td>{game.bracket}</td>
-              <td>{game.scheduled}</td>
+              <td>{formatTime(game.scheduled)}</td>
               <td className={(game.home_points) ? ((game.home_points > game.away_points) ? "border border-success table-success" : "border border-danger table-danger") : ""}>
                 <span className="seed">{game.home.seed}</span> &nbsp;
                 {game.home.name}
