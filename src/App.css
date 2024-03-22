@@ -1,5 +1,20 @@
 body {
   background-color: rgb(186, 186, 186);
+  background-image: url("../public/bballBG.png");
+  background-size: cover;
+  background-position: bottom;
+  background-attachment: fixed;
+  min-height: 1200px;
+  color: white;
+  
+}
+
+.headline {
+  text-shadow:
+    1px 1px 0 #000,
+    -0px 1px 0 #000,
+    -0px -0px 0 #000,
+    2px 2px 0 #000;
 }
 
 .seed {
@@ -10,6 +25,7 @@ body {
   border: .1rem solid rgb(114, 114, 114);
   width: 92%;
   margin: auto;
+  opacity: 0.9;
 }
 
 .table-head {
@@ -20,6 +36,11 @@ body {
   border-left: .13rem solid rgb(114, 114, 114);
   border-right: .13rem solid rgb(114, 114, 114);
   border-bottom: .13rem solid rgb(114, 114, 114);
+  text-shadow:
+    1px 1px 0 #000,
+    -0px 1px 0 #000,
+    -0px -0px 0 #000,
+    1px 1px 0 #000;
 } 
 
 tr {

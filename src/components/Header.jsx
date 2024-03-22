@@ -8,13 +8,13 @@ export default function Header() {
       <header className="d-flex row justify-content-between px-2 p-md-2 p-lg-3 align-items-center">
         <div className="d-flex col-12 col-sm-auto align-items-center justify-content-center">
           <img src={bball} className="logo" />
-          <h1 className="konkhmer-sleokchher-regular">&nbsp; College Basketball Tracker &nbsp;</h1>
+          <h1 className="konkhmer-sleokchher-regular">&nbsp; <a href="/">College Basketball Tracker</a> &nbsp;</h1>
           <img src={bball} className="logo" />
         </div>
         
         <div className="d-flex col-12 col-sm-auto justify-content-evenly lato-regular navi">
           <a href="/" className="px-2 px-sm-2 px-md-3 px-lg-4">
-            Home
+            Entries
           </a>
           <a href="/matchups" className="px-2 px-sm-2 px-md-3 px-lg-4">
             Matchups
