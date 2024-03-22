@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import { Home, Matchups, Bracket } from "./pages";
+import { Home, Matchups, Bracket, Entries } from "./pages";
 import initSchedDb from "../public/initSched.json";
 import { getGamesForDay } from "./hooks/getGamesForDay";
 import "./App.css";
@@ -111,6 +111,16 @@ function App() {
             path="/"
             element={
               <Home
+                todayFormatted={todayFormatted}
+                gamesData={gamesData}
+                getGamesForDay={getGamesForDay}
+              />
+            }
+          />
+          <Route
+            path="/entries"
+            element={
+              <Entries
                 todayFormatted={todayFormatted}
                 gamesData={gamesData}
                 getGamesForDay={getGamesForDay}

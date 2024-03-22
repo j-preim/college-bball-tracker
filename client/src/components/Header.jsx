@@ -13,7 +13,7 @@ export default function Header() {
         </div>
         
         <div className="d-flex col-12 col-sm-auto justify-content-evenly lato-regular navi">
-          <a href="/" className="px-2 px-sm-2 px-md-3 px-lg-4">
+          <a href="/entries" className="px-2 px-sm-2 px-md-3 px-lg-4">
             Entries
           </a>
           <a href="/matchups" className="px-2 px-sm-2 px-md-3 px-lg-4">

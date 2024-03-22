@@ -7,7 +7,7 @@ export default function Home(props) {
   return (
     <>
       <div className="p-3 pb-2 headline">
-        <h4 className="lato-regular">Today's Matchups ({props.todayFormatted}):</h4>
+        <h4 className="lato-regular">Today's games ({props.todayFormatted}):</h4>
       </div>
 
       <div> 

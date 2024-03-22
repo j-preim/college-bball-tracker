@@ -1,6 +1,6 @@
 body {
   background-color: rgb(186, 186, 186);
-  background-image: url("../public/bballBG.png");
+  background-image: url("../bballBG.png");
   background-size: cover;
   background-position: bottom;
   background-attachment: fixed;
@@ -168,7 +168,7 @@ table .loser {
 @media (max-width: 600px) {
   body {
     font-size: 60%;
-    min-height: 800px;
+    min-height: 1000px;
   }
 
   h1 {
