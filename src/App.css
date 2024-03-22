@@ -168,6 +168,7 @@ table .loser {
 @media (max-width: 600px) {
   body {
     font-size: 60%;
+    min-height: 800px;
   }
 
   h1 {
