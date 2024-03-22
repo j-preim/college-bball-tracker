@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import whoWon from "../hooks/whoWon";
+import { countSeeds } from "../hooks/countSeeds";
 
 export default function ListGames(props) {
   

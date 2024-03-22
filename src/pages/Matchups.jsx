@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ListGames from "../components/ListGames";
+import CountTables from "../components/CountTables";
 
 
 export default function Matchups(props) {
@@ -22,6 +23,9 @@ export default function Matchups(props) {
       </div>
     <div>
       <ListGames gamesData={props.getGamesForDay(selectedDay, props.gamesData)} />
+    </div>
+    <div>
+      <CountTables gamesData={props.getGamesForDay(selectedDay, props.gamesData)} />
     </div>
     </>
   );
