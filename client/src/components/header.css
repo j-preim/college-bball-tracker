@@ -23,7 +23,7 @@ h1 a:hover {
   color: white;
 }
 
-.navi a {
+.navi {
   color: white;
   text-decoration: none;
   font-size: 110%;
@@ -34,7 +34,7 @@ h1 a:hover {
     2px 2px 0 #000;
 }
 
-.navi a:hover {
+.navi:hover {
   color: white;
   text-decoration: solid underline rgb(241, 85, 35, 0.5) 5px;
   text-underline-offset: 10px;

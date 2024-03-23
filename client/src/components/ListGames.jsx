@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { countSeeds } from "../hooks/countSeeds";
 import { getTeamStats } from "../hooks/getTeamStats";
 import { Popover } from "bootstrap";
 

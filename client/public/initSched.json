@@ -1136,7 +1136,7 @@
                     "games": [
                         {
                             "id": "c7a23524-9fe5-4b58-bcee-473ecbe19968",
-                            "status": "complete",
+                            "status": "closed",
                             "title": "South Regional - First Round - Game 1",
                             "coverage": "full",
                             "scheduled": "2024-03-23T01:49:00+00:00",
@@ -1984,10 +1984,12 @@
                     "games": [
                         {
                             "id": "ad0ff5e1-2844-4085-ac36-5134115bf304",
-                            "status": "inprogress",
+                            "status": "closed",
                             "title": "West Regional - Second Round - Game 4",
                             "coverage": "full",
                             "scheduled": "2024-03-23T16:45:00+00:00",
+                            "home_points": 78,
+                            "away_points": 68,
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2052,15 +2054,17 @@
                         },
                         {
                             "id": "44364661-f918-4e9f-b95b-bc9fa936bb77",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "West Regional - Second Round - Game 3",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-24T22:10:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
                             "time_zones": {
-                                "venue": "US/Central"
+                                "venue": "US/Central",
+                                "home": "US/Central",
+                                "away": "US/Eastern"
                             },
                             "venue": {
                                 "id": "7657c204-a20b-527a-99cb-dc29218462aa",
@@ -2076,6 +2080,14 @@
                                     "lng": "-90.050427"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "TNT",
+                                    "type": "TV",
+                                    "locale": "National",
+                                    "channel": "245"
+                                }
+                            ],
                             "home": {
                                 "name": "Baylor Bears",
                                 "alias": "BAY",
@@ -2114,7 +2126,7 @@
                             "status": "scheduled",
                             "title": "West Regional - Second Round - Game 1",
                             "coverage": "full",
-                            "scheduled": "2024-03-23T21:30:00+00:00",
+                            "scheduled": "2024-03-23T21:45:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2179,15 +2191,17 @@
                         },
                         {
                             "id": "91055f16-bc1e-4933-92c6-8f40ab5edcec",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "West Regional - Second Round - Game 2",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-24T23:10:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
                             "time_zones": {
-                                "venue": "US/Pacific"
+                                "venue": "US/Pacific",
+                                "home": "US/Central",
+                                "away": "US/Arizona"
                             },
                             "venue": {
                                 "id": "b665b238-e25c-4726-87ab-58f8c694376b",
@@ -2203,6 +2217,14 @@
                                     "lng": "-117.423"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "TBS",
+                                    "type": "TV",
+                                    "locale": "National",
+                                    "channel": "247"
+                                }
+                            ],
                             "home": {
                                 "name": "Alabama Crimson Tide",
                                 "alias": "ALA",
@@ -2227,7 +2249,7 @@
                                 "source": {
                                     "id": "4e8abf66-2976-4416-841f-22a3487297a7",
                                     "title": "West Regional - First Round - Game 3",
-                                    "status": "inprogress",
+                                    "status": "closed",
                                     "coverage": "full",
                                     "home_team": "b18f34af-a7f1-4659-a2e5-fc11a31cd316",
                                     "away_team": "f7e6acc3-0778-4de5-940a-d88e20df1159",
@@ -2248,15 +2270,17 @@
                     "games": [
                         {
                             "id": "da9ae914-d1f2-4c26-ab0c-8ec5f5ad4f0c",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "Midwest Regional - Second Round - Game 1",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-24T18:40:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
                             "time_zones": {
-                                "venue": "US/Eastern"
+                                "venue": "US/Eastern",
+                                "home": "US/Eastern",
+                                "away": "US/Mountain"
                             },
                             "venue": {
                                 "id": "24bb478e-eb31-5f8a-8c8d-07f513169ec1",
@@ -2272,6 +2296,13 @@
                                     "lng": "-86.15542"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "CBS",
+                                    "type": "TV",
+                                    "locale": "National"
+                                }
+                            ],
                             "home": {
                                 "name": "Purdue Boilermakers",
                                 "alias": "PUR",
@@ -2307,10 +2338,12 @@
                         },
                         {
                             "id": "4dff0dd1-3f1a-44ac-963f-b90e6b43e9a4",
-                            "status": "scheduled",
+                            "status": "complete",
                             "title": "Midwest Regional - Second Round - Game 2",
                             "coverage": "full",
-                            "scheduled": "2024-03-23T19:15:00+00:00",
+                            "scheduled": "2024-03-23T19:33:00+00:00",
+                            "home_points": 68,
+                            "away_points": 89,
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2522,15 +2555,17 @@
                     "games": [
                         {
                             "id": "70ccd17c-717d-4026-90b0-7fd31d0f8b6d",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "East Regional - Second Round - Game 1",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-24T23:45:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
                             "time_zones": {
-                                "venue": "US/Eastern"
+                                "venue": "US/Eastern",
+                                "home": "US/Eastern",
+                                "away": "US/Central"
                             },
                             "venue": {
                                 "id": "7a330bcd-ac0f-50ca-bc29-2460e5c476b3",
@@ -2546,6 +2581,14 @@
                                     "lng": "-73.975165"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "truTV",
+                                    "type": "TV",
+                                    "locale": "National",
+                                    "channel": "246"
+                                }
+                            ],
                             "home": {
                                 "name": "UConn Huskies",
                                 "alias": "CONN",
@@ -2584,7 +2627,7 @@
                             "status": "scheduled",
                             "title": "East Regional - Second Round - Game 4",
                             "coverage": "full",
-                            "scheduled": "2024-03-23T22:10:00+00:00",
+                            "scheduled": "2024-03-23T22:15:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2719,10 +2762,10 @@
                         },
                         {
                             "id": "af94e6c0-e0c1-405c-a0bd-05148d447fe0",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "East Regional - Second Round - Game 2",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-25T01:40:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2745,6 +2788,14 @@
                                     "lng": "-117.423"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "TBS",
+                                    "type": "TV",
+                                    "locale": "National",
+                                    "channel": "247"
+                                }
+                            ],
                             "home": {
                                 "name": "San Diego State Aztecs",
                                 "alias": "SDSU",
@@ -2790,15 +2841,17 @@
                     "games": [
                         {
                             "id": "f9cf5d3e-30b5-43bb-a5b4-df3ad4104a92",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "South Regional - Second Round - Game 1",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-25T00:40:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
                             "time_zones": {
-                                "venue": "US/Central"
+                                "venue": "US/Central",
+                                "home": "US/Central",
+                                "away": "US/Central"
                             },
                             "venue": {
                                 "id": "7657c204-a20b-527a-99cb-dc29218462aa",
@@ -2814,6 +2867,14 @@
                                     "lng": "-90.050427"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "TNT",
+                                    "type": "TV",
+                                    "locale": "National",
+                                    "channel": "245"
+                                }
+                            ],
                             "home": {
                                 "name": "Houston Cougars",
                                 "alias": "HOU",
@@ -2822,7 +2883,7 @@
                                 "source": {
                                     "id": "c7a23524-9fe5-4b58-bcee-473ecbe19968",
                                     "title": "South Regional - First Round - Game 1",
-                                    "status": "complete",
+                                    "status": "closed",
                                     "coverage": "full",
                                     "home_team": "1f99a164-d593-4d81-85d5-0d7889d6f486",
                                     "away_team": "600aad0e-85e7-4db8-be0b-94ba02a08e55",
@@ -2849,15 +2910,17 @@
                         },
                         {
                             "id": "2a880170-25d1-4dfa-94e9-aa3ad348cdfa",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "South Regional - Second Round - Game 4",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-24T16:10:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
                             "time_zones": {
-                                "venue": "US/Eastern"
+                                "venue": "US/Eastern",
+                                "home": "US/Central",
+                                "away": "US/Mountain"
                             },
                             "venue": {
                                 "id": "24bb478e-eb31-5f8a-8c8d-07f513169ec1",
@@ -2873,6 +2936,13 @@
                                     "lng": "-86.15542"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "CBS",
+                                    "type": "TV",
+                                    "locale": "National"
+                                }
+                            ],
                             "home": {
                                 "name": "Marquette Golden Eagles",
                                 "alias": "MARQ",
@@ -2977,15 +3047,17 @@
                         },
                         {
                             "id": "f3f72f62-c6de-4203-b736-754eaaaead9c",
-                            "status": "time-tbd",
+                            "status": "scheduled",
                             "title": "South Regional - Second Round - Game 2",
                             "coverage": "full",
-                            "scheduled": "2024-03-24T17:00:00+00:00",
+                            "scheduled": "2024-03-24T21:15:00+00:00",
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
                             "time_zones": {
-                                "venue": "US/Eastern"
+                                "venue": "US/Eastern",
+                                "home": "US/Eastern",
+                                "away": "US/Eastern"
                             },
                             "venue": {
                                 "id": "7a330bcd-ac0f-50ca-bc29-2460e5c476b3",
@@ -3001,6 +3073,13 @@
                                     "lng": "-73.975165"
                                 }
                             },
+                            "broadcasts": [
+                                {
+                                    "network": "CBS",
+                                    "type": "TV",
+                                    "locale": "National"
+                                }
+                            ],
                             "home": {
                                 "name": "Duke Blue Devils",
                                 "alias": "DUKE",
@@ -3088,7 +3167,7 @@
                                     "coverage": "full",
                                     "home_team": "0e4258fa-3154-4c16-b693-adecab184c6c",
                                     "away_team": "2d4f0015-adb4-4877-8c15-4a6eed7eed03",
-                                    "scheduled": "2024-03-23T22:10:00+00:00",
+                                    "scheduled": "2024-03-23T22:15:00+00:00",
                                     "outcome": "win"
                                 }
                             },
@@ -3139,11 +3218,11 @@
                                 "source": {
                                     "id": "70ccd17c-717d-4026-90b0-7fd31d0f8b6d",
                                     "title": "East Regional - Second Round - Game 1",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "efba5350-79bc-47aa-a189-db177b95b491",
                                     "away_team": "4b7dedc0-7b48-49a4-aad6-8a94a33274d2",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "scheduled": "2024-03-24T23:45:00+00:00",
                                     "outcome": "win"
                                 }
                             },
@@ -3153,11 +3232,11 @@
                                 "source": {
                                     "id": "af94e6c0-e0c1-405c-a0bd-05148d447fe0",
                                     "title": "East Regional - Second Round - Game 2",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "e6914f16-ca37-4d2e-ba26-a425910283e2",
                                     "away_team": "ca478771-aa3d-4231-81e0-b70f519134fb",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "scheduled": "2024-03-25T01:40:00+00:00",
                                     "outcome": "win"
                                 }
                             }
@@ -3204,11 +3283,11 @@
                                 "source": {
                                     "id": "f9cf5d3e-30b5-43bb-a5b4-df3ad4104a92",
                                     "title": "South Regional - Second Round - Game 1",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "1f99a164-d593-4d81-85d5-0d7889d6f486",
                                     "away_team": "ef184799-d79b-49d9-a662-991eaf4044cd",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "scheduled": "2024-03-25T00:40:00+00:00",
                                     "outcome": "win"
                                 }
                             },
@@ -3218,11 +3297,11 @@
                                 "source": {
                                     "id": "f3f72f62-c6de-4203-b736-754eaaaead9c",
                                     "title": "South Regional - Second Round - Game 2",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "faeb1160-5d15-4f26-99fc-c441cf21fc7f",
                                     "away_team": "524e3eec-7dde-45c7-b3cc-6308cec73350",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "scheduled": "2024-03-24T21:15:00+00:00",
                                     "outcome": "win"
                                 }
                             }
@@ -3259,11 +3338,11 @@
                                 "source": {
                                     "id": "2a880170-25d1-4dfa-94e9-aa3ad348cdfa",
                                     "title": "South Regional - Second Round - Game 4",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "06f7c904-0ac7-4125-b0f4-f4871bb69057",
                                     "away_team": "9fccbf28-2858-4263-821c-fdefb3c7efa3",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "scheduled": "2024-03-24T16:10:00+00:00",
                                     "outcome": "win"
                                 }
                             },
@@ -3324,24 +3403,27 @@
                                 "source": {
                                     "id": "da9ae914-d1f2-4c26-ab0c-8ec5f5ad4f0c",
                                     "title": "Midwest Regional - Second Round - Game 1",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "12d7f888-675b-459f-9099-a38f771d8a95",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "away_team": "7672ff16-8436-47e6-8546-0fb5494ec7ee",
+                                    "scheduled": "2024-03-24T18:40:00+00:00",
                                     "outcome": "win"
                                 }
                             },
                             "away": {
-                                "name": "Midwest Regional - Second Round - Game 2 (win)",
-                                "alias": "Midwest Regional - Second Round - Game 2 (win)",
+                                "name": "Gonzaga Bulldogs",
+                                "alias": "GONZ",
+                                "id": "2f4d21f8-6d5f-48a5-abca-52a30583871a",
+                                "seed": 5,
                                 "source": {
                                     "id": "4dff0dd1-3f1a-44ac-963f-b90e6b43e9a4",
                                     "title": "Midwest Regional - Second Round - Game 2",
-                                    "status": "scheduled",
+                                    "status": "complete",
                                     "coverage": "full",
                                     "home_team": "fae4855b-1b64-4b40-a632-9ed345e1e952",
                                     "away_team": "2f4d21f8-6d5f-48a5-abca-52a30583871a",
-                                    "scheduled": "2024-03-23T19:15:00+00:00",
+                                    "scheduled": "2024-03-23T19:33:00+00:00",
                                     "outcome": "win"
                                 }
                             }
@@ -3447,7 +3529,7 @@
                                     "coverage": "full",
                                     "home_team": "e9ca48b2-00ba-41c0-a02b-6885a2da1ff1",
                                     "away_team": "a41d5a05-4c11-4171-a57e-e7a1ea325a6d",
-                                    "scheduled": "2024-03-23T21:30:00+00:00",
+                                    "scheduled": "2024-03-23T21:45:00+00:00",
                                     "outcome": "win"
                                 }
                             },
@@ -3457,10 +3539,11 @@
                                 "source": {
                                     "id": "91055f16-bc1e-4933-92c6-8f40ab5edcec",
                                     "title": "West Regional - Second Round - Game 2",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "c2104cdc-c83d-40d2-a3cd-df986e29f5d3",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "away_team": "f7e6acc3-0778-4de5-940a-d88e20df1159",
+                                    "scheduled": "2024-03-24T23:10:00+00:00",
                                     "outcome": "win"
                                 }
                             }
@@ -3492,12 +3575,14 @@
                                 }
                             },
                             "home": {
-                                "name": "West Regional - Second Round - Game 4 (win)",
-                                "alias": "West Regional - Second Round - Game 4 (win)",
+                                "name": "Arizona Wildcats",
+                                "alias": "ARIZ",
+                                "id": "9b166a3f-e64b-4825-bb6b-92c6f0418263",
+                                "seed": 2,
                                 "source": {
                                     "id": "ad0ff5e1-2844-4085-ac36-5134115bf304",
                                     "title": "West Regional - Second Round - Game 4",
-                                    "status": "scheduled",
+                                    "status": "closed",
                                     "coverage": "full",
                                     "home_team": "9b166a3f-e64b-4825-bb6b-92c6f0418263",
                                     "away_team": "632616c5-2dbb-4017-a449-c9dfc303f026",
@@ -3511,11 +3596,11 @@
                                 "source": {
                                     "id": "44364661-f918-4e9f-b95b-bc9fa936bb77",
                                     "title": "West Regional - Second Round - Game 3",
-                                    "status": "time-tbd",
+                                    "status": "scheduled",
                                     "coverage": "full",
                                     "home_team": "db6e1cab-3fa3-4a93-a673-8b2a358ff4bf",
                                     "away_team": "dcf5c2e7-c227-4c20-af26-715d5f859412",
-                                    "scheduled": "2024-03-24T17:00:00+00:00",
+                                    "scheduled": "2024-03-24T22:10:00+00:00",
                                     "outcome": "win"
                                 }
                             }
@@ -3579,6 +3664,7 @@
                                     "title": "Midwest Regional - Sweet 16 - Game 1",
                                     "status": "time-tbd",
                                     "coverage": "full",
+                                    "away_team": "2f4d21f8-6d5f-48a5-abca-52a30583871a",
                                     "scheduled": "2024-03-29T17:00:00+00:00",
                                     "outcome": "win"
                                 }
@@ -3797,6 +3883,7 @@
                                     "title": "West Regional - Sweet 16 - Game 2",
                                     "status": "time-tbd",
                                     "coverage": "full",
+                                    "home_team": "9b166a3f-e64b-4825-bb6b-92c6f0418263",
                                     "scheduled": "2024-03-28T17:00:00+00:00",
                                     "outcome": "win"
                                 }

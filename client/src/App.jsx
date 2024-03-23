@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Cookie from "js-cookie"
 import Header from "./components/Header";
-import { Home, Matchups, Bracket, Entries } from "./pages";
+import { Home, Matchups, Bracket, Entries, Auth } from "./pages";
 import initSchedDb from "../public/initSched.json";
 import { getGamesForDay } from "./hooks/getGamesForDay";
 import "./App.css";
 
-function App() {
+export default function App() {
+
+  function verifyUser(){
+    const cookie = Cookie.get("auth_cookie")
+  }
+
+  useEffect(() => {
+    verifyUser()
+  },[])
+  
   let rounds = [];
   let games = [];
   let gameDatesArray = [];
@@ -115,6 +125,12 @@ function App() {
             }
           />
           <Route
+            path="/auth"
+            element={
+              <Auth />
+            }
+          />
+          <Route
             path="/entries"
             element={
               <Entries
@@ -149,5 +165,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
