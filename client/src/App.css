@@ -21,6 +21,29 @@ body {
   font-weight: 700;
 }
 
+.popover {
+  border: 1.6px solid black;
+  box-shadow:
+  4px 4px 0 #48484890,
+    -0px 0px 0 #48484890,
+    -0px -0px 0 #48484890,
+    0px 0px 0 #48484890;
+  text-align: left;
+}
+
+.popover-header {
+  display: flex;
+  background: linear-gradient(to top, rgb(0, 17, 114), 20%, rgb(0, 164, 222), 80%, rgb(0, 17, 114));
+  text-align: center;
+  padding-top: 15px;
+  text-shadow:
+    1px 1px 0 #000,
+    -0px 1px 0 #000,
+    -0px -0px 0 #000,
+    1px 1px 0 #000;
+  border-bottom: 1px solid black;
+}
+
 .table {
   border: .1rem solid rgb(114, 114, 114);
   width: 92%;
