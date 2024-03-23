@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import { Home, Matchups, Bracket, Entries } from "./pages";
 import initSchedDb from "../public/initSched.json";
+import teamStatsDb from "../public/teamStats.json";
 import { getGamesForDay } from "./hooks/getGamesForDay";
 import "./App.css";
 
@@ -13,15 +14,13 @@ function App() {
 
   const [count, setCount] = useState(0);
   const [initSched, setinitSched] = useState(initSchedDb);
+  const [teamStats, setTeamStats] = useState(teamStatsDb);
   const [roundsData, setRoundsData] = useState(rounds);
   const [gamesData, setGamesData] = useState(games);
   const [gameDates, setGameDates] = useState(gameDatesArray);
 
   const today = new Date();
   const todayFormatted = today.toLocaleDateString();
-
-  let gameDate = new Date(initSched.rounds[0].bracketed[0].games[0].scheduled);
-  let gameDateFormatted = gameDate.toLocaleDateString();
 
   function getRounds() {
     for (let i = 0; i < initSched.rounds.length; i++) {

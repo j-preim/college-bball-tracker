@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { countSeeds } from "../hooks/countSeeds";
+import { getTeamStats } from "../hooks/getTeamStats";
 import { Popover } from "bootstrap";
 
 export default function ListGames(props) {
@@ -9,17 +10,24 @@ export default function ListGames(props) {
       hour: "2-digit",
       minute: "2-digit",
     });
-    return oldTime;
+    return oldTime; 
   }
 
   function PopoverDemo(props) {
     const popoverRef = useRef();
+
     useEffect(() => {
+      const teamStats = getTeamStats(props.team.id);
       var popover = new Popover(popoverRef.current, {
         html: true,
         content: `
-        Alias: ${props.team.alias} <br />
-        Seed: ${props.team.seed}
+        Seed: ${props.team.seed} <br />
+        Overall Record: ${teamStats.wins}-${teamStats.losses} <br />
+        Home Record: ${teamStats.home_wins}-${teamStats.home_losses} <br />
+        Away Record: ${teamStats.away_wins}-${teamStats.away_losses} <br />
+        RPI Rank: ${teamStats.rank} <br />
+        RPI: ${teamStats.rpi} <br />
+        Strength of Sched: ${teamStats.sos} <br />
         `,
         title: `<h6>${props.team.name}</h6>`,
         trigger: "hover",
