@@ -1,4 +1,4 @@
-const Note = require("../models/Note");
+const Entry = require("../models/Entry");
 
 
 async function getAllNotes(){

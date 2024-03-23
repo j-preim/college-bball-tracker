@@ -6,7 +6,7 @@ const {
   createNote,
   updateNoteById,
   deleteNoteById
-} = require("../../controllers/note.controller")
+} = require("../../controllers/entry.controller")
 
 
 router.get("/", async (req, res) => {
