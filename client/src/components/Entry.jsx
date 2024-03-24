@@ -14,7 +14,7 @@ export default function Entry(props){
   if( !props.currentEntry ) return <></>
   return (
     <>
-      <h1>{ props.currentEntry.title }</h1>
+      <h1>{ props.currentEntry.title}</h1>
       <p>{props.currentEntry.teams}</p>
       
     </>

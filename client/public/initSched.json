@@ -2272,10 +2272,12 @@
                     "games": [
                         {
                             "id": "da9ae914-d1f2-4c26-ab0c-8ec5f5ad4f0c",
-                            "status": "scheduled",
+                            "status": "closed",
                             "title": "Midwest Regional - Second Round - Game 1",
                             "coverage": "full",
                             "scheduled": "2024-03-24T18:40:00+00:00",
+                            "home_points": 106,
+                            "away_points": 67,
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2410,7 +2412,7 @@
                         },
                         {
                             "id": "06c5b447-739d-472a-82f2-1805da284778",
-                            "status": "complete",
+                            "status": "closed",
                             "title": "Midwest Regional - Second Round - Game 3",
                             "coverage": "full",
                             "scheduled": "2024-03-24T02:03:00+00:00",
@@ -2920,10 +2922,12 @@
                         },
                         {
                             "id": "2a880170-25d1-4dfa-94e9-aa3ad348cdfa",
-                            "status": "scheduled",
+                            "status": "closed",
                             "title": "South Regional - Second Round - Game 4",
                             "coverage": "full",
                             "scheduled": "2024-03-24T16:10:00+00:00",
+                            "home_points": 81,
+                            "away_points": 77,
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -3059,7 +3063,7 @@
                         },
                         {
                             "id": "f3f72f62-c6de-4203-b736-754eaaaead9c",
-                            "status": "scheduled",
+                            "status": "inprogress",
                             "title": "South Regional - Second Round - Game 2",
                             "coverage": "full",
                             "scheduled": "2024-03-24T21:15:00+00:00",
@@ -3349,12 +3353,14 @@
                                 }
                             },
                             "home": {
-                                "name": "South Regional - Second Round - Game 4 (win)",
-                                "alias": "South Regional - Second Round - Game 4 (win)",
+                                "name": "Marquette Golden Eagles",
+                                "alias": "MARQ",
+                                "id": "06f7c904-0ac7-4125-b0f4-f4871bb69057",
+                                "seed": 2,
                                 "source": {
                                     "id": "2a880170-25d1-4dfa-94e9-aa3ad348cdfa",
                                     "title": "South Regional - Second Round - Game 4",
-                                    "status": "scheduled",
+                                    "status": "closed",
                                     "coverage": "full",
                                     "home_team": "06f7c904-0ac7-4125-b0f4-f4871bb69057",
                                     "away_team": "9fccbf28-2858-4263-821c-fdefb3c7efa3",
@@ -3416,12 +3422,14 @@
                                 }
                             },
                             "home": {
-                                "name": "Midwest Regional - Second Round - Game 1 (win)",
-                                "alias": "Midwest Regional - Second Round - Game 1 (win)",
+                                "name": "Purdue Boilermakers",
+                                "alias": "PUR",
+                                "id": "12d7f888-675b-459f-9099-a38f771d8a95",
+                                "seed": 1,
                                 "source": {
                                     "id": "da9ae914-d1f2-4c26-ab0c-8ec5f5ad4f0c",
                                     "title": "Midwest Regional - Second Round - Game 1",
-                                    "status": "scheduled",
+                                    "status": "closed",
                                     "coverage": "full",
                                     "home_team": "12d7f888-675b-459f-9099-a38f771d8a95",
                                     "away_team": "7672ff16-8436-47e6-8546-0fb5494ec7ee",

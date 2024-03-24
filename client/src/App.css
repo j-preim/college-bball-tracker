@@ -66,6 +66,24 @@ body {
     1px 1px 0 #000;
 } 
 
+.brackets {
+  border: none;
+  background-color: white;
+  
+}
+
+.brackets tr {
+  border: none;
+}
+
+.brackets td {
+  border: none;
+}
+
+.bracketsBorder {
+  border-color: black;
+}
+
 tr {
   font-size: 90%;
   /* border-top: .1rem solid rgb(162, 162, 162); */

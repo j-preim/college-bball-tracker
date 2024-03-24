@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import AddEntry from '../components/AddEntry'
 import ListEntries from '../components/ListEntries'
 import Entry from "../components/Entry";
+import Bracket from "../components/Bracket";
 import useVerifyUser from '../hooks/useVerifyUser'
 
 export default function Entries() {
@@ -42,6 +43,9 @@ export default function Entries() {
               <p>You must be logged in to view entries!</p>
             )}
       </div>
+
+      <Entry  currentEntry={currentEntry}/>
+      {/* <Bracket /> */}
     </>
   );
 }
