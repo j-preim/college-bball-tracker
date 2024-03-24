@@ -89,7 +89,7 @@ export default function ListGames(props) {
                 <PopoverDemo team={game.away} />
               </td>
               <td>
-                {game.home_points} - {game.away_points}
+                {game.status === "inprogress" ? "In progress" : game.status === "closed" ? `${game.home_points} - ${game.away_points}` : ""}
               </td>
             </tr>
           ))}

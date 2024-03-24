@@ -1,17 +1,17 @@
 const router = require("express").Router()
 
 const {
-  getAllNotes,
-  getNoteById,
-  createNote,
-  updateNoteById,
-  deleteNoteById
+  getAllEntries,
+  getEntryById,
+  createEntry,
+  updateEntryById,
+  deleteEntryById
 } = require("../../controllers/entry.controller")
 
 
 router.get("/", async (req, res) => {
   try {
-    const payload = await getAllNotes()
+    const payload = await getAllEntries()
     res.status(200).json({ status: "success", payload })
   }catch(err){
     console.log(err.message)
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const payload = await getNoteById(req.params.id)
+    const payload = await getEntryById(req.params.id)
     res.status(200).json({ status: "success", payload })
   }catch(err){
     console.log(err.message)
@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const payload = await createNote(req.body)
+    const payload = await createEntry(req.body)
     res.status(200).json({ status: "success", payload })
   }catch(err){
     console.log(err.message)
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const payload = await updateNoteById(req.params.id, req.body)
+    const payload = await updateEntryById(req.params.id, req.body)
     res.status(200).json({ status: "success", payload })
   }catch(err){
     console.log(err.message)
@@ -51,7 +51,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const payload = await deleteNoteById(req.params.id)
+    const payload = await deleteEntryById(req.params.id)
     res.status(200).json({ status: "success", payload })
   }catch(err){
     console.log(err.message)

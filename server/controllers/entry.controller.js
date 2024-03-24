@@ -1,9 +1,9 @@
 const Entry = require("../models/Entry");
 
 
-async function getAllNotes(){
+async function getAllEntries(){
   try {
-    return await Note.find({});
+    return await Entry.find({});
   } catch(err){
     console.log(err.message)
     throw new Error(err)
@@ -11,9 +11,9 @@ async function getAllNotes(){
 }
 
 
-async function getNoteById(id){
+async function getEntryById(id){
   try {
-    return await Note.findById(id);
+    return await Entry.findById(id);
   } catch(err){
     console.log(err.message)
     throw new Error(err)
@@ -21,9 +21,9 @@ async function getNoteById(id){
 }
 
 
-async function createNote(data){
+async function createEntry(data){
   try {
-    return await Note.create(data);
+    return await Entry.create(data);
   } catch(err){
     console.log(err.message)
     throw new Error(err)
@@ -31,9 +31,9 @@ async function createNote(data){
 }
 
 
-async function updateNoteById(id, data){
+async function updateEntryById(id, data){
   try {
-    return await Note.findByIdAndUpdate(id, data, { new: true });
+    return await Entry.findByIdAndUpdate(id, data, { new: true });
   } catch(err){
     console.log(err.message)
     throw new Error(err)
@@ -41,9 +41,9 @@ async function updateNoteById(id, data){
 }
 
 
-async function deleteNoteById(id){
+async function deleteEntryById(id){
   try {
-    return await Note.findByIdAndDelete(id);
+    return await Entry.findByIdAndDelete(id);
   } catch(err){
     console.log(err.message)
     throw new Error(err)
@@ -52,9 +52,9 @@ async function deleteNoteById(id){
 
 
 module.exports = {
-  getAllNotes,
-  getNoteById,
-  createNote,
-  updateNoteById,
-  deleteNoteById
+  getAllEntries,
+  getEntryById,
+  createEntry,
+  updateEntryById,
+  deleteEntryById
 }

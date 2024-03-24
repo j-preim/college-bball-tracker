@@ -104,7 +104,7 @@ export default function Auth() {
             </form>
           </div>
 
-          <div className="col-10 col-sm p-3 signup-box m-3 m-sm-4 bg-dark rounded border border-2">
+          {/* <div className="col-10 col-sm p-3 signup-box m-3 m-sm-4 bg-dark rounded border border-2">
             <div>
               <div className="mb-2 headline">
                 <h4 className="lato-regular">Create user:</h4>
@@ -152,7 +152,7 @@ export default function Auth() {
                     onChange={handleSignupChange}
                     required
                   />
-                  <div id="passwordHelpBlock" class="form-text p-1">
+                  <div id="passwordHelpBlock" className="form-text p-1">
                     Your password must be at least 8 characters long
                   </div>
                 </div>
@@ -161,7 +161,7 @@ export default function Auth() {
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
 
           {formMessage && formMessage.length > 0 && (
             <div className="row">

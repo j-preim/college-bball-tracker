@@ -16,7 +16,7 @@ export default function App() {
   useEffect(() => {
     verifyUser()
   },[])
-  
+
   let rounds = [];
   let games = [];
   let gameDatesArray = [];
@@ -152,7 +152,6 @@ export default function App() {
             }
           />
           <Route path="/bracket" element={<Bracket />} />
-          {/* <Route path="/auth" element={<Auth />} /> */}
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

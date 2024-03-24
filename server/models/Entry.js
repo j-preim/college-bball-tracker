@@ -5,11 +5,14 @@ const entrySchema = new mongoose.Schema({
     type: String
   },
   teams: {
-    type: String
+    type: Array
   },
   champ: {
     type: String
-  }
+  },
+  points: {
+    type: Number
+  },
 },{
   timestamps: true
 })

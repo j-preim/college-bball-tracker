@@ -2123,10 +2123,12 @@
                         },
                         {
                             "id": "8eaf4c85-85df-4a82-b800-8a24e75c1ac3",
-                            "status": "inprogress",
+                            "status": "closed",
                             "title": "West Regional - Second Round - Game 1",
                             "coverage": "full",
                             "scheduled": "2024-03-23T21:45:00+00:00",
+                            "home_points": 85,
+                            "away_points": 69,
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2338,7 +2340,7 @@
                         },
                         {
                             "id": "4dff0dd1-3f1a-44ac-963f-b90e6b43e9a4",
-                            "status": "complete",
+                            "status": "closed",
                             "title": "Midwest Regional - Second Round - Game 2",
                             "coverage": "full",
                             "scheduled": "2024-03-23T19:33:00+00:00",
@@ -2477,7 +2479,7 @@
                         },
                         {
                             "id": "fd6cc2a6-8d48-40cd-b3e1-5eb55c6c19fe",
-                            "status": "scheduled",
+                            "status": "inprogress",
                             "title": "Midwest Regional - Second Round - Game 4",
                             "coverage": "full",
                             "scheduled": "2024-03-24T00:00:00+00:00",
@@ -2624,10 +2626,12 @@
                         },
                         {
                             "id": "9ae7b82b-ce0e-4b23-9a5a-4808f8e5c90a",
-                            "status": "scheduled",
+                            "status": "closed",
                             "title": "East Regional - Second Round - Game 4",
                             "coverage": "full",
                             "scheduled": "2024-03-23T22:15:00+00:00",
+                            "home_points": 67,
+                            "away_points": 56,
                             "neutral_site": true,
                             "conference_game": false,
                             "track_on_court": true,
@@ -2978,7 +2982,7 @@
                         },
                         {
                             "id": "8abfd393-106b-4fd5-86b9-54ace2528c03",
-                            "status": "scheduled",
+                            "status": "inprogress",
                             "title": "South Regional - Second Round - Game 3",
                             "coverage": "full",
                             "scheduled": "2024-03-23T23:10:00+00:00",
@@ -3520,12 +3524,14 @@
                                 }
                             },
                             "home": {
-                                "name": "West Regional - Second Round - Game 1 (win)",
-                                "alias": "West Regional - Second Round - Game 1 (win)",
+                                "name": "North Carolina Tar Heels",
+                                "alias": "UNC",
+                                "id": "e9ca48b2-00ba-41c0-a02b-6885a2da1ff1",
+                                "seed": 1,
                                 "source": {
                                     "id": "8eaf4c85-85df-4a82-b800-8a24e75c1ac3",
                                     "title": "West Regional - Second Round - Game 1",
-                                    "status": "scheduled",
+                                    "status": "closed",
                                     "coverage": "full",
                                     "home_team": "e9ca48b2-00ba-41c0-a02b-6885a2da1ff1",
                                     "away_team": "a41d5a05-4c11-4171-a57e-e7a1ea325a6d",
