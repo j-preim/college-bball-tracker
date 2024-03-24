@@ -18,12 +18,12 @@ export default function Header() {
           <img src={bball} className="logo" />
         </div>
 
-        <div className="d-flex col-12 col-sm-auto justify-content-evenly lato-regular">
+        <div className="d-flex col-12 col-sm-auto justify-content-evenly lato-regular navi">
           <div className="px-2 px-sm-2 px-md-3 px-lg-4">
             {isLoggedIn === true ? (
               <div className="dropdown">
                 <a
-                  className="dropdown-toggle navi"
+                  className="dropdown-toggle navi-link"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -45,17 +45,17 @@ export default function Header() {
                 </ul>
               </div>
             ) : (
-              <a href="/auth" className="navi">
+              <a href="/auth" className="navi-link">
                 Login
               </a>
             )}
           </div>
 
-          <a href="/matchups" className="px-2 px-sm-2 px-md-3 px-lg-4 navi">
+          <a href="/matchups" className="px-2 px-sm-2 px-md-3 px-lg-4 navi-link">
             Matchups
           </a>
 
-          <a href="/bracket" className="px-2 px-sm-2 px-md-3 px-lg-4 navi">
+          <a href="/bracket" className="px-2 px-sm-2 px-md-3 px-lg-4 navi-link">
             Full Bracket
           </a>
         </div>

@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const entrySchema = new mongoose.Schema({
+  active: {
+    type: Boolean
+  },
   title: {
     type: String
   },
