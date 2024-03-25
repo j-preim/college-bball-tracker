@@ -1,4 +1,4 @@
-
+import BracketManual from "../components/BracketManual";
 /*
   This component can stay as-is. Because it's on the Home page, 
   it's just easier to have the Home page give it the current note 
@@ -17,6 +17,7 @@ export default function Entry(props){
       <h1>{ props.currentEntry.title}</h1>
       <p>{props.currentEntry.teams}</p>
       
+      {/* <BracketManual gamesData={props.gamesData}/> */}
     </>
   )
 }

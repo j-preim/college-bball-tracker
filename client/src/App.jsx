@@ -100,7 +100,7 @@ export default function App() {
     setRoundsData(rounds);
     setGamesData(games);
     setGameDates(gameDatesArray.sort());
-    // console.log(games);
+    console.log(games);
   }
 
   useEffect(() => {

@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 // import AddEntry from '../components/AddEntry'
 import ListEntries from '../components/ListEntries'
 import Entry from "../components/Entry";
-import Bracket from "../components/Bracket";
 import useVerifyUser from '../hooks/useVerifyUser'
 
-export default function Entries() {
+export default function Entries(props) {
 
   const [ entries, setEntries ] = useState([])
   const [ currentEntry, setCurrentEntry ] = useState(null)
@@ -44,7 +43,7 @@ export default function Entries() {
             )}
       </div>
 
-      <Entry  currentEntry={currentEntry}/>
+      <Entry gamesData={props.gamesData} currentEntry={currentEntry}/>
       {/* <Bracket /> */}
     </>
   );
