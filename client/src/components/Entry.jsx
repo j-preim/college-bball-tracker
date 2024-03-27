@@ -17,7 +17,7 @@ export default function Entry(props){
       <h1>{ props.currentEntry.title}</h1>
       <p>{props.currentEntry.teams}</p>
       
-      {/* <BracketManual gamesData={props.gamesData}/> */}
+      <BracketManual gamesData={props.gamesData}/>
     </>
   )
 }

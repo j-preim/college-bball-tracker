@@ -66,6 +66,19 @@ body {
     1px 1px 0 #000;
 } 
 
+.bracket {
+  font-size: 11px;
+  text-wrap: stable;
+  min-width: 1000px;
+  background-color: rgb(255, 255, 255, 0.9);
+  color: black;
+}
+
+.bracket div {
+  border-width: 4px;
+  border-color: black;
+}
+
 .brackets {
   border: none;
   background-color: white;

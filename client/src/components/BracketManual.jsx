@@ -1,42 +1,12 @@
 import { useState, useEffect } from "react";
+import BracketLeft from "./BracketLeft";
 
 export default function BracketManual(props) {
   return (
     <>
-      <div className="container-fluid mt-5 bg-dark">
-          <div className="col-5">
-          <div className="row">
-            <div className="col">UConn</div>
-            <div className="col">2</div>
-            <div className="col">3</div>
-            <div className="col">4</div>
-            <div className="col">5</div>
-          </div>
-
-          <div className="row">
-            <div className="col">1</div>
-            <div className="col">2</div>
-            <div className="col">3</div>
-            <div className="col">4</div>
-            <div className="col">5</div>
-          </div>
-
-          <div className="row">
-            <div className="col">Stetson</div>
-            <div className="col">2</div>
-            <div className="col">3</div>
-            <div className="col">4</div>
-            <div className="col">5</div>
-          </div>
-
-          <div className="row">
-            <div className="col">1</div>
-            <div className="col">2</div>
-            <div className="col">3</div>
-            <div className="col">4</div>
-            <div className="col">5</div>
-          </div>
-
+      <div className="container-fluid mt-4 bracket">
+        <div className="row">
+          <BracketLeft />
         </div>
       </div>
     </>
