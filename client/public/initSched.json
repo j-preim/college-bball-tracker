@@ -3229,7 +3229,7 @@
                         },
                         {
                             "id": "9e45c095-231a-4a4c-980a-aae6a62614d8",
-                            "status": "scheduled",
+                            "status": "inprogress",
                             "title": "East Regional - Sweet 16 - Game 1",
                             "coverage": "full",
                             "scheduled": "2024-03-28T23:39:00+00:00",
@@ -3665,7 +3665,7 @@
                         },
                         {
                             "id": "455fe508-d16f-433e-8a38-dd175895d9b9",
-                            "status": "scheduled",
+                            "status": "inprogress",
                             "title": "West Regional - Sweet 16 - Game 2",
                             "coverage": "full",
                             "scheduled": "2024-03-28T23:09:00+00:00",
