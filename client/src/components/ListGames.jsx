@@ -44,6 +44,7 @@ export default function ListGames(props) {
   return (
     <>
       <table className="table table-striped table-sm">
+      <caption className="text-start text-light caption">Hover over team names for more info</caption>
         <thead className="table-head">
           <tr>
             <th>Round</th>

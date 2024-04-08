@@ -115,6 +115,10 @@ body {
   cursor: context-menu;
 }
 
+.caption {
+  font-size: 80%;
+}
+
 #selectedTeam {
   text-decoration: solid line-through rgba(0, 0, 0) 1px;
 }
