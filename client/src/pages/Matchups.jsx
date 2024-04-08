@@ -20,8 +20,10 @@ export default function Matchups(props) {
           <option value={date} key={date}>{date}</option>
         ))}
         </select>
+        <div className="text-start">Hover over team names for more info</div>
       </div>
     <div>
+      
       <ListGames gamesData={props.getGamesForDay(selectedDay, props.gamesData)} />
     </div>
     <div>

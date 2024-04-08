@@ -70,19 +70,35 @@ body {
   font-size: 11px;
   text-wrap: stable;
   min-width: 1000px;
-  background-color: rgba(129, 128, 128, 0.92);
+  background-color: rgba(154, 154, 154, 0.94);
   color: white;
 }
 
-.bracket div {
-  border-width: 4px;
-  border-color: black;
+.round-names {
+  text-align: center;
+  padding: 4px 0;
+  border-bottom: 1px solid black;
+  text-shadow:
+    1px 1px 0 #000,
+    -0px 1px 0 #000,
+    -0px -0px 0 #000,
+    1px 1px 0 #000;
 }
 
 .champ {
   background-color: white;
-  color: black;
+  color: rgb(0, 164, 222);
   font-size: 20px;
+  text-shadow: none;
+  border: 3px double black
+}
+
+.champ-header {
+  text-shadow:
+    1px 1px 0 #000,
+    -0px 1px 0 #000,
+    -0px -0px 0 #000,
+    2px 2px 0 #000;
 }
 
 .brackets {
@@ -91,21 +107,20 @@ body {
   
 }
 
-.brackets tr {
-  border: none;
+.entryName {
+  cursor: context-menu;
 }
 
-.brackets td {
-  border: none;
+.teamNamePopover {
+  cursor: context-menu;
 }
 
-.bracketsBorder {
-  border-color: black;
+#selectedTeam {
+  text-decoration: solid line-through rgba(0, 0, 0) 1px;
 }
 
 tr {
   font-size: 90%;
-  /* border-top: .1rem solid rgb(162, 162, 162); */
   border-bottom: .1rem solid rgb(162, 162, 162);
 }
 

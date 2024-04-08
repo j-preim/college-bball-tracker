@@ -35,7 +35,7 @@ export default function ListGames(props) {
     });
 
     return (
-      <span className="" ref={popoverRef}>
+      <span className="teamNamePopover" ref={popoverRef}>
         {props.team.name}
       </span>
     );

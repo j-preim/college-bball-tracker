@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Cookie from "js-cookie"
+import Cookie from "js-cookie";
 import Header from "./components/Header";
 import { Home, Matchups, Bracket, Entries, Auth } from "./pages";
 import initSchedDb from "../public/initSched.json";
@@ -8,14 +8,13 @@ import { getGamesForDay } from "./hooks/getGamesForDay";
 import "./App.css";
 
 export default function App() {
-
-  function verifyUser(){
-    const cookie = Cookie.get("auth_cookie")
+  function verifyUser() {
+    const cookie = Cookie.get("auth_cookie");
   }
 
   useEffect(() => {
-    verifyUser()
-  },[])
+    verifyUser();
+  }, []);
 
   let rounds = [];
   let games = [];
@@ -36,6 +35,7 @@ export default function App() {
       let roundName = initSched.rounds[i].name;
       let roundId = initSched.rounds[i].id;
       let roundBrackets;
+      let roundTeams = [];
 
       if (roundName === "Final Four" || roundName === "National Championship") {
         roundBrackets = [
@@ -57,6 +57,11 @@ export default function App() {
 
         let bracketId = roundBrackets[x].bracket.id;
         let bracketGames = roundBrackets[x].games;
+        bracketGames.sort((a, b) =>
+          a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+        );
+
+        let bracketRank = roundBrackets[x].bracket.rank;
 
         for (let y = 0; y < bracketGames.length; y++) {
           let rawDate = new Date(bracketGames[y].scheduled);
@@ -72,6 +77,12 @@ export default function App() {
 
           games.push(bracketGames[y]);
 
+          roundTeams.push({
+            date: bracketGames[y].scheduled,
+            home: bracketGames[y].home,
+            away: bracketGames[y].away,
+          });
+
           if (!roundDates.has(formattedDate)) {
             roundDates.add(formattedDate);
           }
@@ -83,16 +94,22 @@ export default function App() {
         bracket = {
           bracketName: bracketName,
           bracketId: bracketId,
+          bracketRank: bracketRank,
           bracketGames: bracketGames,
         };
         brackets.push(bracket);
       }
+
+      brackets.sort((a, b) =>
+          a.bracketRank - b.bracketRank
+        );
 
       round = {
         roundName: roundName,
         roundId: roundId,
         brackets: brackets,
         roundDates: roundDates,
+        roundTeams: roundTeams,
       };
       rounds.push(round);
     }
@@ -100,7 +117,7 @@ export default function App() {
     setRoundsData(rounds);
     setGamesData(games);
     setGameDates(gameDatesArray.sort());
-    console.log(games);
+    // console.log(rounds);
   }
 
   useEffect(() => {
@@ -124,18 +141,14 @@ export default function App() {
               />
             }
           />
-          <Route
-            path="/auth"
-            element={
-              <Auth />
-            }
-          />
+          <Route path="/auth" element={<Auth />} />
           <Route
             path="/entries"
             element={
               <Entries
                 todayFormatted={todayFormatted}
                 gamesData={gamesData}
+                roundsData={roundsData}
                 getGamesForDay={getGamesForDay}
               />
             }
@@ -155,12 +168,6 @@ export default function App() {
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
-
-      {/* <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div> */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-
+import Entry from "./Entry"
 
 export default function ListEntries(props){
 
@@ -27,10 +27,10 @@ export default function ListEntries(props){
         <tbody className="table-light">
           { props.entries.map( (entry) => (
             <tr key={entry.title} id={entry._id}>
-              <td onClick={handleOnClick}>{ entry.title } </td>
+              <td className="entryName" onClick={handleOnClick}>{ entry.title } </td>
               <td>
               {entry.teams.map( (team) => (
-                <span key={team}>{ team }, </span>
+                <span key={team.id}>{team.market}, </span>
               ))}
               </td>
               <td>{ entry.champ }</td>
@@ -39,6 +39,8 @@ export default function ListEntries(props){
           ))}
         </tbody>
       </table>
+
+      <Entry gamesData={props.gamesData} roundsData={props.roundsData} currentEntry={props.currentEntry}/>
     </>
   )
 }

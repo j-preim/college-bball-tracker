@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
 
 export default function BracketLeft(props) {
+  function selectedTeams(id) {
+    for (let i = 0; i < props.currentEntry.teams.length; i++) {
+      if (props.currentEntry.teams[i].id === id){
+        return "selectedTeam"
+      }
+      return "";
+    }
+  }
+
   return (
     <div className="col-5">
-      <div className="round-names text-center">
-        <div className="row mb-2">
+      <div className="round-names">
+        <div className="row">
           <div className="col">First Round</div>
           <div className="col">Second Round</div>
           <div className="col">Sweet 16</div>
@@ -13,9 +22,9 @@ export default function BracketLeft(props) {
         </div>
       </div>
 
-      <div className="left top rd1 1-16">
+      <div className="left top rd1 1-16 mt-2">
         <div className="row">
-          <div className="col border-bottom border-dark">1 UConn</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[0].home.seed} {props.firstRound[0].brackets[0].bracketGames[0].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
@@ -25,7 +34,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            1 UConn
+          {props.secondRound[0].brackets[0].bracketGames[0].home.seed} {props.secondRound[0].brackets[0].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -34,7 +43,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            16 Stetson
+          {props.firstRound[0].brackets[0].bracketGames[0].away.seed} {props.firstRound[0].brackets[0].bracketGames[0].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -46,7 +55,7 @@ export default function BracketLeft(props) {
           <div className="col spacer">&nbsp;</div>
           <div className="col"></div>
           <div className="col border-start border-bottom border-dark">
-            1 UConn
+          {props.sweetSixteen[0].brackets[0].bracketGames[0].home.seed} {props.sweetSixteen[0].brackets[0].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -55,7 +64,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 8-9">
         <div className="row">
-          <div className="col border-bottom border-dark">8 FL Atlantic</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[1].home.seed} {props.firstRound[0].brackets[0].bracketGames[1].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-end border-dark"></div>
           <div className="col"></div>
@@ -65,7 +74,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col">&nbsp;</div>
           <div className="col border-bottom border-start border-dark">
-            9 Nwestern
+          {props.secondRound[0].brackets[0].bracketGames[0].away.seed} {props.secondRound[0].brackets[0].bracketGames[0].away.alias}
           </div>
           <div className="col border-start border-end border-dark"></div>
           <div className="col"></div>
@@ -74,7 +83,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            9 Nwestern
+          {props.firstRound[0].brackets[0].bracketGames[1].away.seed} {props.firstRound[0].brackets[0].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
@@ -93,7 +102,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 5-12">
         <div className="row">
-          <div className="col border-bottom border-dark">5 San Diego St</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[2].home.seed} {props.firstRound[0].brackets[0].bracketGames[2].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -103,7 +112,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            5 San Diego St
+          {props.secondRound[0].brackets[0].bracketGames[1].home.seed} {props.secondRound[0].brackets[0].bracketGames[1].home.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -111,7 +120,7 @@ export default function BracketLeft(props) {
         </div>
 
         <div className="row">
-          <div className="col border-bottom border-end border-dark">12 UAB</div>
+          <div className="col border-bottom border-end border-dark">{props.firstRound[0].brackets[0].bracketGames[2].away.seed} {props.firstRound[0].brackets[0].bracketGames[2].away.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
           <div className="col border-start border-dark"></div>
@@ -122,7 +131,7 @@ export default function BracketLeft(props) {
           <div className="col">&nbsp;</div>
           <div className="col"></div>
           <div className="col border-start border-bottom border-dark">
-            5 San Diego St
+          {props.sweetSixteen[0].brackets[0].bracketGames[0].away.seed} {props.sweetSixteen[0].brackets[0].bracketGames[0].away.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col border-start border-dark"></div>
@@ -131,7 +140,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 4-13">
         <div className="row">
-          <div className="col border-bottom border-dark">4 Auburn</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[3].home.seed} {props.firstRound[0].brackets[0].bracketGames[3].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -141,7 +150,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            13 Yale
+          {props.secondRound[0].brackets[0].bracketGames[1].away.seed} {props.secondRound[0].brackets[0].bracketGames[1].away.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -150,7 +159,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            13 Yale
+          {props.firstRound[0].brackets[0].bracketGames[3].away.seed} {props.firstRound[0].brackets[0].bracketGames[3].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -169,7 +178,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 6-11">
         <div className="row">
-          <div className="col border-bottom border-dark">6 BYU</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[4].home.seed} {props.firstRound[0].brackets[0].bracketGames[4].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
@@ -179,7 +188,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            11 Duquesne
+          {props.secondRound[0].brackets[0].bracketGames[2].away.seed} {props.secondRound[0].brackets[0].bracketGames[2].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -188,7 +197,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            11 Duquesne
+          {props.firstRound[0].brackets[0].bracketGames[4].away.seed} {props.firstRound[0].brackets[0].bracketGames[4].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -199,8 +208,8 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col">&nbsp;</div>
           <div className="col"></div>
-          <div className="col border-start border-bottom border-dark">
-            3 Illinois
+          <div className="col border-start border-bottom border-dark" id={selectedTeams(props.sweetSixteen[0].brackets[0].bracketGames[1].away.id)}>
+          {props.sweetSixteen[0].brackets[0].bracketGames[1].away.seed} {props.sweetSixteen[0].brackets[0].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-end border-dark"></div>
@@ -209,7 +218,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 3-14">
         <div className="row">
-          <div className="col border-bottom border-dark">3 Illinois</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[5].home.seed} {props.firstRound[0].brackets[0].bracketGames[5].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
           <div className="col border-start border-dark"></div>
@@ -219,7 +228,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            3 Illinois
+          {props.secondRound[0].brackets[0].bracketGames[2].home.seed} {props.secondRound[0].brackets[0].bracketGames[2].home.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col border-start border-dark"></div>
@@ -228,7 +237,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            14 Morehead St
+          {props.firstRound[0].brackets[0].bracketGames[5].away.seed} {props.firstRound[0].brackets[0].bracketGames[5].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -247,7 +256,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 7-10">
         <div className="row">
-          <div className="col border-bottom border-dark">7 Wash St</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[6].home.seed} {props.firstRound[0].brackets[0].bracketGames[6].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -257,7 +266,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            7 Wash St
+          {props.secondRound[0].brackets[0].bracketGames[3].away.seed} {props.secondRound[0].brackets[0].bracketGames[3].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -266,7 +275,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            10 Drake
+          {props.firstRound[0].brackets[0].bracketGames[6].away.seed} {props.firstRound[0].brackets[0].bracketGames[6].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -278,7 +287,7 @@ export default function BracketLeft(props) {
           <div className="col">&nbsp;</div>
           <div className="col"></div>
           <div className="col border-start border-bottom border-dark">
-            2 Iowa St
+          {props.sweetSixteen[0].brackets[0].bracketGames[1].home.seed} {props.sweetSixteen[0].brackets[0].bracketGames[1].home.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col border-end border-dark"></div>
@@ -287,7 +296,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 2-15">
         <div className="row">
-          <div className="col border-bottom border-dark">2 Iowa St</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[0].bracketGames[7].home.seed} {props.firstRound[0].brackets[0].bracketGames[7].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -297,7 +306,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            2 Iowa St
+          {props.secondRound[0].brackets[0].bracketGames[3].home.seed} {props.secondRound[0].brackets[0].bracketGames[3].home.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -306,7 +315,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            15 S Dakota St
+          {props.firstRound[0].brackets[0].bracketGames[7].away.seed} {props.firstRound[0].brackets[0].bracketGames[7].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -325,7 +334,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 1-16">
         <div className="row">
-          <div className="col border-bottom border-dark">1 UNC</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[0].home.seed} {props.firstRound[0].brackets[3].bracketGames[0].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
@@ -335,7 +344,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            1 UNC
+          {props.secondRound[0].brackets[3].bracketGames[0].home.seed} {props.secondRound[0].brackets[3].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -344,7 +353,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            16 Wagner
+          {props.firstRound[0].brackets[3].bracketGames[0].away.seed} {props.firstRound[0].brackets[3].bracketGames[0].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -356,7 +365,7 @@ export default function BracketLeft(props) {
           <div className="col">&nbsp;</div>
           <div className="col"></div>
           <div className="col border-start border-bottom border-dark">
-            1 UNC
+          {props.sweetSixteen[0].brackets[3].bracketGames[0].home.seed} {props.sweetSixteen[0].brackets[3].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
@@ -365,7 +374,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 8-9">
         <div className="row">
-          <div className="col border-bottom border-dark">8 Miss St</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[1].home.seed} {props.firstRound[0].brackets[3].bracketGames[1].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-end border-dark"></div>
           <div className="col"></div>
@@ -375,7 +384,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col">&nbsp;</div>
           <div className="col border-bottom border-start border-dark">
-            9 Mich St
+          {props.secondRound[0].brackets[3].bracketGames[0].away.seed} {props.secondRound[0].brackets[3].bracketGames[0].away.alias}
           </div>
           <div className="col border-start border-end border-dark"></div>
           <div className="col"></div>
@@ -384,7 +393,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            9 Mich St
+          {props.firstRound[0].brackets[3].bracketGames[1].away.seed} {props.firstRound[0].brackets[3].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
@@ -403,7 +412,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 5-12">
         <div className="row">
-          <div className="col border-bottom border-dark">5 St Mary's</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[2].home.seed} {props.firstRound[0].brackets[3].bracketGames[2].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -413,7 +422,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            12 G Canyon
+          {props.secondRound[0].brackets[3].bracketGames[1].away.seed} {props.secondRound[0].brackets[3].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -422,7 +431,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            12 G Canyon
+          {props.firstRound[0].brackets[3].bracketGames[2].away.seed} {props.firstRound[0].brackets[3].bracketGames[2].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -434,7 +443,7 @@ export default function BracketLeft(props) {
           <div className="col">&nbsp;</div>
           <div className="col"></div>
           <div className="col border-start border-bottom border-dark">
-            4 Alabama
+          {props.sweetSixteen[0].brackets[3].bracketGames[0].away.seed} {props.sweetSixteen[0].brackets[3].bracketGames[0].away.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col border-start border-end border-dark"></div>
@@ -443,7 +452,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 4-13">
         <div className="row">
-          <div className="col border-bottom border-dark">4 Alabama</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[3].home.seed} {props.firstRound[0].brackets[3].bracketGames[3].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -453,7 +462,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            4 Alabama
+          {props.secondRound[0].brackets[3].bracketGames[1].home.seed} {props.secondRound[0].brackets[3].bracketGames[1].home.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -462,7 +471,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            13 Charleston
+          {props.firstRound[0].brackets[3].bracketGames[3].away.seed} {props.firstRound[0].brackets[3].bracketGames[3].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -483,7 +492,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 6-11">
         <div className="row">
-          <div className="col border-bottom border-dark">6 Clemson</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[4].home.seed} {props.firstRound[0].brackets[3].bracketGames[4].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
@@ -493,7 +502,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            6 Clemson
+          {props.secondRound[0].brackets[3].bracketGames[2].away.seed} {props.secondRound[0].brackets[3].bracketGames[2].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -502,7 +511,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            11 N Mexico St
+          {props.firstRound[0].brackets[3].bracketGames[4].away.seed} {props.firstRound[0].brackets[3].bracketGames[4].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -514,7 +523,7 @@ export default function BracketLeft(props) {
           <div className="col">&nbsp;</div>
           <div className="col"></div>
           <div className="col border-start border-bottom border-dark">
-            3 Baylor
+          {props.sweetSixteen[0].brackets[3].bracketGames[1].away.seed} {props.sweetSixteen[0].brackets[3].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -523,7 +532,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 3-14">
         <div className="row">
-          <div className="col border-bottom border-dark">3 Baylor</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[5].home.seed} {props.firstRound[0].brackets[3].bracketGames[5].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
           <div className="col border-start border-dark"></div>
@@ -533,7 +542,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            3 Baylor
+          {props.secondRound[0].brackets[3].bracketGames[2].home.seed} {props.secondRound[0].brackets[3].bracketGames[2].home.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col border-start border-dark"></div>
@@ -542,7 +551,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            14 Colgate
+          {props.firstRound[0].brackets[3].bracketGames[5].away.seed} {props.firstRound[0].brackets[3].bracketGames[5].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>
@@ -561,7 +570,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 7-10">
         <div className="row">
-          <div className="col border-bottom border-dark">7 Dayton</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[6].home.seed} {props.firstRound[0].brackets[3].bracketGames[6].home.alias}</div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -571,7 +580,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            7 Dayton
+          {props.secondRound[0].brackets[3].bracketGames[3].away.seed} {props.secondRound[0].brackets[3].bracketGames[3].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -580,7 +589,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            10 Nevada
+          {props.firstRound[0].brackets[3].bracketGames[6].away.seed} {props.firstRound[0].brackets[3].bracketGames[6].away.alias}
           </div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
@@ -592,7 +601,7 @@ export default function BracketLeft(props) {
           <div className="col">&nbsp;</div>
           <div className="col"></div>
           <div className="col border-start border-bottom border-dark">
-            2 Arizona
+          {props.sweetSixteen[0].brackets[3].bracketGames[1].home.seed} {props.sweetSixteen[0].brackets[3].bracketGames[1].home.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -601,7 +610,7 @@ export default function BracketLeft(props) {
 
       <div className="left top rd1 2-15">
         <div className="row">
-          <div className="col border-bottom border-dark">2 Arizona</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[3].bracketGames[7].home.seed} {props.firstRound[0].brackets[3].bracketGames[7].home.alias}</div>
           <div className="col"></div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -611,7 +620,7 @@ export default function BracketLeft(props) {
         <div className="row">
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            2 Arizona
+          {props.secondRound[0].brackets[3].bracketGames[3].home.seed} {props.secondRound[0].brackets[3].bracketGames[3].home.alias}
           </div>
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
@@ -620,7 +629,7 @@ export default function BracketLeft(props) {
 
         <div className="row">
           <div className="col border-bottom border-end border-dark">
-            15 L Beach St
+          {props.firstRound[0].brackets[3].bracketGames[7].away.seed} {props.firstRound[0].brackets[3].bracketGames[7].away.alias}
           </div>
           <div className="col"></div>
           <div className="col"></div>

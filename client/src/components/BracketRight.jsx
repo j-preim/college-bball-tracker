@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 
 export default function BracketRight(props) {
+
+
   return (
     <div className="col-5 text-end">
-      <div className="round-names text-center">
-        <div className="row mb-2">
+      <div className="round-names">
+        <div className="row">
           <div className="col">Final 4</div>
           <div className="col">Elite 8</div>
           <div className="col">Sweet 16</div>
@@ -13,13 +15,13 @@ export default function BracketRight(props) {
         </div>
       </div>
 
-      <div className="right top rd1 1-16">
+      <div className="right top rd1 1-16 mt-2">
         <div className="row">
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Houston 1</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[0].home.seed} {props.firstRound[0].brackets[1].bracketGames[0].home.alias}</div>
         </div>
 
         <div className="row">
@@ -27,7 +29,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            Houston 1
+          {props.secondRound[0].brackets[1].bracketGames[0].home.seed} {props.secondRound[0].brackets[1].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -38,7 +40,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Longwood 16
+          {props.firstRound[0].brackets[1].bracketGames[0].away.seed} {props.firstRound[0].brackets[1].bracketGames[0].away.alias}
           </div>
         </div>
 
@@ -46,7 +48,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-end border-bottom border-dark">
-            Houston 1
+          {props.sweetSixteen[0].brackets[1].bracketGames[0].home.seed} {props.sweetSixteen[0].brackets[1].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
           <div className="col spacer">&nbsp;</div>
@@ -59,7 +61,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-start border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Nebraska 8</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[1].home.seed} {props.firstRound[0].brackets[1].bracketGames[1].home.alias}</div>
         </div>
 
         <div className="row">
@@ -67,7 +69,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-end border-dark">
-            TX A&M 9
+          {props.secondRound[0].brackets[1].bracketGames[0].away.seed} {props.secondRound[0].brackets[1].bracketGames[0].away.alias}
           </div>
           <div className="col">&nbsp;</div>
         </div>
@@ -78,7 +80,7 @@ export default function BracketRight(props) {
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            TX A&M 9
+          {props.firstRound[0].brackets[1].bracketGames[1].away.seed} {props.firstRound[0].brackets[1].bracketGames[1].away.alias}
           </div>
         </div>
 
@@ -97,7 +99,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Wisconsin 5</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[2].home.seed} {props.firstRound[0].brackets[1].bracketGames[2].home.alias}</div>
         </div>
 
         <div className="row">
@@ -105,7 +107,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            J Madison 12
+          {props.secondRound[0].brackets[1].bracketGames[1].away.seed} {props.secondRound[0].brackets[1].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -115,14 +117,14 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-start border-dark">J Madison 12</div>
+          <div className="col border-bottom border-start border-dark">{props.firstRound[0].brackets[1].bracketGames[2].away.seed} {props.firstRound[0].brackets[1].bracketGames[2].away.alias}</div>
         </div>
 
         <div className="row">
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-bottom border-dark">
-            Duke 4
+          {props.sweetSixteen[0].brackets[1].bracketGames[0].away.seed} {props.sweetSixteen[0].brackets[1].bracketGames[0].away.alias}
           </div>
           <div className="col">&nbsp;</div>
           <div className="col"></div>
@@ -135,7 +137,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Duke 4</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[3].home.seed} {props.firstRound[0].brackets[1].bracketGames[3].home.alias}</div>
         </div>
 
         <div className="row">
@@ -143,7 +145,7 @@ export default function BracketRight(props) {
           <div className="col border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-end border-dark">
-            Vermont 13
+          {props.secondRound[0].brackets[1].bracketGames[1].home.seed} {props.secondRound[0].brackets[1].bracketGames[1].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -154,7 +156,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Duke 4
+          {props.firstRound[0].brackets[1].bracketGames[3].away.seed} {props.firstRound[0].brackets[1].bracketGames[3].away.alias}
           </div>
         </div>
 
@@ -173,7 +175,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">TX Tech 6</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[4].home.seed} {props.firstRound[0].brackets[1].bracketGames[4].home.alias}</div>
         </div>
 
         <div className="row">
@@ -181,7 +183,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            NC State 11
+          {props.secondRound[0].brackets[1].bracketGames[2].home.seed} {props.secondRound[0].brackets[1].bracketGames[2].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -192,7 +194,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            NC State 11
+          {props.firstRound[0].brackets[1].bracketGames[4].away.seed} {props.firstRound[0].brackets[1].bracketGames[4].away.alias}
           </div>
         </div>
 
@@ -200,7 +202,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-start border-dark"></div>
           <div className="col"></div>
           <div className="col border-end border-bottom border-dark">
-            NC State 11
+          {props.sweetSixteen[0].brackets[1].bracketGames[1].away.seed} {props.sweetSixteen[0].brackets[1].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
           <div className="col">&nbsp;</div>
@@ -213,7 +215,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Kentucky 3</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[5].home.seed} {props.firstRound[0].brackets[1].bracketGames[5].home.alias}</div>
         </div>
 
         <div className="row">
@@ -221,7 +223,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-bottom border-end border-dark">
-            Oakland 14
+          {props.secondRound[0].brackets[1].bracketGames[2].away.seed} {props.secondRound[0].brackets[1].bracketGames[2].away.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -232,7 +234,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Oakland 14
+          {props.firstRound[0].brackets[1].bracketGames[5].away.seed} {props.firstRound[0].brackets[1].bracketGames[5].away.alias}
           </div>
         </div>
 
@@ -251,7 +253,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Florida 7</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[6].home.seed} {props.firstRound[0].brackets[1].bracketGames[6].home.alias}</div>
         </div>
 
         <div className="row">
@@ -259,7 +261,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            Colorado 10
+          {props.secondRound[0].brackets[1].bracketGames[3].away.seed} {props.secondRound[0].brackets[1].bracketGames[3].away.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -270,7 +272,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Colorado 10
+          {props.firstRound[0].brackets[1].bracketGames[6].away.seed} {props.firstRound[0].brackets[1].bracketGames[6].away.alias}
           </div>
         </div>
 
@@ -278,7 +280,7 @@ export default function BracketRight(props) {
           <div className="col border-start border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-bottom border-dark">
-            Marquette 2
+          {props.sweetSixteen[0].brackets[1].bracketGames[1].home.seed} {props.sweetSixteen[0].brackets[1].bracketGames[1].home.alias}
           </div>
           <div className="col"></div>
           <div className="col">&nbsp;</div>
@@ -291,7 +293,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Marquette 2</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[1].bracketGames[7].home.seed} {props.firstRound[0].brackets[1].bracketGames[7].home.alias}</div>
         </div>
 
         <div className="row">
@@ -299,7 +301,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-bottom border-end border-dark">
-            Marquette 2
+          {props.secondRound[0].brackets[1].bracketGames[3].home.seed} {props.secondRound[0].brackets[1].bracketGames[3].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -310,7 +312,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Western KY 15
+          {props.firstRound[0].brackets[1].bracketGames[7].away.seed} {props.firstRound[0].brackets[1].bracketGames[7].away.alias}
           </div>
         </div>
 
@@ -329,7 +331,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Purdue 1</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[0].home.seed} {props.firstRound[0].brackets[2].bracketGames[0].home.alias}</div>
         </div>
 
         <div className="row">
@@ -337,7 +339,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            Purdue 1
+          {props.secondRound[0].brackets[2].bracketGames[0].home.seed} {props.secondRound[0].brackets[2].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -348,7 +350,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Grambling St 16
+          {props.firstRound[0].brackets[2].bracketGames[0].away.seed} {props.firstRound[0].brackets[2].bracketGames[0].away.alias}
           </div>
         </div>
 
@@ -356,7 +358,7 @@ export default function BracketRight(props) {
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
           <div className="col border-end border-bottom border-dark">
-            Purdue 1
+          {props.sweetSixteen[0].brackets[2].bracketGames[0].home.seed} {props.sweetSixteen[0].brackets[2].bracketGames[0].home.alias}
           </div>
           <div className="col"></div>
           <div className="col spacer">&nbsp;</div>
@@ -369,7 +371,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-start border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Utah St 8</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[1].home.seed} {props.firstRound[0].brackets[2].bracketGames[1].home.alias}</div>
         </div>
 
         <div className="row">
@@ -377,7 +379,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-end border-dark">
-            Utah St 8
+          {props.secondRound[0].brackets[2].bracketGames[0].away.seed} {props.secondRound[0].brackets[2].bracketGames[0].away.alias}
           </div>
           <div className="col">&nbsp;</div>
         </div>
@@ -388,7 +390,7 @@ export default function BracketRight(props) {
           <div className="col border-start border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            TCU 9
+          {props.firstRound[0].brackets[2].bracketGames[1].away.seed} {props.firstRound[0].brackets[2].bracketGames[1].away.alias}
           </div>
         </div>
 
@@ -407,7 +409,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Gonzaga 5</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[2].home.seed} {props.firstRound[0].brackets[2].bracketGames[2].home.alias}</div>
         </div>
 
         <div className="row">
@@ -415,7 +417,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            Gonzaga 5
+          {props.secondRound[0].brackets[2].bracketGames[1].away.seed} {props.secondRound[0].brackets[2].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -425,14 +427,14 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-start border-dark">McNeese 12</div>
+          <div className="col border-bottom border-start border-dark">{props.firstRound[0].brackets[2].bracketGames[2].away.seed} {props.firstRound[0].brackets[2].bracketGames[2].away.alias}</div>
         </div>
 
         <div className="row">
           <div className="col border-start border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-bottom border-dark">
-            Gonzaga 5
+          {props.sweetSixteen[0].brackets[2].bracketGames[0].away.seed} {props.sweetSixteen[0].brackets[2].bracketGames[0].away.alias}
           </div>
           <div className="col">&nbsp;</div>
           <div className="col"></div>
@@ -445,7 +447,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Kansas 4</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[3].home.seed} {props.firstRound[0].brackets[2].bracketGames[3].home.alias}</div>
         </div>
 
         <div className="row">
@@ -453,7 +455,7 @@ export default function BracketRight(props) {
           <div className="col border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-end border-dark">
-            Kansas 4
+          {props.secondRound[0].brackets[2].bracketGames[1].home.seed} {props.secondRound[0].brackets[2].bracketGames[1].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -464,7 +466,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Samford 13
+          {props.firstRound[0].brackets[2].bracketGames[3].away.seed} {props.firstRound[0].brackets[2].bracketGames[3].away.alias}
           </div>
         </div>
 
@@ -483,7 +485,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">S Carolina 6</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[4].home.seed} {props.firstRound[0].brackets[2].bracketGames[4].home.alias}</div>
         </div>
 
         <div className="row">
@@ -491,7 +493,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            Oregon 11
+          {props.secondRound[0].brackets[2].bracketGames[2].away.seed} {props.secondRound[0].brackets[2].bracketGames[2].away.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -502,7 +504,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Oregon 11
+          {props.firstRound[0].brackets[2].bracketGames[4].away.seed} {props.firstRound[0].brackets[2].bracketGames[4].away.alias}
           </div>
         </div>
 
@@ -510,7 +512,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-end border-bottom border-dark">
-            Creighton 3
+          {props.sweetSixteen[0].brackets[2].bracketGames[1].away.seed} {props.sweetSixteen[0].brackets[2].bracketGames[1].away.alias}
           </div>
           <div className="col"></div>
           <div className="col">&nbsp;</div>
@@ -523,7 +525,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Creighton 3</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[5].home.seed} {props.firstRound[0].brackets[2].bracketGames[5].home.alias}</div>
         </div>
 
         <div className="row">
@@ -531,7 +533,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-bottom border-end border-dark">
-            Creighton 3
+          {props.secondRound[0].brackets[2].bracketGames[2].home.seed} {props.secondRound[0].brackets[2].bracketGames[2].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -542,7 +544,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Akron 14
+          {props.firstRound[0].brackets[2].bracketGames[5].away.seed} {props.firstRound[0].brackets[2].bracketGames[5].away.alias}
           </div>
         </div>
 
@@ -561,7 +563,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Texas 7</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[6].home.seed} {props.firstRound[0].brackets[2].bracketGames[6].home.alias}</div>
         </div>
 
         <div className="row">
@@ -569,7 +571,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-end border-dark">
-            Texas 7
+          {props.secondRound[0].brackets[2].bracketGames[3].away.seed} {props.secondRound[0].brackets[2].bracketGames[3].away.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -580,7 +582,7 @@ export default function BracketRight(props) {
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            Col St 10
+          {props.firstRound[0].brackets[2].bracketGames[6].away.seed} {props.firstRound[0].brackets[2].bracketGames[6].away.alias}
           </div>
         </div>
 
@@ -588,7 +590,7 @@ export default function BracketRight(props) {
           <div className="col border-dark"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-end border-bottom border-dark">
-            Tennessee 2
+          {props.sweetSixteen[0].brackets[2].bracketGames[1].home.seed} {props.sweetSixteen[0].brackets[2].bracketGames[1].home.alias}
           </div>
           <div className="col"></div>
           <div className="col">&nbsp;</div>
@@ -601,7 +603,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
           <div className="col"></div>
-          <div className="col border-bottom border-dark">Tennessee 2</div>
+          <div className="col border-bottom border-dark">{props.firstRound[0].brackets[2].bracketGames[7].home.seed} {props.firstRound[0].brackets[2].bracketGames[7].home.alias}</div>
         </div>
 
         <div className="row">
@@ -609,7 +611,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col border-end border-dark"></div>
           <div className="col border-bottom border-end border-dark">
-            Tennessee 2
+          {props.secondRound[0].brackets[2].bracketGames[3].home.seed} {props.secondRound[0].brackets[2].bracketGames[3].home.alias}
           </div>
           <div className="col"></div>
         </div>
@@ -620,7 +622,7 @@ export default function BracketRight(props) {
           <div className="col"></div>
           <div className="col"></div>
           <div className="col border-bottom border-start border-dark">
-            St Peter's 15
+          {props.firstRound[0].brackets[2].bracketGames[7].away.seed} {props.firstRound[0].brackets[2].bracketGames[7].away.alias}
           </div>
         </div>
 

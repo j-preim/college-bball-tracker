@@ -9,15 +9,17 @@ import BracketManual from "../components/BracketManual";
   note data.
 */
 
-export default function Entry(props){
+export default function Entry(props) {
+  
 
-  if( !props.currentEntry ) return <></>
+  if (!props.currentEntry) return <></>;
   return (
     <>
-      <h1>{ props.currentEntry.title}</h1>
-      <p>{props.currentEntry.teams}</p>
-      
-      <BracketManual gamesData={props.gamesData}/>
+      <div className="mt-2 headline text-center">
+        <h3>{props.currentEntry.title}</h3>
+        {/* <p>{props.currentEntry.teams}</p> */}
+      </div>
+      <BracketManual gamesData={props.gamesData} roundsData={props.roundsData} currentEntry={props.currentEntry}/>
     </>
-  )
+  );
 }

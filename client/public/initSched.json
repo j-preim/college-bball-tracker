@@ -4199,8 +4199,10 @@
                         }
                     ],
                     "home": {
-                        "name": "Final Four - Semifinals - Game 1 (win)",
-                        "alias": "Final Four - Semifinals - Game 1 (win)",
+                        "name": "UConn Huskies",
+                        "alias": "CONN",
+                        "id": "efba5350-79bc-47aa-a189-db177b95b491",
+                        "seed": 1,
                         "source": {
                             "id": "0ba0c65d-aae5-4af2-b0f8-b8352cc63912",
                             "title": "Final Four - Semifinals - Game 1",
@@ -4211,8 +4213,10 @@
                         }
                     },
                     "away": {
-                        "name": "Final Four - Semifinals - Game 2 (win)",
-                        "alias": "Final Four - Semifinals - Game 2 (win)",
+                        "name": "Purdue Boilermakers",
+                        "alias": "PUR",
+                        "id": "12d7f888-675b-459f-9099-a38f771d8a95",
+                        "seed": 1,
                         "source": {
                             "id": "de06e52c-30bb-417c-881e-14c1b089b46e",
                             "title": "Final Four - Semifinals - Game 2",
