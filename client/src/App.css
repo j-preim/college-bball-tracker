@@ -208,6 +208,31 @@ table .loser {
   font-style: italic;
 }
 
+.bracket-game-card .card-body {
+  background: rgba(255, 255, 255, 0.94);
+  color: #111;
+}
+
+.bracket-game-card .badge.text-bg-light {
+  color: #111 !important;
+}
+
+.card-header {
+  background: linear-gradient(to right, rgb(0, 17, 114), rgb(0, 164, 222));
+  color: white;
+}
+
+.bg-success-subtle,
+.bg-danger-subtle {
+  color: #111;
+}
+
+@media (min-width: 1200px) {
+  .row > .col-xl {
+    flex: 1 0 0%;
+  }
+}
+
 @media (max-width: 1000px) {
   body {
     font-size: 90%;

@@ -1,811 +1,219 @@
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 
+function normalizeRoundLabel(roundName) {
+  if (!roundName) return "Round";
+  return roundName;
+}
 
-export default function Bracket() {
+function getTeamName(team) {
+  return team?.alias || team?.market && team?.name
+    ? `${team.market ? `${team.market} ` : ""}${team.name ?? ""}`.trim()
+    : team?.name || "TBD";
+}
+
+function getSeed(team) {
+  return team?.seed ?? "-";
+}
+
+function getGameWinnerSide(game) {
+  const homePoints =
+    typeof game?.home_points === "number" ? game.home_points : null;
+  const awayPoints =
+    typeof game?.away_points === "number" ? game.away_points : null;
+
+  if (homePoints === null || awayPoints === null) return null;
+  if (homePoints === awayPoints) return null;
+
+  return homePoints > awayPoints ? "home" : "away";
+}
+
+function getStatusLabel(game) {
+  if (game?.status === "inprogress") return "LIVE";
+  if (game?.status === "closed" || game?.status === "complete") return "FINAL";
+  return "UPCOMING";
+}
+
+function formatTipoff(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "TBD";
+
+  return date.toLocaleString([], {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+function groupRounds(roundsData) {
+  return (roundsData || []).map((round) => ({
+    roundName: normalizeRoundLabel(round.roundName),
+    games:
+      round?.brackets?.flatMap((bracket) =>
+        (bracket?.bracketGames || []).map((game) => ({
+          ...game,
+          bracketName: bracket?.bracketName || game?.bracketName || "Bracket",
+          bracketRank: bracket?.bracketRank ?? game?.bracketRank ?? 999,
+        }))
+      ) || [],
+  }));
+}
+
+function BracketGameCard({ game }) {
+  const winnerSide = getGameWinnerSide(game);
+
+  const homeClass =
+    winnerSide === "home"
+      ? "border-success bg-success-subtle"
+      : winnerSide === "away"
+      ? "border-danger bg-danger-subtle"
+      : "";
+
+  const awayClass =
+    winnerSide === "away"
+      ? "border-success bg-success-subtle"
+      : winnerSide === "home"
+      ? "border-danger bg-danger-subtle"
+      : "";
+
+  const homePoints =
+    typeof game?.home_points === "number" ? game.home_points : "-";
+  const awayPoints =
+    typeof game?.away_points === "number" ? game.away_points : "-";
+
   return (
-    <>
-      <table className="brackets table mt-4" cellSpacing="0" id="brackets" align="center">
-        <tbody>
-          <tr>
-            <td className="vtop border-bottom border-dark">1. N. Carolina 90</td>
-            <td className="topwinner"></td>
-            <td className=""></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className="topwinner"></td>
-            <td className="vtop border-bottom border-dark">1. Houston 86</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1 border-bottom border-end border-dark" id="game16">
-              16. Wagner 62
-            </td>
-            <td className="vtop border-bottom border-dark">1. N. Carolina 85</td>
-            <td className=""></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className="vtop">1. Houston 0</td>
-            <td className="bottom" id="game31">
-              16. Longwood 46
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1 border-bottom border-dark" id="game17">
-              8. Miss State 51
-            </td>
-            <td className="bottom1 border-bottom border-right border-dark" id="game24">
-              9. Michigan St 69
-            </td>
-            <td className="topwinner"></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className="topwinner"></td>
-            <td className="bottom" id="game39">
-              9. Texas A&amp;M 0
-            </td>
-            <td className="top" id="game32">
-              8. Nebraska 83
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game17">
-              9. Michigan St 69
-            </td>
-
-            <td className="spacer11 bottomwinner" id="game"></td>
-            <td className="vtop">1. N. Carolina 0</td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className="vtop"></td>
-
-            <td className="spacer1 bottomwinner" id="game"></td>
-            <td className="vbottom" id="game32">
-              9. Texas A&amp;M 98
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vtop">5. St Marys 66</td>
-
-            <td className="spacer11 topwinner" id="game"></td>
-            <td className="bottom1" id="game28"></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className="bottom" id="game43"></td>
-
-            <td className="spacer1 topwinner" id="game"></td>
-            <td className="vtop">5. Wisconsin 61</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1" id="game18">
-              12. Grand Canyon 75
-            </td>
-            <td className="top1" id="game25">
-              12. Grand Canyon 0
-            </td>
-
-            <td className="spacer11 bottomwinner" id="game"></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-
-            <td className="spacer1 bottomwinner" id="game"></td>
-            <td className="top" id="game40">
-              12. J Madison 0
-            </td>
-            <td className="bottom" id="game33">
-              12. J Madison 72
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1" id="game19">
-              4. Alabama 109
-            </td>
-            <td className="vbottom" id="game25">
-              4. Alabama 0
-            </td>
-
-            <td className="spacer11" id="game"></td>
-            <td className="topwinner"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="topwinner"></td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="vbottom" id="game40">
-              4. Duke 0
-            </td>
-            <td className="top" id="game34">
-              4. Duke 64
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game19">
-              13. Charleston 96
-            </td>
-            <td className="bottomwinner"></td>
-            <td rowSpan="2" className="regionname1">
-              <span>West</span>
-            </td>
-            <td className="vtop"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="vtop"></td>
-            <td rowSpan="2" className="regionname">
-              <span>South</span>
-            </td>
-            <td className="bottomwinner"></td>
-            <td className="vbottom" id="game34">
-              13. Vermont 47
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vtop">3. Baylor 92</td>
-            <td className="topwinner"></td>
-            <td className="bottom1" id="game30"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="bottom" id="game45"></td>
-            <td className="topwinner"></td>
-            <td className="vtop">3. Kentucky 76</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1" id="game20">
-              14. Colgate 67
-            </td>
-            <td className="vtop">3. Baylor 0</td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="spacer11 bottomwinner" id="game"></td>
-
-            <td colSpan="3"></td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1 bottomwinner" id="game"></td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="vtop">14. Oakland 0</td>
-            <td className="bottom" id="game35">
-              14. Oakland 80
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1" id="game21">
-              6. Clemson 77
-            </td>
-            <td className="bottom1" id="game26">
-              6. Clemson 0
-            </td>
-
-            <td className="spacer11 topwinner" id="game"></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td colSpan="3" className="final4team vtop"></td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-
-            <td className="spacer1 topwinner" id="game"></td>
-            <td className="bottom" id="game41">
-              11. NC State 0
-            </td>
-            <td className="top" id="game36">
-              6. Texas Tech 67
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game21">
-              11. New Mexico 56
-            </td>
-
-            <td className="spacer11 bottomwinner" id="game"></td>
-            <td className="top1" id="game29"></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td colSpan="3" className="final4team bottom1"></td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="top" id="game44"></td>
-
-            <td className="spacer1 bottomwinner" id="game"></td>
-            <td className="vbottom" id="game36">
-              11. NC State 80
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vtop">7. Dayton 63</td>
-
-            <td className="spacer11 topwinner" id="game"></td>
-            <td className="vbottom" id="game29">
-              2. Arizona 0
-            </td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td colSpan="3"></td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="vbottom" id="game44"></td>
-
-            <td className="spacer1 topwinner" id="game"></td>
-            <td className="vtop">7. Florida 100</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1" id="game22">
-              10. Nevada 60
-            </td>
-            <td className="top1" id="game27">
-              7. Dayton 68
-            </td>
-            <td className="bottomwinner"></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td colSpan="4" className="finalteam">
-              {" "}
-            </td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="bottomwinner"></td>
-            <td className="top" id="game42">
-              10. Colorado 0
-            </td>
-            <td className="bottom" id="game37">
-              10. Colorado 102
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1" id="game23">
-              2. Arizona 85
-            </td>
-            <td className="vbottom" id="game27">
-              2. Arizona 78
-            </td>
-            <td className=""></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className=""></td>
-            <td className="vbottom" id="game42">
-              2. Marquette 0
-            </td>
-            <td className="top" id="game38">
-              2. Marquette 87
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game23">
-              15. Long Beach s 65
-            </td>
-            <td className="bottomwinner"></td>
-            <td className=""></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className=""></td>
-            <td className="bottomwinner"></td>
-            <td className="vbottom" id="game38">
-              15. Western Ky 69
-            </td>
-          </tr>
-
-          <tr>
-            <td>&nbsp;</td>
-
-            <td>&nbsp;</td>
-
-            <td>&nbsp;</td>
-
-            <td className="spacer11">&nbsp;</td>
-
-            <td>
-              FINAL: &nbsp;
-            </td>
-
-            <td colSpan="4" className="champion">
-              <div>&nbsp;</div>
-            </td>
-
-            <td className="spacer11">&nbsp;</td>
-
-            <td>&nbsp;</td>
-
-            <td>&nbsp;</td>
-
-            <td>&nbsp;</td>
-
-            <td>&nbsp;</td>
-          </tr>
-
-          <tr>
-            <td className="vtop">1. Connecticut 91</td>
-            <td className="topwinner"></td>
-            <td className=""></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className=""></td>
-            <td className="topwinner"></td>
-            <td className="vtop">1. Purdue 78</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1" id="game1">
-              16. Stetson 52
-            </td>
-            <td className="vtop">1. Connecticut 0</td>
-            <td className=""></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className=""></td>
-            <td className="vtop">1. Purdue 0</td>
-            <td className="bottom" id="game46">
-              16. Grambling 50
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1" id="game2">
-              8. FAU 65
-            </td>
-            <td className="bottom1" id="game9">
-              9. Northwestern 0
-            </td>
-            <td className="topwinner"></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td colSpan="4" className="finalteam">
-              {" "}
-            </td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="topwinner"></td>
-            <td className="bottom" id="game54">
-              8. Utah St 0
-            </td>
-            <td className="top" id="game47">
-              8. Utah St 88
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game2">
-              9. Northwestern 77
-            </td>
-
-            <td className="spacer11 bottomwinner" id="game"></td>
-            <td className="vtop"></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td colSpan="4" className="spacer112"></td>
-            <td className="regionspacer">&nbsp;</td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="vtop"></td>
-
-            <td className="spacer1 bottomwinner" id="game"></td>
-            <td className="vbottom" id="game47">
-              9. TCU 72
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vtop">5. San Diego St 69</td>
-
-            <td className="spacer11 topwinner" id="game"></td>
-            <td className="bottom1" id="game13"></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td colSpan="3" className="final4team top"></td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="bottom" id="game58">
-              5. Gonzaga 0
-            </td>
-
-            <td className="spacer1 topwinner" id="game"></td>
-            <td className="vtop">5. Gonzaga 86</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1" id="game3">
-              12. UAB 65
-            </td>
-            <td className="top1" id="game10">
-              5. San Diego St 0
-            </td>
-
-            <td className="spacer11 bottomwinner" id="game"></td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td colSpan="3" className="final4team"></td>
-
-            <td className="spacer1" id="game"></td>
-
-            <td className="spacer1 bottomwinner" id="game"></td>
-            <td className="top" id="game55">
-              5. Gonzaga 89
-            </td>
-            <td className="bottom" id="game48">
-              12. McNeese St 65
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1" id="game4">
-              4. Auburn 76
-            </td>
-            <td className="vbottom" id="game10">
-              13. Yale 0
-            </td>
-
-            <td className="spacer11" id="game"></td>
-
-            <td className="spacer11 topwinner" id="game"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td colSpan="3"></td>
-
-            <td className="spacer1 topwinner" id="game"></td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="vbottom" id="game55">
-              4. Kansas 68
-            </td>
-            <td className="top" id="game49">
-              4. Kansas 93
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game4">
-              13. Yale 78
-            </td>
-            <td className="bottomwinner"></td>
-            <td rowSpan="2" className="regionname1">
-              <span>East</span>
-            </td>
-            <td className="top1" id="game15"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="top" id="game60"></td>
-            <td rowSpan="2" className="regionname">
-              <span>Midwest</span>
-            </td>
-            <td className="bottomwinner"></td>
-            <td className="vbottom" id="game49">
-              13. Samford 89
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vtop">3. Illinois 85</td>
-            <td className="topwinner"></td>
-            <td className="vbottom" id="game15"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="vbottom" id="game60"></td>
-            <td className="topwinner"></td>
-            <td className="vtop">3. Creighton 77</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1" id="game5">
-              14. Morehead St 69
-            </td>
-            <td className="vtop">3. Illinois 0</td>
-
-            <td className="spacer11" id="game"></td>
-            <td className="bottomwinner"></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="bottomwinner"></td>
-
-            <td className="spacer1" id="game"></td>
-            <td className="vtop">3. Creighton 0</td>
-            <td className="bottom" id="game50">
-              14. Akron 60
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1" id="game6">
-              6. BYU 67
-            </td>
-            <td className="bottom1" id="game11">
-              11. Duquesne 0
-            </td>
-
-            <td className="spacer11 topwinner" id="game"></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-
-            <td className="spacer1 topwinner" id="game"></td>
-            <td className="bottom" id="game56">
-              11. Oregon 0
-            </td>
-            <td className="top" id="game51">
-              6. S. Carolina 73
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game6">
-              11. Duquesne 71
-            </td>
-
-            <td className="spacer11 bottomwinner" id="game"></td>
-            <td className="top1" id="game14"></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className="top" id="game59"></td>
-
-            <td className="spacer1 bottomwinner" id="game"></td>
-            <td className="vbottom" id="game51">
-              11. Oregon 87
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vtop">7. Wash State 66</td>
-
-            <td className="spacer11 topwinner" id="game"></td>
-            <td className="vbottom" id="game14">
-              2. Iowa St 0
-            </td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className="vbottom" id="game59"></td>
-
-            <td className="spacer1 topwinner" id="game"></td>
-            <td className="vtop">7. Texas 56</td>
-          </tr>
-
-          <tr>
-            <td className="bottom1" id="game7">
-              10. Drake 61
-            </td>
-            <td className="top1" id="game12">
-              7. Wash State 56
-            </td>
-            <td className="bottomwinner"></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className="bottomwinner"></td>
-            <td className="top" id="game57">
-              7. Texas 0
-            </td>
-            <td className="bottom" id="game52">
-              10. Colorado St 44
-            </td>
-          </tr>
-
-          <tr>
-            <td className="top1" id="game8">
-              2. Iowa St 82
-            </td>
-            <td className="vbottom" id="game12">
-              2. Iowa St 67
-            </td>
-            <td className=""></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className="vbottom" id="game57">
-              2. Tennessee 0
-            </td>
-            <td className="top" id="game53">
-              2. Tennessee 83
-            </td>
-          </tr>
-
-          <tr>
-            <td className="vbottom" id="game8">
-              15. S Dakota St 65
-            </td>
-            <td className="bottomwinner"></td>
-            <td className=""></td>
-            <td className=""></td>
-
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className="regionspacer">&nbsp;</td>
-            <td className=""></td>
-            <td className=""></td>
-            <td className="bottomwinner"></td>
-            <td className="vbottom" id="game53">
-              15. St Peters 49
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
+    <div className="card shadow-sm mb-3 bracket-game-card">
+      <div className="card-body p-2">
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <span className="badge text-bg-dark">{game?.bracketName || "Region"}</span>
+          <span
+            className={`badge ${
+              game?.status === "inprogress"
+                ? "text-bg-warning"
+                : game?.status === "closed" || game?.status === "complete"
+                ? "text-bg-secondary"
+                : "text-bg-light"
+            }`}
+          >
+            {getStatusLabel(game)}
+          </span>
+        </div>
+
+        <div className="small text-body-secondary mb-2">
+          {formatTipoff(game?.scheduledRaw || game?.scheduled)}
+        </div>
+
+        <div
+          className={`d-flex justify-content-between align-items-center border rounded px-2 py-2 mb-2 ${homeClass}`}
+        >
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge rounded-pill text-bg-light border">
+              {getSeed(game?.home)}
+            </span>
+            <span className="fw-medium">{getTeamName(game?.home)}</span>
+          </div>
+          <div className="fw-bold">{homePoints}</div>
+        </div>
+
+        <div
+          className={`d-flex justify-content-between align-items-center border rounded px-2 py-2 ${awayClass}`}
+        >
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge rounded-pill text-bg-light border">
+              {getSeed(game?.away)}
+            </span>
+            <span className="fw-medium">{getTeamName(game?.away)}</span>
+          </div>
+          <div className="fw-bold">{awayPoints}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RoundColumn({ round }) {
+  return (
+    <div className="col-12 col-md-6 col-xl">
+      <div className="card h-100 shadow-sm">
+        <div className="card-header text-center fw-bold">
+          {round.roundName}
+        </div>
+        <div className="card-body">
+          {round.games.length === 0 ? (
+            <div className="text-body-secondary small">No games available.</div>
+          ) : (
+            round.games.map((game) => (
+              <BracketGameCard key={game.id} game={game} />
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Bracket({
+  roundsData = [],
+  gamesData = [],
+  loading = false,
+  error = "",
+}) {
+  const groupedRounds = useMemo(() => groupRounds(roundsData), [roundsData]);
+
+  const totalGames = gamesData.length;
+  const liveGames = gamesData.filter((game) => game.status === "inprogress").length;
+  const finalGames = gamesData.filter(
+    (game) => game.status === "closed" || game.status === "complete"
+  ).length;
+
+  if (loading) {
+    return (
+      <div className="container py-4">
+        <div className="alert alert-info">Loading bracket...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container py-4">
+        <div className="alert alert-danger">{error}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container-fluid py-3">
+      <div className="container mb-3">
+        <div className="d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <div>
+            <h2 className="mb-1">Tournament Bracket</h2>
+            <div className="text-body-secondary">
+              Responsive round-by-round bracket view
+            </div>
+          </div>
+
+          <div className="d-flex flex-wrap gap-2">
+            <span className="badge text-bg-dark">Games: {totalGames}</span>
+            <span className="badge text-bg-warning">Live: {liveGames}</span>
+            <span className="badge text-bg-secondary">Final: {finalGames}</span>
+          </div>
+        </div>
+      </div>
+
+      {groupedRounds.length === 0 ? (
+        <div className="container">
+          <div className="alert alert-light border">
+            No bracket data available yet.
+          </div>
+        </div>
+      ) : (
+        <div className="row g-3 px-2 px-md-3">
+          {groupedRounds.map((round) => (
+            <RoundColumn key={round.roundName} round={round} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
