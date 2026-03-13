@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
-import ListGames from "../components/ListGames";
+import ListGames from "../components/games/ListGames";
 
 export default function Home(props) {
-  
+  const todayFormatted =
+    props.todayFormatted || new Date().toLocaleDateString();
 
   return (
-    <>
-      <div className="p-3 pb-2 headline">
-        <h4 className="lato-regular">Today's games ({props.todayFormatted}):</h4>
-      </div>
-
-      <div> 
-        <ListGames
-          gamesData={props.getGamesForDay(props.todayFormatted, props.gamesData)}
-        />
-      </div>
-    </>
+    <div className="container py-3">
+      <ListGames
+        title={`Today's games (${todayFormatted})`}
+        gamesData={props.gamesData || []}
+        bettingData={props.bettingData || []}
+        selectedDate={todayFormatted}
+        emptyMessage="No games scheduled for today."
+      />
+    </div>
   );
 }
