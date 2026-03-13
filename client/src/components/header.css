@@ -1,7 +1,7 @@
 .header {
   background: linear-gradient(to right, rgb(0, 164, 222), 70%, rgb(0, 17, 114));
   color: white;
-  border-bottom: 3px solid white;
+  border-bottom: 2px solid white;
 
 }
 
@@ -141,7 +141,6 @@
 
 @media (max-width: 575px) {
   .header {
-    border-bottom: 2px;
   }
 
   .logo {

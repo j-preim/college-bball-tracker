@@ -272,7 +272,7 @@ table .loser {
 @media (max-width: 600px) {
   body {
     font-size: 60%;
-    min-height: 1200px;
+    /* min-height: 1200px; */
   }
 
   h1 {
