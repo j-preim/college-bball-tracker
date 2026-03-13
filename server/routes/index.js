@@ -1,5 +1,6 @@
-const router = require("express").Router()
+import express from "express";
 const apiRoutes = require("./api")
+const router = express.Router();
 
 router.use("/api", apiRoutes);
 

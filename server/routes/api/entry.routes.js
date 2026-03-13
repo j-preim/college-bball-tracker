@@ -1,4 +1,4 @@
-const router = require("express").Router()
+import express from "express";
 
 const {
   getAllEntries,
@@ -8,6 +8,8 @@ const {
   deleteEntryById
 } = require("../../controllers/entry.controller")
 
+
+const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {

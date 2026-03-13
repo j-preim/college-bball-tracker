@@ -1,5 +1,5 @@
-const express = require('express');
-const path = require('path');
+import express from "express";
+import path from "path";
 const cookieParser = require("cookie-parser");
 
 const db = require('./config/connection');
@@ -17,10 +17,10 @@ app.use(routes);
 
 // NOTE: some build tools create a folder named "build" while others, like Vite, create one called "dist"
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, "..", 'client/dist')));
-  app.get('/*', (req, res) => {
-    res.sendFile(path.resolve( __dirname, "..", 'client/dist/index.html'))
-  })
+  app.use(express.static(path.resolve("dist")));
+  app.get("*", (_, res) => {
+  res.sendFile(path.resolve("dist/index.html"));
+});
 }
 
 db.once('open', () => {

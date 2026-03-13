@@ -1,8 +1,9 @@
-const router = require("express").Router()
+import express from "express";
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
 //const User = require("../../controllers/user.controller")
+const router = express.Router();
 
 const {
   getAllUsers,
