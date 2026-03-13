@@ -141,6 +141,7 @@
 
 @media (max-width: 575px) {
   .header {
+    border-bottom: 1px solid white;
   }
 
   .logo {
