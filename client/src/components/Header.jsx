@@ -1,65 +1,106 @@
-import { useState, useEffect } from "react";
-import Cookie from "js-cookie";
-import useVerifyUser from "../hooks/useVerifyUser";
+import { Link, useLocation } from "react-router-dom";
 import "./header.css";
 import bball from "/bball.png";
 
-export default function Header() {
-  const { isLoggedIn, logout } = useVerifyUser();
+function isActive(path, pathname) {
+  return pathname === path ? "active fw-bold" : "";
+}
+
+export default function Header({
+  authCookie = "",
+  liveGames = 0,
+  onRefresh = null
+}) {
+  const location = useLocation();
 
   return (
-    <div>
-      <header className="d-flex row justify-content-between px-2 p-md-2 p-lg-3 align-items-center">
-        <div className="d-flex col-12 col-sm-auto align-items-center justify-content-center">
-          <img src={bball} className="logo" />
-          <h1 className="konkhmer-sleokchher-regular">
-            &nbsp; <a href="/">College Basketball Tracker</a> &nbsp;
-          </h1>
-          <img src={bball} className="logo" />
-        </div>
+    <nav className="navbar navbar-expand-lg navbar-dark shadow-sm header">
+      <div className="container">
 
-        <div className="d-flex col-12 col-sm-auto justify-content-evenly lato-regular navi">
-          <div className="px-2 px-sm-2 px-md-3 px-lg-4">
-            {isLoggedIn === true ? (
-              <div className="dropdown">
-                <a
-                  className="dropdown-toggle navi-link"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Account
-                </a>
-                <ul className="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <a href="/entries" className="dropdown-item">
-                      My Entries
-                    </a>
-                  </li>
-                  <li>
-                    <a onClick={logout} href="#" className="dropdown-item">
-                      Logout
-                    </a>
-                  </li>
-                </ul>
-              </div>
+        <img src={bball} className="logo me-lg-3" />
+        <Link className="navbar-brand fw-bold tracker konkhmer-sleokchher-regular me-lg-5" to="/">
+          College Basketball Tracker
+        </Link>
+
+        <button
+          className="navbar-toggler justify-content-end"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMain"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarMain">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${isActive("/", location.pathname)}`}
+                to="/"
+              >
+                Today
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${isActive("/matchups", location.pathname)}`}
+                to="/matchups"
+              >
+                Matchups
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${isActive("/bracket", location.pathname)}`}
+                to="/bracket"
+              >
+                Bracket
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className={`nav-link ${isActive("/entries", location.pathname)}`}
+                to="/entries"
+              >
+                Entries
+              </Link>
+            </li>
+          </ul>
+
+          <div className="d-flex align-items-center gap-2">
+
+            {liveGames > 0 && (
+              <span className="badge text-bg-warning">
+                🔴 {liveGames} Live
+              </span>
+            )}
+
+            {onRefresh && (
+              <button
+                className="btn btn-sm btn-outline-light"
+                onClick={onRefresh}
+              >
+                Refresh
+              </button>
+            )}
+
+            {authCookie ? (
+              <Link className="btn btn-sm btn-outline-light" to="/entries">
+                My Picks
+              </Link>
             ) : (
-              <a href="/auth" className="navi-link">
+              <Link className="btn btn-sm btn-outline-light loginBtn" to="/auth">
                 Login
-              </a>
+              </Link>
             )}
           </div>
 
-          <a href="/matchups" className="px-2 px-sm-2 px-md-3 px-lg-4 navi-link">
-            Matchups
-          </a>
-
-          <a href="/bracket" className="px-2 px-sm-2 px-md-3 px-lg-4 navi-link">
-            Full Bracket
-          </a>
         </div>
-      </header>
-    </div>
+      </div>
+    </nav>
   );
 }
