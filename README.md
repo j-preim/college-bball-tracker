@@ -1,33 +1,8 @@
-# College Basketball Tracker
+# React + Vite
 
-Frontend-only Vite deployment for Vercel.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Local development
+Currently, two official plugins are available:
 
-```bash
-cd client
-npm install
-npm run dev
-```
-
-## Production build
-
-```bash
-cd client
-npm install
-npm run build
-```
-
-## Vercel settings
-
-- Build Command: `cd client && npm install && npm run build`
-- Output Directory: `client/dist`
-
-## Data files
-
-Static data is loaded from:
-
-- `client/public/initSched.json`
-- `client/public/bettingLines.json`
-
-Entries/auth are intentionally disabled in this deployment until the backend is rebuilt.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

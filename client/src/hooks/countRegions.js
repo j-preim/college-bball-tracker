@@ -1,14 +1,12 @@
-export const countRegions = (games) => {
-  const counts = new Map();
+export const countRegions = (games = []) => {
+  const counts = {};
 
   for (const game of games) {
-    const region = game?.bracket;
-    if (!region) {
-      continue;
-    }
-
-    counts.set(region, (counts.get(region) ?? 0) + 1);
+    const region = game?.bracket || "Unknown";
+    counts[region] = counts[region] ? counts[region] + 1 : 1;
   }
 
-  return [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  return Object.entries(counts).sort(([regionA], [regionB]) =>
+    regionA.localeCompare(regionB)
+  );
 };

@@ -17,7 +17,9 @@ function normalizeBettingLines(rawBettingData) {
     return [];
   }
 
-  return rawBettingData.sport_events.map((event) => ({ ...event }));
+  return rawBettingData.sport_events.map((event) => ({
+    ...event,
+  }));
 }
 
 function normalizeSchedule(rawScheduleData) {
@@ -35,7 +37,7 @@ function normalizeSchedule(rawScheduleData) {
 
   for (const rawRound of rawScheduleData.rounds) {
     const roundName = rawRound?.name ?? "Unknown Round";
-    const roundId = rawRound?.id ?? `${roundName}-${normalizedRounds.length}`;
+    const roundId = rawRound?.id ?? crypto.randomUUID();
 
     const roundBrackets =
       roundName === "Final Four" || roundName === "National Championship"
@@ -46,8 +48,8 @@ function normalizeSchedule(rawScheduleData) {
             },
           ]
         : Array.isArray(rawRound.bracketed)
-          ? rawRound.bracketed
-          : [];
+        ? rawRound.bracketed
+        : [];
 
     const brackets = [];
     const roundDates = new Set();
@@ -55,7 +57,7 @@ function normalizeSchedule(rawScheduleData) {
 
     for (const rawBracket of roundBrackets) {
       const bracketName = rawBracket?.bracket?.name ?? "Unknown Bracket";
-      const bracketId = rawBracket?.bracket?.id ?? `${bracketName}-${brackets.length}`;
+      const bracketId = rawBracket?.bracket?.id ?? crypto.randomUUID();
       const bracketRank = rawBracket?.bracket?.rank ?? 999;
 
       const bracketGames = Array.isArray(rawBracket.games)
@@ -127,27 +129,6 @@ function normalizeSchedule(rawScheduleData) {
   };
 }
 
-export function getBestDefaultDate(gameDates = []) {
-  if (!Array.isArray(gameDates) || gameDates.length === 0) {
-    return "";
-  }
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const dated = gameDates
-    .map((value) => {
-      const parsed = new Date(value);
-      parsed.setHours(0, 0, 0, 0);
-      return { value, time: parsed.getTime() };
-    })
-    .filter((item) => !Number.isNaN(item.time))
-    .sort((a, b) => a.time - b.time);
-
-  const todayOrNext = dated.find((item) => item.time >= today.getTime());
-  return (todayOrNext ?? dated[dated.length - 1] ?? { value: "" }).value;
-}
-
 export function useTournamentData() {
   const [state, setState] = useState({
     rounds: [],
@@ -168,7 +149,7 @@ export function useTournamentData() {
     try {
       const [scheduleData, bettingData] = await Promise.all([
         getScheduleData(),
-        getBettingData().catch(() => ({ sport_events: [] })),
+        getBettingData(),
       ]);
 
       const normalizedSchedule = normalizeSchedule(scheduleData);
@@ -217,9 +198,8 @@ export function useTournamentData() {
       liveGames,
       completedGames,
       upcomingGames,
-      defaultDate: getBestDefaultDate(state.gameDates),
     };
-  }, [state.games, state.gameDates]);
+  }, [state.games]);
 
   return {
     ...state,

@@ -6,10 +6,14 @@ export async function getBettingData() {
     headers: {
       Accept: "application/json",
     },
+    cache: "no-store",
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to load betting lines (${response.status}).`);
+    if (response.status === 404) {
+      return { sport_events: [] };
+    }
+    throw new Error(`Could not load betting lines (${response.status}).`);
   }
 
   return response.json();

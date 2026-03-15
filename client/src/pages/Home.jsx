@@ -1,42 +1,48 @@
 import ListGames from "../components/games/ListGames";
+import { getBestAvailableDate, getTodayDateString } from "../utils/dateHelpers";
 
-export default function Home({
-  gamesData = [],
-  bettingData = [],
-  loading = false,
-  error = "",
-  selectedDate = "",
-  refreshTournamentData,
-}) {
-  if (loading) {
+export default function Home(props) {
+  const todayFormatted = props.todayFormatted || getTodayDateString();
+  const selectedDate = getBestAvailableDate(props.gameDates || [], todayFormatted);
+  const isFallbackDate = Boolean(selectedDate) && selectedDate !== todayFormatted;
+
+  if (props.loading) {
     return (
       <div className="container py-4">
-        <div className="alert alert-light border">Loading tournament data...</div>
+        <div className="alert alert-info mb-0">Loading tournament data...</div>
       </div>
     );
   }
 
-  if (error) {
+  if (props.error) {
     return (
       <div className="container py-4">
-        <div className="alert alert-danger">{error}</div>
-        {refreshTournamentData ? (
-          <button className="btn btn-outline-primary" onClick={refreshTournamentData}>
-            Try again
-          </button>
-        ) : null}
+        <div className="alert alert-danger mb-3">{props.error}</div>
+        <button
+          className="btn btn-primary"
+          onClick={props.refreshTournamentData}
+          type="button"
+        >
+          Try again
+        </button>
       </div>
     );
   }
 
   return (
     <div className="container py-3">
+      {isFallbackDate ? (
+        <div className="alert alert-secondary">
+          No games were found for today, so this view is showing the next available slate on <strong>{selectedDate}</strong>.
+        </div>
+      ) : null}
+
       <ListGames
-        title={selectedDate ? `Games for ${selectedDate}` : "Games"}
-        gamesData={gamesData}
-        bettingData={bettingData}
+        title={selectedDate ? `Games for ${selectedDate}` : "Tournament games"}
+        gamesData={props.gamesData || []}
+        bettingData={props.bettingData || []}
         selectedDate={selectedDate}
-        emptyMessage="No games scheduled for the selected day."
+        emptyMessage="No games scheduled for this date."
       />
     </div>
   );

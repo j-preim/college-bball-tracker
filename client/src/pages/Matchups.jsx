@@ -1,35 +1,38 @@
 import { useEffect, useState } from "react";
 import ListGames from "../components/games/ListGames";
 import CountTables from "../components/CountTables";
+import { getBestAvailableDate, getTodayDateString } from "../utils/dateHelpers";
 
-export default function Matchups({
-  gamesData = [],
-  gameDates = [],
-  bettingData = [],
-  loading = false,
-  error = "",
-  defaultDate = "",
-}) {
-  const [selectedDay, setSelectedDay] = useState(defaultDate || gameDates[0] || "");
+export default function Matchups(props) {
+  const [selectedDay, setSelectedDay] = useState("");
 
   useEffect(() => {
-    if (!selectedDay && gameDates.length) {
-      setSelectedDay(defaultDate || gameDates[0]);
-    }
-  }, [defaultDate, gameDates, selectedDay]);
+    const bestDate = getBestAvailableDate(
+      props.gameDates || [],
+      props.todayFormatted || getTodayDateString()
+    );
 
-  if (loading) {
+    if (bestDate && bestDate !== selectedDay) {
+      setSelectedDay(bestDate);
+    }
+  }, [props.gameDates, props.todayFormatted, selectedDay]);
+
+  function handleInputChange(e) {
+    setSelectedDay(e.target.value);
+  }
+
+  if (props.loading) {
     return (
       <div className="container py-4">
-        <div className="alert alert-light border">Loading tournament data...</div>
+        <div className="alert alert-info mb-0">Loading matchup data...</div>
       </div>
     );
   }
 
-  if (error) {
+  if (props.error) {
     return (
       <div className="container py-4">
-        <div className="alert alert-danger">{error}</div>
+        <div className="alert alert-danger mb-0">{props.error}</div>
       </div>
     );
   }
@@ -41,9 +44,10 @@ export default function Matchups({
         <select
           className="form-select"
           value={selectedDay}
-          onChange={(e) => setSelectedDay(e.target.value)}
+          onChange={handleInputChange}
+          disabled={!props.gameDates?.length}
         >
-          {gameDates.map((date) => (
+          {props.gameDates?.map((date) => (
             <option key={date} value={date}>
               {date}
             </option>
@@ -53,14 +57,14 @@ export default function Matchups({
 
       <ListGames
         title={selectedDay ? `Games for ${selectedDay}` : "Games"}
-        gamesData={gamesData}
-        bettingData={bettingData}
+        gamesData={props.gamesData || []}
+        bettingData={props.bettingData || []}
         selectedDate={selectedDay}
         emptyMessage="No games found for that date."
       />
 
       <div className="mt-4">
-        <CountTables gamesData={gamesData} selectedDay={selectedDay} />
+        <CountTables gamesData={props.gamesData || []} selectedDay={selectedDay} />
       </div>
     </div>
   );

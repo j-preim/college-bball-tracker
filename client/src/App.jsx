@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import { Home, Matchups, Bracket, Entries, Auth } from "./pages";
 import { useTournamentData } from "./hooks/useTournamentData";
+import { getTodayDateString } from "./utils/dateHelpers";
 
 import "./App.css";
 
@@ -17,15 +18,25 @@ export default function App() {
     bettingData,
     loading,
     error,
-    liveGames,
-    defaultDate,
     refreshTournamentData,
+    liveGames,
   } = useTournamentData();
 
   useEffect(() => {
     const cookie = Cookie.get("auth_cookie") ?? "";
     setAuthCookie(cookie);
   }, []);
+
+  const sharedProps = {
+    roundsData: rounds,
+    gamesData: games,
+    gameDates,
+    bettingData,
+    loading,
+    error,
+    refreshTournamentData,
+    todayFormatted: getTodayDateString(),
+  };
 
   return (
     <BrowserRouter>
@@ -36,49 +47,10 @@ export default function App() {
       />
 
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              roundsData={rounds}
-              gamesData={games}
-              gameDates={gameDates}
-              bettingData={bettingData}
-              loading={loading}
-              error={error}
-              selectedDate={defaultDate}
-              refreshTournamentData={refreshTournamentData}
-            />
-          }
-        />
-        <Route
-          path="/matchups"
-          element={
-            <Matchups
-              roundsData={rounds}
-              gamesData={games}
-              gameDates={gameDates}
-              bettingData={bettingData}
-              loading={loading}
-              error={error}
-              defaultDate={defaultDate}
-            />
-          }
-        />
-        <Route
-          path="/bracket"
-          element={
-            <Bracket
-              roundsData={rounds}
-              gamesData={games}
-              gameDates={gameDates}
-              bettingData={bettingData}
-              loading={loading}
-              error={error}
-            />
-          }
-        />
-        <Route path="/entries" element={<Entries authCookie={authCookie} />} />
+        <Route path="/" element={<Home {...sharedProps} />} />
+        <Route path="/matchups" element={<Matchups {...sharedProps} />} />
+        <Route path="/bracket" element={<Bracket {...sharedProps} />} />
+        <Route path="/entries" element={<Entries />} />
         <Route path="/auth" element={<Auth />} />
       </Routes>
     </BrowserRouter>

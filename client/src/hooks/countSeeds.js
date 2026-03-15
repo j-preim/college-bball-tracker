@@ -1,18 +1,25 @@
-export const countSeeds = (games) => {
-  const counts = new Map();
+export const countSeeds = (games = []) => {
+  const counts = [];
+  const finalCounts = [];
 
   for (const game of games) {
-    const homeSeed = Number(game?.home?.seed);
-    const awaySeed = Number(game?.away?.seed);
+    const homeSeed = game?.home?.seed;
+    const awaySeed = game?.away?.seed;
 
-    if (!Number.isNaN(homeSeed) && homeSeed > 0) {
-      counts.set(homeSeed, (counts.get(homeSeed) ?? 0) + 1);
+    if (Number.isInteger(homeSeed)) {
+      counts[homeSeed] = counts[homeSeed] ? counts[homeSeed] + 1 : 1;
     }
 
-    if (!Number.isNaN(awaySeed) && awaySeed > 0) {
-      counts.set(awaySeed, (counts.get(awaySeed) ?? 0) + 1);
+    if (Number.isInteger(awaySeed)) {
+      counts[awaySeed] = counts[awaySeed] ? counts[awaySeed] + 1 : 1;
     }
   }
 
-  return [...counts.entries()].sort((a, b) => a[0] - b[0]);
+  for (let i = 1; i < counts.length; i += 1) {
+    if (counts[i]) {
+      finalCounts.push([i, counts[i]]);
+    }
+  }
+
+  return finalCounts;
 };

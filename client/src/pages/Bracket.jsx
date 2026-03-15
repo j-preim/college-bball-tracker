@@ -1,8 +1,40 @@
+import { useMemo } from "react";
+import { formatStatusLabel } from "../utils/dateHelpers";
+
+function getTeamLabel(team) {
+  if (!team) {
+    return "TBD";
+  }
+
+  const seed = team.seed ? `(${team.seed}) ` : "";
+  return `${seed}${team.alias || team.name || team.market || "TBD"}`;
+}
+
+function getWinningSide(game) {
+  if (game?.status !== "closed" && game?.status !== "complete") {
+    return "";
+  }
+
+  const homePoints = Number(game?.home_points ?? 0);
+  const awayPoints = Number(game?.away_points ?? 0);
+
+  if (homePoints === awayPoints) {
+    return "";
+  }
+
+  return homePoints > awayPoints ? "home" : "away";
+}
+
 export default function Bracket({ roundsData = [], loading = false, error = "" }) {
+  const visibleRounds = useMemo(
+    () => roundsData.filter((round) => Array.isArray(round.brackets) && round.brackets.length > 0),
+    [roundsData]
+  );
+
   if (loading) {
     return (
       <div className="container py-4">
-        <div className="alert alert-light border">Loading bracket data...</div>
+        <div className="alert alert-info mb-0">Loading bracket data...</div>
       </div>
     );
   }
@@ -10,50 +42,70 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
   if (error) {
     return (
       <div className="container py-4">
-        <div className="alert alert-danger">{error}</div>
+        <div className="alert alert-danger mb-0">{error}</div>
       </div>
     );
   }
 
   return (
     <div className="container py-4">
-      <h2 className="mb-3">Tournament bracket</h2>
+      <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div>
+          <h3 className="mb-1">Bracket tracker</h3>
+          <div className="text-body-secondary small">
+            Round-by-round game cards generated from your schedule data.
+          </div>
+        </div>
+        <div className="badge text-bg-light bracket-summary-badge">
+          {visibleRounds.length} round{visibleRounds.length === 1 ? "" : "s"}
+        </div>
+      </div>
+
       <div className="row g-4">
-        {roundsData.map((round) => (
-          <div className="col-12" key={round.roundId}>
+        {visibleRounds.map((round) => (
+          <div className="col-12" key={round.roundId || round.roundName}>
             <div className="card shadow-sm">
+              <div className="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <span>{round.roundName}</span>
+                <span className="small">{round.brackets.reduce((total, bracket) => total + bracket.bracketGames.length, 0)} games</span>
+              </div>
               <div className="card-body">
-                <h4 className="card-title mb-3">{round.roundName}</h4>
                 <div className="row g-3">
                   {round.brackets.map((bracket) => (
-                    <div className="col-12 col-xl-6" key={bracket.bracketId}>
-                      <div className="border rounded p-3 h-100">
-                        <div className="fw-semibold mb-2">{bracket.bracketName}</div>
-                        <ul className="list-group list-group-flush">
-                          {bracket.bracketGames.length === 0 ? (
-                            <li className="list-group-item px-0 text-body-secondary">
-                              No games available.
-                            </li>
-                          ) : (
-                            bracket.bracketGames.map((game) => (
-                              <li className="list-group-item px-0" key={game.id}>
-                                <div className="small text-body-secondary mb-1">
-                                  {game.gameDate || "TBD"} · {game.scheduled || "Time TBD"}
+                    <div className="col-12 col-xl-6" key={bracket.bracketId || bracket.bracketName}>
+                      <div className="border rounded-3 p-3 h-100 bg-light text-dark">
+                        <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                          <h5 className="mb-0">{bracket.bracketName}</h5>
+                          <span className="badge text-bg-secondary">
+                            {bracket.bracketGames.length} game{bracket.bracketGames.length === 1 ? "" : "s"}
+                          </span>
+                        </div>
+
+                        <div className="d-grid gap-3">
+                          {bracket.bracketGames.map((game) => {
+                            const winningSide = getWinningSide(game);
+                            return (
+                              <div className="card bracket-game-card shadow-sm" key={game.id}>
+                                <div className="card-body">
+                                  <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+                                    <span className="badge text-bg-light">{formatStatusLabel(game.status)}</span>
+                                    <span className="small text-body-secondary">{game.gameDate || game.scheduled}</span>
+                                  </div>
+
+                                  <div className={`d-flex justify-content-between gap-3 py-1 ${winningSide === "home" ? "fw-bold text-success" : ""}`}>
+                                    <span>{getTeamLabel(game.home)}</span>
+                                    <span>{game.home_points ?? "-"}</span>
+                                  </div>
+                                  <div className={`d-flex justify-content-between gap-3 py-1 ${winningSide === "away" ? "fw-bold text-success" : ""}`}>
+                                    <span>{getTeamLabel(game.away)}</span>
+                                    <span>{game.away_points ?? "-"}</span>
+                                  </div>
+                                  <div className="small text-body-secondary mt-2">{game.title || "Matchup"}</div>
                                 </div>
-                                <div>
-                                  {game.away?.seed ? `(${game.away.seed}) ` : ""}
-                                  {game.away?.alias || game.away?.name || "TBD"}
-                                  {typeof game.away_points === "number" ? ` ${game.away_points}` : ""}
-                                </div>
-                                <div>
-                                  {game.home?.seed ? `(${game.home.seed}) ` : ""}
-                                  {game.home?.alias || game.home?.name || "TBD"}
-                                  {typeof game.home_points === "number" ? ` ${game.home_points}` : ""}
-                                </div>
-                              </li>
-                            ))
-                          )}
-                        </ul>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
                   ))}

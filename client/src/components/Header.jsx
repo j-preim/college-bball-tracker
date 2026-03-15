@@ -9,7 +9,7 @@ function isActive(path, pathname) {
 export default function Header({
   authCookie = "",
   liveGames = 0,
-  onRefresh = null
+  onRefresh = null,
 }) {
   const location = useLocation();
 
@@ -17,7 +17,7 @@ export default function Header({
     <nav className="navbar navbar-expand-lg navbar-dark shadow-sm header">
       <div className="container">
 
-        <img src={bball} className="logo me-lg-3" />
+        <img src={bball} className="logo me-lg-3" alt="Basketball logo" />
         <Link className="navbar-brand fw-bold tracker konkhmer-sleokchher-regular me-lg-5" to="/">
           College Basketball Tracker
         </Link>
@@ -88,15 +88,12 @@ export default function Header({
               </button>
             )}
 
-            {authCookie ? (
-              <Link className="btn btn-sm btn-outline-light" to="/entries">
-                My Picks
-              </Link>
-            ) : (
-              <Link className="btn btn-sm btn-outline-light loginBtn" to="/auth">
-                Login
-              </Link>
-            )}
+            <Link
+              className="btn btn-sm btn-outline-light"
+              to={authCookie ? "/entries" : "/auth"}
+            >
+              {authCookie ? "My Picks" : "Login"}
+            </Link>
           </div>
 
         </div>
