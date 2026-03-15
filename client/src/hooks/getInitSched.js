@@ -1,4 +1,4 @@
-const apiUrl = "/initSched.json";
+const apiUrl = "/api/schedule";
 
 export async function getScheduleData() {
   const response = await fetch(apiUrl, {

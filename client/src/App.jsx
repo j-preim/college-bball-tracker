@@ -18,8 +18,9 @@ export default function App() {
     bettingData,
     loading,
     error,
-    refreshTournamentData,
     liveGames,
+    lastUpdated,
+    refreshTournamentData,
   } = useTournamentData();
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export default function App() {
       <Header
         authCookie={authCookie}
         liveGames={liveGames.length}
+        lastUpdated={lastUpdated}
         onRefresh={refreshTournamentData}
       />
 

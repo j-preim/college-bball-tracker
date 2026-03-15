@@ -137,6 +137,7 @@ export function useTournamentData() {
     bettingData: [],
     loading: true,
     error: "",
+    lastUpdated: "",
   });
 
   const loadTournamentData = useCallback(async () => {
@@ -162,6 +163,7 @@ export function useTournamentData() {
         bettingData: normalizedBettingData,
         loading: false,
         error: "",
+        lastUpdated: new Date().toLocaleTimeString(),
       });
     } catch (error) {
       setState({
@@ -180,6 +182,15 @@ export function useTournamentData() {
 
   useEffect(() => {
     loadTournamentData();
+
+    const refreshHours = 24;
+    const refreshTime = 60000 * 60 * refreshHours; // 30 seconds = 30000
+
+    const intervalId = window.setInterval(() => {
+      loadTournamentData();
+    }, refreshTime); 
+
+    return () => window.clearInterval(intervalId);
   }, [loadTournamentData]);
 
   const derived = useMemo(() => {
