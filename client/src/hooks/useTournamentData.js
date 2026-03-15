@@ -54,9 +54,12 @@ export function useTournamentData() {
   useEffect(() => {
     loadTournamentData();
 
+    const refreshHours = 12;
+    const refreshInterval = refreshHours * 60 * 60000;
+
     const intervalId = window.setInterval(() => {
       loadTournamentData();
-    }, 30000);
+    }, refreshInterval);
 
     return () => window.clearInterval(intervalId);
   }, [loadTournamentData]);

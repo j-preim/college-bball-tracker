@@ -130,19 +130,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    const apiKey = process.env.SPORTRADAR_API_KEY;
+    // const apiKey = process.env.SPORTRADAR_API_KEY;
     const apiUrl = process.env.SPORTRADAR_SCHEDULE_URL;
 
-    if (!apiKey || !apiUrl) {
-      return res.status(500).json({
-        message: "Missing SPORTRADAR_API_KEY or SPORTRADAR_SCHEDULE_URL",
-      });
-    }
+    // if (!apiKey || !apiUrl) {
+    //   return res.status(500).json({
+    //     message: "Missing SPORTRADAR_API_KEY or SPORTRADAR_SCHEDULE_URL",
+    //   });
+    // }
 
-    const separator = apiUrl.includes("?") ? "&" : "?";
-    const requestUrl = `${apiUrl}${separator}api_key=${apiKey}`;
+    // const separator = apiUrl.includes("?") ? "&" : "?";
+    // const requestUrl = `${apiUrl}${separator}api_key=${apiKey}`;
 
-    const upstreamResponse = await fetch(requestUrl, {
+    const upstreamResponse = await fetch(apiUrl, {
       headers: {
         Accept: "application/json",
       },
