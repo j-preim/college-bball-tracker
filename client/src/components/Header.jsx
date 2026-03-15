@@ -9,6 +9,7 @@ function isActive(path, pathname) {
 export default function Header({
   authCookie = "",
   liveGames = 0,
+  lastUpdated = "",
   onRefresh = null,
 }) {
   const location = useLocation();
@@ -16,9 +17,11 @@ export default function Header({
   return (
     <nav className="navbar navbar-expand-lg navbar-dark shadow-sm header">
       <div className="container">
-
         <img src={bball} className="logo me-lg-3" alt="Basketball logo" />
-        <Link className="navbar-brand fw-bold tracker konkhmer-sleokchher-regular me-lg-5" to="/">
+        <Link
+          className="navbar-brand fw-bold tracker konkhmer-sleokchher-regular me-lg-5"
+          to="/"
+        >
           College Basketball Tracker
         </Link>
 
@@ -33,7 +36,6 @@ export default function Header({
 
         <div className="collapse navbar-collapse" id="navbarMain">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-
             <li className="nav-item">
               <Link
                 className={`nav-link ${isActive("/", location.pathname)}`}
@@ -72,10 +74,13 @@ export default function Header({
           </ul>
 
           <div className="d-flex align-items-center gap-2 buttons">
-
             {liveGames > 0 && (
-              <span className="badge text-bg-warning">
-                🔴 {liveGames} Live
+              <span className="badge text-bg-warning">🔴 {liveGames} Live</span>
+            )}
+
+            {lastUpdated && (
+              <span className="small text-light-emphasis">
+                Updated {lastUpdated}
               </span>
             )}
 
@@ -95,7 +100,6 @@ export default function Header({
               {authCookie ? "My Picks" : "Login"}
             </Link>
           </div>
-
         </div>
       </div>
     </nav>

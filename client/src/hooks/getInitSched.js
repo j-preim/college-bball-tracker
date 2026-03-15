@@ -10,7 +10,7 @@ export async function getScheduleData() {
   });
 
   if (!response.ok) {
-    throw new Error(`Could not load schedule data (${response.status}).`);
+    throw new Error(`Failed to load live schedule (${response.status}).`);
   }
 
   return response.json();
