@@ -17,6 +17,8 @@ export default function App() {
     bettingData,
     loading,
     error,
+    liveGames,
+    defaultDate,
     refreshTournamentData,
   } = useTournamentData();
 
@@ -27,7 +29,11 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Header authCookie={authCookie} />
+      <Header
+        authCookie={authCookie}
+        liveGames={liveGames.length}
+        onRefresh={refreshTournamentData}
+      />
 
       <Routes>
         <Route
@@ -40,6 +46,7 @@ export default function App() {
               bettingData={bettingData}
               loading={loading}
               error={error}
+              selectedDate={defaultDate}
               refreshTournamentData={refreshTournamentData}
             />
           }
@@ -54,6 +61,7 @@ export default function App() {
               bettingData={bettingData}
               loading={loading}
               error={error}
+              defaultDate={defaultDate}
             />
           }
         />

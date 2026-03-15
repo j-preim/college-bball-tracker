@@ -1,18 +1,16 @@
-const apiUrl = `/api/initSched`;
+const apiUrl = "/initSched.json";
 
 export async function getScheduleData() {
-  try {
-    const response = await fetch(apiUrl, {
-      method: "GET",
-    });
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
+  const response = await fetch(apiUrl, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
 
-    const json = await response.json();
-    // console.log(json);
-    return json;
-  } catch (error) {
-    console.error(error.message);
+  if (!response.ok) {
+    throw new Error(`Failed to load schedule data (${response.status}).`);
   }
+
+  return response.json();
 }

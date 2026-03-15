@@ -1,17 +1,42 @@
 import ListGames from "../components/games/ListGames";
 
-export default function Home(props) {
-  const todayFormatted =
-    props.todayFormatted || new Date().toLocaleDateString();
+export default function Home({
+  gamesData = [],
+  bettingData = [],
+  loading = false,
+  error = "",
+  selectedDate = "",
+  refreshTournamentData,
+}) {
+  if (loading) {
+    return (
+      <div className="container py-4">
+        <div className="alert alert-light border">Loading tournament data...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container py-4">
+        <div className="alert alert-danger">{error}</div>
+        {refreshTournamentData ? (
+          <button className="btn btn-outline-primary" onClick={refreshTournamentData}>
+            Try again
+          </button>
+        ) : null}
+      </div>
+    );
+  }
 
   return (
     <div className="container py-3">
       <ListGames
-        title={`Today's games (${todayFormatted})`}
-        gamesData={props.gamesData || []}
-        bettingData={props.bettingData || []}
-        selectedDate={todayFormatted}
-        emptyMessage="No games scheduled for today."
+        title={selectedDate ? `Games for ${selectedDate}` : "Games"}
+        gamesData={gamesData}
+        bettingData={bettingData}
+        selectedDate={selectedDate}
+        emptyMessage="No games scheduled for the selected day."
       />
     </div>
   );

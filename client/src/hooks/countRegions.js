@@ -1,23 +1,14 @@
-import { useEffect, useState } from "react";
-
 export const countRegions = (games) => {
-  let counts = {};
-  let totalRegions = [];
-  let finalCounts = [];
+  const counts = new Map();
 
-  for (let i = 0; i < games.length; i++) {
-    let region = games[i].bracket;
-    totalRegions.push(region);
+  for (const game of games) {
+    const region = game?.bracket;
+    if (!region) {
+      continue;
+    }
+
+    counts.set(region, (counts.get(region) ?? 0) + 1);
   }
-  totalRegions.sort((a, b) => a - b);
 
-  totalRegions.forEach((el) => {
-    counts[el] = counts[el] ? (counts[el] + 1) : 1;
-  });
-
-
-  const countsSorted = Object.entries(counts).sort(([_, a], [__, b]) => a - b);
-
-
-  return countsSorted;
+  return [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
 };

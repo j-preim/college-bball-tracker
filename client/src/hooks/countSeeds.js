@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
-
 export const countSeeds = (games) => {
-  let counts = [];
-  let totalSeeds = [];
-  let finalCounts = [];
+  const counts = new Map();
 
-  for (let i = 0; i < games.length; i++) {
-    let homeSeed = games[i].home.seed;
-    let awaySeed = games[i].away.seed;
-    totalSeeds.push(homeSeed, awaySeed);
-  }
-  totalSeeds.sort((a, b) => a - b);
+  for (const game of games) {
+    const homeSeed = Number(game?.home?.seed);
+    const awaySeed = Number(game?.away?.seed);
 
-  totalSeeds.forEach((el) => {
-    counts[el] = counts[el] ? (counts[el] + 1) : 1;
-  });
+    if (!Number.isNaN(homeSeed) && homeSeed > 0) {
+      counts.set(homeSeed, (counts.get(homeSeed) ?? 0) + 1);
+    }
 
-  for (let i = 1; i < counts.length; i++) {
-    finalCounts.push([i, counts[i]])
+    if (!Number.isNaN(awaySeed) && awaySeed > 0) {
+      counts.set(awaySeed, (counts.get(awaySeed) ?? 0) + 1);
+    }
   }
 
-  return finalCounts;
+  return [...counts.entries()].sort((a, b) => a[0] - b[0]);
 };

@@ -1,18 +1,16 @@
-const apiUrl = `/api/initBettingLines`;
+const apiUrl = "/bettingLines.json";
 
 export async function getBettingData() {
-  try {
-    const response = await fetch(apiUrl, {
-      method: "GET",
-    });
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
+  const response = await fetch(apiUrl, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
 
-    const json = await response.json();
-    // console.log(json);
-    return json;
-  } catch (error) {
-    console.error(error.message);
+  if (!response.ok) {
+    throw new Error(`Failed to load betting lines (${response.status}).`);
   }
+
+  return response.json();
 }
