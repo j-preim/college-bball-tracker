@@ -6,7 +6,7 @@ function sortGames(games) {
     inprogress: 0,
     scheduled: 1,
     created: 1,
-    time_tbd: 1,
+    "time-tbd": 1,
     if_necessary: 1,
     closed: 2,
     complete: 2,
@@ -62,7 +62,7 @@ export default function ListGames({
       ) : (
         <div className="table-responsive">
           <table className="table table-striped table-hover align-middle">
-            <thead>
+            <thead className="table-head">
               <tr>
                 <th scope="col">Round</th>
                 <th scope="col">Region</th>
@@ -73,7 +73,7 @@ export default function ListGames({
                 <th scope="col">Score</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="table-light">
               {filteredGames.map((game) => (
                 <GameRow
                   key={game.id}

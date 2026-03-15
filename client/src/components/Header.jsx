@@ -71,7 +71,7 @@ export default function Header({
             </li>
           </ul>
 
-          <div className="d-flex align-items-center gap-2">
+          <div className="d-flex align-items-center gap-2 buttons">
 
             {liveGames > 0 && (
               <span className="badge text-bg-warning">
