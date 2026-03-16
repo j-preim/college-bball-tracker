@@ -49,6 +49,23 @@ function normalizeGame(game, round, bracketInfo = {}) {
   const parsedTitle = parseTitleParts(game.title, round.name);
   const bracketName = bracketInfo.name || parsedTitle.region || "National";
 
+  const home = {
+    name: game.home?.name || "TBD Team",
+    alias: game.home?.alias || "",
+    id: game.home?.id || game.home?.source?.id || "",
+    seed: game.home?.seed ?? null,
+  };
+
+  const away = {
+    name: game.away?.name || "TBD Team",
+    alias: game.away?.alias || "",
+    id: game.away?.id || game.away?.source?.id || "",
+    seed: game.away?.seed ?? null,
+  };
+
+  const homePoints = game.home_points ?? game.home?.points ?? 0;
+  const awayPoints = game.away_points ?? game.away?.points ?? 0;
+
   return {
     id: game.id,
     roundId: round.sequence,
@@ -57,6 +74,11 @@ function normalizeGame(game, round, bracketInfo = {}) {
 
     title: game.title,
     matchupLabel: parsedTitle.matchupLabel,
+
+    // old UI-compatible field
+    bracket: bracketName,
+
+    // newer normalized field
     region: bracketName,
 
     status: game.status || "scheduled",
@@ -64,17 +86,26 @@ function normalizeGame(game, round, bracketInfo = {}) {
     scheduledRaw: game.scheduled,
     gameDate: formatGameDate(game.scheduled),
 
-    homeTeam: game.home?.name || "TBD Team",
-    homeAlias: game.home?.alias || "",
-    homeId: game.home?.id || game.home?.source?.id || "",
-    homeSeed: getTeamSeed(game.home),
-    homeScore: game.home_points ?? 0,
+    // old UI-compatible nested team objects
+    home,
+    away,
 
-    awayTeam: game.away?.name || "TBD Team",
-    awayAlias: game.away?.alias || "",
-    awayId: game.away?.id || game.away?.source?.id || "",
-    awaySeed: getTeamSeed(game.away),
-    awayScore: game.away_points ?? 0,
+    // old UI-compatible score fields
+    home_points: homePoints,
+    away_points: awayPoints,
+
+    // newer flattened fields
+    homeTeam: home.name,
+    homeAlias: home.alias,
+    homeId: home.id,
+    homeSeed: home.seed ?? "",
+    homeScore: homePoints,
+
+    awayTeam: away.name,
+    awayAlias: away.alias,
+    awayId: away.id,
+    awaySeed: away.seed ?? "",
+    awayScore: awayPoints,
 
     venueName: game.venue?.name || "",
     venueCity: game.venue?.city || "",
@@ -92,7 +123,6 @@ function normalizeGame(game, round, bracketInfo = {}) {
     trackOnCourt: Boolean(game.track_on_court),
 
     broadcasts: game.broadcasts || [],
-
     raw: game,
   };
 }
