@@ -82,7 +82,7 @@ function normalizeGame(game, round, bracketInfo = {}) {
     status: game.status || "scheduled",
     scheduled: game.scheduled,
     scheduledRaw: game.scheduled,
-    gameDate: formatGameDate(game.scheduled),
+    gameDate: game.scheduled,
 
     // old UI-compatible nested team objects
     home,

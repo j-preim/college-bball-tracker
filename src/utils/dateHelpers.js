@@ -7,13 +7,13 @@ export function formatDisplayDate(dateString) {
     return "";
   }
 
-  const date = new Date(`${dateString}T12:00:00`);
+  const parsed = new Date(dateString);
 
-  if (Number.isNaN(date.getTime())) {
+  if (Number.isNaN(parsed.getTime())) {
     return dateString;
   }
 
-  return date.toLocaleDateString(undefined, {
+  return parsed.toLocaleDateString(undefined, {
     weekday: "short",
     month: "short",
     day: "numeric",
