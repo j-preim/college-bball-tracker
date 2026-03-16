@@ -35,12 +35,13 @@ function formatGameDate(isoString) {
   if (!isoString) return "";
 
   const date = new Date(isoString);
+  const newDate = date.toLocaleDateString();
 
-  if (Number.isNaN(date.getTime())) {
+  if (Number.isNaN(newDate.getTime())) {
     return "";
   }
 
-  return date.toISOString().split("T")[0];
+  return newDate.toISOString().split("T")[0];
 }
 
 function normalizeGame(game, round, bracketInfo = {}) {
@@ -82,7 +83,7 @@ function normalizeGame(game, round, bracketInfo = {}) {
     status: game.status || "scheduled",
     scheduled: game.scheduled,
     scheduledRaw: game.scheduled,
-    gameDate: game.scheduled,
+    gameDate: formatGameDate(game.scheduled),
 
     // old UI-compatible nested team objects
     home,
