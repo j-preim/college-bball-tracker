@@ -1,5 +1,8 @@
 function parseTitleParts(title = "", roundName = "") {
-  const parts = title.split(" - ").map((part) => part.trim()).filter(Boolean);
+  const parts = title
+    .split(" - ")
+    .map((part) => part.trim())
+    .filter(Boolean);
 
   let region = "National";
   let matchupLabel = title;
@@ -35,22 +38,27 @@ function formatGameDate(isoString) {
 
 function formatTipoff(isoString) {
   if (!isoString) return "TBD";
+
   return new Date(isoString).toLocaleTimeString([], {
     hour: "numeric",
     minute: "2-digit",
   });
 }
 
-function normalizeGame(game, round) {
-  const { region, matchupLabel } = parseTitleParts(game.title, round.name);
+function normalizeGame(game, round, bracketInfo = {}) {
+  const parsedTitle = parseTitleParts(game.title, round.name);
+  const bracketName = bracketInfo.name || parsedTitle.region || "National";
 
   return {
     id: game.id,
     roundId: round.sequence,
     roundName: round.name,
+    roundUuid: round.id,
+
     title: game.title,
-    matchupLabel,
-    region,
+    matchupLabel: parsedTitle.matchupLabel,
+    region: bracketName,
+
     status: game.status || "scheduled",
     scheduled: formatTipoff(game.scheduled),
     scheduledRaw: game.scheduled,
@@ -73,10 +81,17 @@ function normalizeGame(game, round) {
     venueState: game.venue?.state || "",
     venueTimezone: game.time_zones?.venue || "",
 
+    bracketId: bracketInfo.id || "",
+    bracketName,
+    bracketRank: bracketInfo.rank ?? null,
+    bracketLocation: bracketInfo.location || "",
+
     coverage: game.coverage || "",
     neutralSite: Boolean(game.neutral_site),
     conferenceGame: Boolean(game.conference_game),
     trackOnCourt: Boolean(game.track_on_court),
+
+    broadcasts: game.broadcasts || [],
 
     raw: game,
   };
@@ -84,22 +99,38 @@ function normalizeGame(game, round) {
 
 function normalizeTournament(data) {
   const rounds = (data.rounds || []).map((round) => {
-    const bracket = round.bracketed
-      const bracketGames = (bracket || []).map((game) =>
-        normalizeGame(game, round)
-    );
+    let brackets = (round.bracketed || []).map((bracketedItem, bracketIndex) => {
+      const bracketInfo = bracketedItem.bracket || {};
+      const bracketGames = (bracketedItem.games || []).map((game) =>
+        normalizeGame(game, round, bracketInfo)
+      );
+
+      return {
+        bracketId: bracketInfo.id || `${round.id}-bracket-${bracketIndex}`,
+        bracketName: bracketInfo.name || round.name,
+        bracketRank: bracketInfo.rank ?? null,
+        bracketLocation: bracketInfo.location || "",
+        bracketGames,
+      };
+    });
+
+    if (brackets.length === 0 && Array.isArray(round.games) && round.games.length) {
+      brackets = [
+        {
+          bracketId: round.id,
+          bracketName: round.name,
+          bracketRank: null,
+          bracketLocation: "",
+          bracketGames: round.games.map((game) => normalizeGame(game, round)),
+        },
+      ];
+    }
 
     return {
       roundId: round.sequence,
       roundName: round.name,
       roundUuid: round.id,
-      brackets: [
-        {
-          bracketId: round.id,
-          bracketName: round.name,
-          bracketGames,
-        },
-      ],
+      brackets,
     };
   });
 
@@ -131,17 +162,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    // const apiKey = process.env.SPORTRADAR_API_KEY;
     const apiUrl = process.env.SPORTRADAR_SCHEDULE_URL;
 
-    // if (!apiKey || !apiUrl) {
-    //   return res.status(500).json({
-    //     message: "Missing SPORTRADAR_API_KEY or SPORTRADAR_SCHEDULE_URL",
-    //   });
-    // }
-
-    // const separator = apiUrl.includes("?") ? "&" : "?";
-    // const requestUrl = `${apiUrl}${separator}api_key=${apiKey}`;
+    if (!apiUrl) {
+      return res.status(500).json({
+        message: "Missing SPORTRADAR_SCHEDULE_URL",
+      });
+    }
 
     const upstreamResponse = await fetch(apiUrl, {
       headers: {
