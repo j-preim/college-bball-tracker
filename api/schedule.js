@@ -43,15 +43,6 @@ function formatGameDate(isoString) {
   return date.toISOString().split("T")[0];
 }
 
-function formatTipoff(isoString) {
-  if (!isoString) return "TBD";
-
-  return new Date(isoString).toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "2-digit",
-  });
-}
-
 function normalizeGame(game, round, bracketInfo = {}) {
   const parsedTitle = parseTitleParts(game.title, round.name);
   const bracketName = bracketInfo.name || parsedTitle.region || "National";
@@ -89,7 +80,7 @@ function normalizeGame(game, round, bracketInfo = {}) {
     region: bracketName,
 
     status: game.status || "scheduled",
-    scheduled: formatTipoff(game.scheduled),
+    scheduled: game.scheduled,
     scheduledRaw: game.scheduled,
     gameDate: formatGameDate(game.scheduled),
 

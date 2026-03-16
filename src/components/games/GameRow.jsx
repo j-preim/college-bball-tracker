@@ -12,6 +12,7 @@ function formatTime(dateTime) {
   return parsed.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
+    timeZoneName: "short"
   });
 }
 
