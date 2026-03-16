@@ -7,13 +7,13 @@ export default function Matchups(props) {
   const [selectedDay, setSelectedDay] = useState("");
 
   useEffect(() => {
-    if (!gameDates.length) {
+    if (!props.gameDates.length) {
       if (selectedDay !== "") {
         setSelectedDay("");
       }
       return;
     }
-    
+
     const bestDate = getBestAvailableDate(
       props.gameDates || [],
       props.todayFormatted || getTodayDateString()
