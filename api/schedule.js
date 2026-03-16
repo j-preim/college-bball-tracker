@@ -35,14 +35,12 @@ function formatGameDate(isoString) {
   if (!isoString) return "";
 
   const date = new Date(isoString);
-  const localeDate = date.toDateString();
-  const isoDate = new Date(`${localeDate}T12:00:00`);
 
-  if (Number.isNaN(isoDate.getTime())) {
+  if (Number.isNaN(date.getTime())) {
     return "";
   }
 
-  return isoDate.toISOString().split("T")[0];
+  return date.toISOString().split("T")[0];
 }
 
 function normalizeGame(game, round, bracketInfo = {}) {
