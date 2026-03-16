@@ -4,18 +4,21 @@ import CountTables from "../components/CountTables";
 import { getBestAvailableDate, getTodayDateString } from "../utils/dateHelpers";
 
 export default function Matchups(props) {
-  const [selectedDay, setSelectedDay] = useState("");
-
-  useEffect(() => {
-    const bestDate = getBestAvailableDate(
+  const [selectedDay, setSelectedDay] = useState(getBestAvailableDate(
       props.gameDates || [],
       props.todayFormatted || getTodayDateString()
-    );
+    ));
 
-    if (bestDate && bestDate !== selectedDay) {
-      setSelectedDay(bestDate);
-    }
-  }, [props.gameDates, props.todayFormatted, selectedDay]);
+  // useEffect(() => {
+  //   const bestDate = getBestAvailableDate(
+  //     props.gameDates || [],
+  //     props.todayFormatted || getTodayDateString()
+  //   );
+
+  //   if (bestDate && bestDate !== selectedDay) {
+  //     setSelectedDay(bestDate);
+  //   }
+  // }, [props.gameDates, props.todayFormatted, selectedDay]);
 
   function handleInputChange(e) {
     setSelectedDay(e.target.value);
