@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { formatTournamentDateTime } from "../utils/dateHelpers";
 
 function normalizeRoundLabel(roundName) {
   if (!roundName) return "Round";
@@ -31,18 +32,6 @@ function getStatusLabel(game) {
   if (game?.status === "inprogress") return "LIVE";
   if (game?.status === "closed" || game?.status === "complete") return "FINAL";
   return "UPCOMING";
-}
-
-function formatTipoff(value) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "TBD";
-
-  return date.toLocaleString([], {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
 }
 
 function groupRounds(roundsData) {
@@ -100,7 +89,7 @@ function BracketGameCard({ game }) {
         </div>
 
         <div className="small text-body-secondary mb-2">
-          {formatTipoff(game?.scheduledRaw || game?.scheduled)}
+          {formatTournamentDateTime(game?.scheduledRaw || game?.scheduled)}
         </div>
 
         <div

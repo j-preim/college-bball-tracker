@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListGames from "../components/games/ListGames";
 import CountTables from "../components/CountTables";
-import { getBestAvailableDate, getTodayDateString, formatDisplayDate } from "../utils/dateHelpers";
+import { getBestAvailableDate, formatDisplayDate } from "../utils/dateHelpers";
 
 export default function Matchups(props) {
   const [selectedDay, setSelectedDay] = useState("");
@@ -23,7 +23,7 @@ export default function Matchups(props) {
     if (!selectedDay || !selectedStillExists) {
       setSelectedDay(bestDate);
     }
-  }, [props.gameDates, props.todayFormatted, selectedDay]);
+  }, [props.gameDates, selectedDay]);
 
   function handleInputChange(e) {
     setSelectedDay(e.target.value);

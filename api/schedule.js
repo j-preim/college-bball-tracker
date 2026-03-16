@@ -1,3 +1,5 @@
+import { toTournamentDateKey } from "../src/utils/dateHelpers.js";
+
 function parseTitleParts(title = "", roundName = "") {
   const parts = title
     .split(" - ")
@@ -33,14 +35,7 @@ function getTeamSeed(team = {}) {
 
 function formatGameDate(isoString) {
   if (!isoString) return "";
-
-  const date = new Date(isoString);
-
-  if (Number.isNaN(date.getTime())) {
-    return "";
-  }
-
-  return date.toISOString().split("T")[0];
+  return toTournamentDateKey(isoString);
 }
 
 function normalizeGame(game, round, bracketInfo = {}) {

@@ -1,20 +1,7 @@
 import TeamPopoverButton from "./TeamPopoverButton";
 import ScoreDisplay from "./ScoreDisplay";
 import { getBettingInfo } from "../../hooks/getBettingInfo";
-
-function formatTime(dateTime) {
-  const parsed = new Date(dateTime);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return "--:--";
-  }
-
-  return parsed.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short"
-  });
-}
+import { formatTournamentTime } from "../../utils/dateHelpers";
 
 function getRowClassName(game) {
   if (game.status === "inprogress") {
@@ -56,7 +43,7 @@ export default function GameRow({ game, bettingData }) {
     <tr className={getRowClassName(game)}>
       <td>{game.roundName ?? "-"}</td>
       <td>{game.bracket ?? "-"}</td>
-      <td>{formatTime(game.scheduledRaw || game.scheduled)}</td>
+      <td>{formatTournamentTime(game.scheduledRaw || game.scheduled)}</td>
       <td className={getTeamCellClass(game, "home")}>
         <TeamPopoverButton
           team={game.home}

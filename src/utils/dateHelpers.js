@@ -1,5 +1,42 @@
+export const TOURNAMENT_TIME_ZONE = "America/Chicago";
+
+function getPartsInTimeZone(value, timeZone = TOURNAMENT_TIME_ZONE) {
+  const date = value instanceof Date ? value : new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+
+  const year = parts.find((part) => part.type === "year")?.value;
+  const month = parts.find((part) => part.type === "month")?.value;
+  const day = parts.find((part) => part.type === "day")?.value;
+
+  if (!year || !month || !day) {
+    return null;
+  }
+
+  return { year, month, day };
+}
+
+export function toTournamentDateKey(value) {
+  const parts = getPartsInTimeZone(value);
+
+  if (!parts) {
+    return "";
+  }
+
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
 export function getTodayDateString() {
-  return new Date().toLocaleDateString();
+  return toTournamentDateKey(new Date());
 }
 
 export function formatDisplayDate(dateString) {
@@ -7,16 +44,52 @@ export function formatDisplayDate(dateString) {
     return "";
   }
 
-  const date = new Date(`${dateString}T12:00:00`);
+  const [year, month, day] = dateString.split("-").map(Number);
 
-  if (Number.isNaN(date.getTime())) {
+  if (!year || !month || !day) {
     return dateString;
   }
 
-  return date.toLocaleDateString(undefined, {
+  // Noon UTC avoids accidental date rollovers when formatting
+  const stableDate = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
+
+  return stableDate.toLocaleDateString(undefined, {
+    timeZone: "UTC",
     weekday: "short",
     month: "short",
     day: "numeric",
+  });
+}
+
+export function formatTournamentTime(dateTime) {
+  const parsed = new Date(dateTime);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return "--:--";
+  }
+
+  return parsed.toLocaleTimeString([], {
+    timeZone: TOURNAMENT_TIME_ZONE,
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+}
+
+export function formatTournamentDateTime(dateTime) {
+  const parsed = new Date(dateTime);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return "TBD";
+  }
+
+  return parsed.toLocaleString([], {
+    timeZone: TOURNAMENT_TIME_ZONE,
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
   });
 }
 
@@ -25,7 +98,7 @@ export function getBestAvailableDate(gameDates = []) {
     return "";
   }
 
-  const todayKey = new Date().toISOString().split("T")[0];
+  const todayKey = getTodayDateString();
 
   if (gameDates.includes(todayKey)) {
     return todayKey;
@@ -36,37 +109,6 @@ export function getBestAvailableDate(gameDates = []) {
 
   return nextUpcoming || sortedDates.at(-1) || gameDates[0];
 }
-
-// export function getBestAvailableDate(gameDates = [], preferredDate = getTodayDateString()) {
-//   if (!Array.isArray(gameDates) || gameDates.length === 0) {
-//     return "";
-//   }
-
-//   if (gameDates.includes(preferredDate)) {
-//     return preferredDate;
-//   }
-
-//   const parsed = gameDates
-//     .map((date) => ({
-//       label: date,
-//       value: new Date(date).getTime(),
-//     }))
-//     .filter((item) => !Number.isNaN(item.value))
-//     .sort((a, b) => a.value - b.value);
-
-//   if (parsed.length === 0) {
-//     return gameDates[0] ?? "";
-//   }
-
-//   const now = new Date(preferredDate).getTime();
-//   const nextUpcoming = parsed.find((item) => item.value >= now);
-
-//   if (nextUpcoming) {
-//     return nextUpcoming.label;
-//   }
-
-//   return parsed[parsed.length - 1]?.label ?? gameDates[0] ?? "";
-// }
 
 export function formatStatusLabel(status = "") {
   switch (status) {
