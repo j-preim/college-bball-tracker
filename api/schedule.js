@@ -84,8 +84,9 @@ function normalizeGame(game, round) {
 
 function normalizeTournament(data) {
   const rounds = (data.rounds || []).map((round) => {
-    const bracketGames = (round.games || []).map((game) =>
-      normalizeGame(game, round)
+    const bracket = round.bracketed
+      const bracketGames = (bracket || []).map((game) =>
+        normalizeGame(game, round)
     );
 
     return {
