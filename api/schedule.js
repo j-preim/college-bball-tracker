@@ -34,7 +34,7 @@ function getTeamSeed(team = {}) {
 function formatGameDate(isoString) {
   if (!isoString) return "";
 
-  const date = isoString.toLocaleDateString();
+  const date = new Date(isoString.toLocaleDateString());
   const isoDate = new Date(`${date}T12:00:00`);
 
   if (Number.isNaN(isoDate.getTime())) {
