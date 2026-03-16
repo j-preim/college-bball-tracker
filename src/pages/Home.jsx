@@ -1,9 +1,9 @@
 import ListGames from "../components/games/ListGames";
-import { getBestAvailableDate, getTodayDateString } from "../utils/dateHelpers";
+import { getBestAvailableDate, getTodayDateString, formatDisplayDate } from "../utils/dateHelpers";
 
 export default function Home(props) {
   const todayFormatted = props.todayFormatted || getTodayDateString();
-  const selectedDate = getBestAvailableDate(props.gameDates || [], todayFormatted);
+  const selectedDate = getBestAvailableDate(props.gameDates || []);
   const isFallbackDate = Boolean(selectedDate) && selectedDate !== todayFormatted;
 
   if (props.loading) {
@@ -38,7 +38,7 @@ export default function Home(props) {
       ) : null}
 
       <ListGames
-        title={selectedDate ? `Games for ${selectedDate}` : "Tournament games"}
+        title={selectedDate ? `Games for ${formatDisplayDate(selectedDate)}` : "Tournament games"}
         gamesData={props.gamesData || []}
         bettingData={props.bettingData || []}
         selectedDate={selectedDate}

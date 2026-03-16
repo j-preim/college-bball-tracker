@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListGames from "../components/games/ListGames";
 import CountTables from "../components/CountTables";
-import { getBestAvailableDate, getTodayDateString } from "../utils/dateHelpers";
+import { getBestAvailableDate, getTodayDateString, formatDisplayDate } from "../utils/dateHelpers";
 
 export default function Matchups(props) {
   const [selectedDay, setSelectedDay] = useState("");
@@ -15,8 +15,7 @@ export default function Matchups(props) {
     }
 
     const bestDate = getBestAvailableDate(
-      props.gameDates || [],
-      props.todayFormatted || getTodayDateString()
+      props.gameDates || []
     );
 
     const selectedStillExists = props.gameDates.includes(selectedDay);
@@ -58,14 +57,14 @@ export default function Matchups(props) {
         >
           {props.gameDates?.map((date) => (
             <option key={date} value={date}>
-              {date}
+              {formatDisplayDate(date)}
             </option>
           ))}
         </select>
       </div>
 
       <ListGames
-        title={selectedDay ? `Games for ${selectedDay}` : "Games"}
+        title={selectedDay ? `Games for ${formatDisplayDate(selectedDay)}` : "Games"}
         gamesData={props.gamesData || []}
         bettingData={props.bettingData || []}
         selectedDate={selectedDay}

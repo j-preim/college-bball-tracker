@@ -33,7 +33,14 @@ function getTeamSeed(team = {}) {
 
 function formatGameDate(isoString) {
   if (!isoString) return "";
-  return new Date(isoString).toLocaleDateString();
+
+  const date = new Date(isoString);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  return date.toISOString().split("T")[0];
 }
 
 function formatTipoff(isoString) {
