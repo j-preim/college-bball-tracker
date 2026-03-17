@@ -17,9 +17,6 @@ export default function CountTables({ gamesData = [], selectedDay = "" }) {
   return (
     <div className="row g-4">
       <div className="col-12 col-lg-6">
-        <div className="card shadow-sm h-100">
-          <div className="card-header">Seed count</div>
-          <div className="card-body p-0">
             <table className="table table-striped table-sm mb-0">
               <thead className="table-head">
                 <tr>
@@ -44,14 +41,9 @@ export default function CountTables({ gamesData = [], selectedDay = "" }) {
                 )}
               </tbody>
             </table>
-          </div>
-        </div>
       </div>
 
       <div className="col-12 col-lg-6">
-        <div className="card shadow-sm h-100">
-          <div className="card-header">Region count</div>
-          <div className="card-body p-0">
             <table className="table table-striped table-sm mb-0">
               <thead className="table-head">
                 <tr>
@@ -76,8 +68,6 @@ export default function CountTables({ gamesData = [], selectedDay = "" }) {
                 )}
               </tbody>
             </table>
-          </div>
-        </div>
       </div>
     </div>
   );
