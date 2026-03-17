@@ -15,49 +15,31 @@ function isFinalStatus(status = "") {
 
 function getGameTeams(game) {
   const homeTeam =
-    game?.homeTeam ||
     game?.home ||
-    game?.teams?.home ||
-    game?.competitors?.find((team) => team.homeAway === "home") ||
     null;
 
   const awayTeam =
-    game?.awayTeam ||
     game?.away ||
-    game?.teams?.away ||
-    game?.competitors?.find((team) => team.homeAway === "away") ||
     null;
 
   return { homeTeam, awayTeam };
 }
 
 function getTeamId(team) {
-  return String(
-    team?.id ??
-      team?.team?.id ??
-      team?.uid ??
-      ""
-  );
+  return String(team?.id ?? "");
 }
 
 function getTeamName(team) {
-  return (
-    team?.name ||
-    team?.displayName ||
-    team?.team?.displayName ||
-    team?.team?.name ||
-    ""
-  );
+  return team?.name || team?.alias || "";
 }
 
-function getTeamScore(team) {
-  const raw =
-    team?.score ??
-    team?.points ??
-    team?.team?.score ??
-    null;
+function getHomeScore(game) {
+  const score = Number(game?.home_points ?? game?.homeScore ?? NaN);
+  return Number.isFinite(score) ? score : null;
+}
 
-  const score = Number(raw);
+function getAwayScore(game) {
+  const score = Number(game?.away_points ?? game?.awayScore ?? NaN);
   return Number.isFinite(score) ? score : null;
 }
 
@@ -67,9 +49,8 @@ function inferWinnerId(game) {
   if (game?.winnerId) return String(game.winnerId);
 
   const { homeTeam, awayTeam } = getGameTeams(game);
-
-  const homeScore = getTeamScore(homeTeam);
-  const awayScore = getTeamScore(awayTeam);
+  const homeScore = getHomeScore(game);
+  const awayScore = getAwayScore(game);
 
   if (homeScore == null || awayScore == null) return "";
 
@@ -79,41 +60,40 @@ function inferWinnerId(game) {
   return "";
 }
 
-function inferRoundKey(game) {
-  return String(
-    game?.roundKey ??
-      game?.round ??
-      game?.tournamentRound ??
-      game?.bracketRound ??
-      ""
-  );
-}
-
 function gameContainsTeam(game, teamId) {
-  const { homeTeam, awayTeam } = getGameTeams(game);
-
   return (
-    getTeamId(homeTeam) === String(teamId) ||
-    getTeamId(awayTeam) === String(teamId)
+    String(game?.homeId) === String(teamId) ||
+    String(game?.awayId) === String(teamId) ||
+    String(game?.home?.id) === String(teamId) ||
+    String(game?.away?.id) === String(teamId)
   );
 }
 
 function getOpponentFromGame(game, pickedTeamId) {
   const { homeTeam, awayTeam } = getGameTeams(game);
 
-  if (getTeamId(homeTeam) === String(pickedTeamId)) return awayTeam;
-  if (getTeamId(awayTeam) === String(pickedTeamId)) return homeTeam;
+  if (String(homeTeam?.id) === String(pickedTeamId)) return awayTeam;
+  if (String(awayTeam?.id) === String(pickedTeamId)) return homeTeam;
 
   return null;
+}
+
+function matchesRound(game, pick) {
+  if (pick.roundId != null) {
+    return Number(game?.roundId) === Number(pick.roundId);
+  }
+
+  if (pick.roundName) {
+    return String(game?.roundName) === String(pick.roundName);
+  }
+
+  return true;
 }
 
 export function resolveSurvivorPick(pick, games = []) {
   const matchingGame = games.find((game) => {
     if (!gameContainsTeam(game, pick.teamId)) return false;
-
-    if (!pick.roundKey) return true;
-
-    return inferRoundKey(game) === String(pick.roundKey);
+    return matchesRound(game, pick);
   });
 
   if (!matchingGame) {
@@ -161,7 +141,7 @@ export function resolveSurvivorEntry(entry, games = []) {
     ...entry,
     picks: resolvedPicks,
     isActive: !losingPick,
-    eliminatedAt: losingPick?.roundKey ?? null,
+    eliminatedAt: losingPick?.roundName || losingPick?.roundId || null,
     currentPick,
   };
 }

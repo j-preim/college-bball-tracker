@@ -65,8 +65,8 @@ function PickHistory({ picks = [] }) {
         </thead>
         <tbody>
           {picks.map((pick, index) => (
-            <tr key={`${pick.roundKey}-${pick.teamId}-${index}`}>
-              <td style={tdStyle}>{pick.roundKey || "—"}</td>
+            <tr key={`${pick.roundId || pick.roundName}-${pick.teamId}-${index}`}>
+              <td style={tdStyle}>{pick.roundName || pick.roundId || "—"}</td>
               <td style={tdStyle}>{pick.teamName || "—"}</td>
               <td style={tdStyle}>{pick.opponentName || "—"}</td>
               <td style={tdStyle}>
@@ -249,7 +249,7 @@ export default function Entries() {
                 <div>
                   <div style={{ fontSize: 12, color: "#6b7280" }}>Current Round</div>
                   <div style={{ fontWeight: 600 }}>
-                    {entry.currentPick?.roundKey || "—"}
+                    {entry.currentPick?.roundName || entry.currentPick?.roundId || "—"}
                   </div>
                 </div>
 
