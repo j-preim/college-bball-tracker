@@ -62,10 +62,7 @@ function PickHistory({ picks = [] }) {
 
   return (
     <div style={{ marginTop: 16, overflowX: "auto" }}>
-      <table
-        className="table table-striped"
-        style={{ width: "100%", borderCollapse: "collapse" }}
-      >
+      <table className="table table-striped" style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead className="table-head">
           <tr>
             <th style={thStyle}>Date</th>
@@ -79,12 +76,10 @@ function PickHistory({ picks = [] }) {
             <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
               <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
               <td style={tdStyle}>
-                <span className="seed">{pick.teamName}</span>&nbsp;
-                {pick.pickedSeed}
+                <span className="seed">{pick.pickedSeed}</span>&nbsp;{pick.teamName}
               </td>
               <td style={tdStyle}>
-                <span className="seed">{pick.teamName}</span>&nbsp;
-                {pick.pickedSeed}
+                <span className="seed">{pick.opponentSeed}</span>&nbsp;{pick.opponentName}
               </td>
               <td style={tdStyle}>
                 <StatusBadge status={pick.result} />
@@ -262,16 +257,14 @@ export default function Entries() {
                 <div>
                   <div style={{ fontSize: 12 }}>Current Pick</div>
                   <div style={{ fontWeight: 600 }}>
-                    <span className="seed">{pick.teamName}</span>&nbsp;
-                    {pick.pickedSeed}
+                    <span className="seed">{entry.currentPick?.pickedSeed}</span>&nbsp;{entry.currentPick?.teamName}
                   </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: 12 }}>Opponent</div>
                   <div style={{ fontWeight: 600 }}>
-                    <span className="seed">{pick.teamName}</span>&nbsp;
-                    {pick.pickedSeed}
+                    <span className="seed">{entry.currentPick?.opponentSeed}</span>&nbsp;{entry.currentPick?.opponentName}
                   </div>
                 </div>
                 <div>
