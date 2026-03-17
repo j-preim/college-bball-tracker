@@ -6,28 +6,6 @@ import {
 } from "../utils/entries";
 import { useTournamentData } from "../hooks/useTournamentData";
 
-const sectionCardStyle = {
-  border: "1px solid #e5e7eb",
-  borderRadius: 12,
-  padding: 16,
-  background: "#565656",
-  color: "#ffffff",
-};
-
-const thStyle = {
-  textAlign: "left",
-  padding: "10px 8px",
-  borderBottom: "1px solid #e5e7eb",
-  fontSize: 13,
-  whiteSpace: "nowrap",
-};
-
-const tdStyle = {
-  padding: "10px 8px",
-  borderBottom: "1px solid #f3f4f6",
-  fontSize: 14,
-};
-
 function StatusBadge({ status }) {
   const normalized = String(status).toLowerCase();
 
@@ -104,6 +82,28 @@ function PickHistory({ picks = [] }) {
   );
 }
 
+const sectionCardStyle = {
+  border: "1px solid #e5e7eb",
+  borderRadius: 12,
+  padding: 16,
+  background: "#565656",
+  color: "#ffffff",
+};
+
+const thStyle = {
+  textAlign: "left",
+  padding: "10px 8px",
+  borderBottom: "1px solid #e5e7eb",
+  fontSize: 13,
+  whiteSpace: "nowrap",
+};
+
+const tdStyle = {
+  padding: "10px 8px",
+  borderBottom: "1px solid #f3f4f6",
+  fontSize: 14,
+};
+
 export default function Entries() {
   const {
     games,
@@ -120,6 +120,28 @@ export default function Entries() {
   const summary = useMemo(() => {
     return getSurvivorSummary(resolvedEntries);
   }, [resolvedEntries]);
+
+  const sectionCardStyle = {
+  border: "1px solid #e5e7eb",
+  borderRadius: 12,
+  padding: 16,
+  background: "#565656",
+  color: "#ffffff",
+};
+
+const thStyle = {
+  textAlign: "left",
+  padding: "10px 8px",
+  borderBottom: "1px solid #e5e7eb",
+  fontSize: 13,
+  whiteSpace: "nowrap",
+};
+
+const tdStyle = {
+  padding: "10px 8px",
+  borderBottom: "1px solid #f3f4f6",
+  fontSize: 14,
+};
 
   if (loading) {
     return (
