@@ -93,12 +93,12 @@ export default function Header({
               </button>
             )}
 
-            <Link
+            {/* <Link
               className="btn btn-sm btn-outline-light"
               to={authCookie ? "/entries" : "/auth"}
             >
               {authCookie ? "My Picks" : "Login"}
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
