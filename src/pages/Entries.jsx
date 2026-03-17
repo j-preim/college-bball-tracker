@@ -221,6 +221,7 @@ export default function Entries() {
                   alignItems: "center",
                   gap: 12,
                   flexWrap: "wrap",
+                  borderBottom: "1px solid #f3f4f6"
                 }}
               >
                 {entry.hasValidationErrors ? (
@@ -239,7 +240,7 @@ export default function Entries() {
                     picks invalid.
                   </div>
                 ) : null}
-                <div className="entry-name">
+                <div>
                   <h4 style={{ margin: 0 }}>{entry.name}</h4>
                 </div>
 
