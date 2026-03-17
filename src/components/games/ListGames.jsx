@@ -55,7 +55,7 @@ export default function ListGames({
 }, [filteredGames, bettingData]);
 
   return (
-    <section className="mt-3">
+    <section className="mt-2">
       <div className="d-flex justify-content-between align-items-center mb-2">
           <div className="text-body-secondary small">
             Hover over team names for more info
