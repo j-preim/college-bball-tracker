@@ -65,7 +65,7 @@ export default function TeamPopoverButton({ team, bracketRank }) {
     <button
       ref={buttonRef}
       type="button"
-      className="btn btn-link btn-sm p-0 text-decoration-none team-popover-button"
+      className="btn btn-sm p-0 text-decoration-none team-popover-button"
     >
       <span className="seed">
         {team.seed ?? "-"}
