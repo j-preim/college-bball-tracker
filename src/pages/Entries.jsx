@@ -239,7 +239,7 @@ export default function Entries() {
                     picks invalid.
                   </div>
                 ) : null}
-                <div>
+                <div style={{ border-bottom: "1px solid white"}}>
                   <h4 style={{ margin: 0 }}>{entry.name}</h4>
                 </div>
 

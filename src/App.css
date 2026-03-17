@@ -45,7 +45,7 @@ body {
 }
 
 .table {
-  border: .1rem solid rgb(114, 114, 114);
+  border: .1rem solid #f3f4f6;
   width: 100%;
   margin: auto;
   opacity: 0.9;
