@@ -52,7 +52,7 @@ function formatGameDate(isoString) {
 }
 
 function parseRegion(name) {
-  const regionName = name.split("")[0];
+  const regionName = name.split(" ")[0];
   return regionName;
 }
 
@@ -86,8 +86,8 @@ function normalizeGame(game, round, bracketInfo = {}) {
     title: game.title,
     matchupLabel: parsedTitle.matchupLabel,
 
-    bracket: bracketName,
-    region: bracketName,
+    bracket: parseRegion(bracketName),
+    region: parseRegion(bracketName),
 
     status: game.status || "scheduled",
     scheduled: game.scheduled,
