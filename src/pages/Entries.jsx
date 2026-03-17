@@ -4,6 +4,12 @@ import { resolveSurvivorEntries, getSurvivorSummary } from "../utils/entries";
 import { useTournamentData } from "../hooks/useTournamentData";
 import { formatDisplayDate } from "../utils/dateHelpers";
 
+function formatTeamWithSeed(name, seed) {
+  if (!name) return "—";
+  if (seed == null || seed === "") return name;
+  return `(${seed}) ${name}`;
+}
+
 function StatusBadge({ status }) {
   const normalized = String(status).toLowerCase();
 
@@ -70,8 +76,12 @@ function PickHistory({ picks = [] }) {
           {picks.map((pick, index) => (
             <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
               <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
-              <td style={tdStyle}>{pick.teamName || "—"}</td>
-              <td style={tdStyle}>{pick.opponentName || "—"}</td>
+              <td style={tdStyle}>
+                {formatTeamWithSeed(pick.teamName, pick.pickedSeed)}
+              </td>
+              <td style={tdStyle}>
+                {formatTeamWithSeed(pick.opponentName, pick.opponentSeed)}
+              </td>
               <td style={tdStyle}>
                 <StatusBadge status={pick.result} />
               </td>
@@ -83,7 +93,7 @@ function PickHistory({ picks = [] }) {
                     <StatusBadge status="invalid" />
                     {pick.validationIssues.map((issue) => (
                       <div
-                        key={issue.code}
+                        key={`${issue.code}-${issue.message}`}
                         style={{ color: "#92400e", fontSize: 12 }}
                       >
                         {issue.message}
@@ -265,14 +275,20 @@ export default function Entries() {
                 <div>
                   <div style={{ fontSize: 12 }}>Current Pick</div>
                   <div style={{ fontWeight: 600 }}>
-                    {entry.currentPick?.teamName || "—"}
+                    {formatTeamWithSeed(
+                      entry.currentPick?.teamName,
+                      entry.currentPick?.pickedSeed,
+                    )}
                   </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: 12 }}>Opponent</div>
                   <div style={{ fontWeight: 600 }}>
-                    {entry.currentPick?.opponentName || "—"}
+                    {formatTeamWithSeed(
+                      entry.currentPick?.opponentName,
+                      entry.currentPick?.opponentSeed,
+                    )}
                   </div>
                 </div>
                 <div>

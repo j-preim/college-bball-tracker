@@ -1,7 +1,7 @@
 export const survivorEntries = [
   {
     id: "entry-1",
-    name: "Entry 1",
+    name: "Ponyboiz 1",
     contest: "Splash NCAAB Survivor",
     picks: [
       {
@@ -14,14 +14,27 @@ export const survivorEntries = [
   },
   {
     id: "entry-2",
-    name: "Entry 2",
+    name: "Ponyboiz 2",
     contest: "Splash NCAAB Survivor",
     picks: [
       {
         pickDate: "2026-03-19",
-        teamId: "fae4855b-1b64-4b40-a632-9ed345e1e952",
-        teamName: "Kansas Jayhawks",
-        pickedAt: "2026-03-16T18:05:00",
+        teamId: "a311188e-1259-4fda-b0ea-c47cb52694b1",
+        teamName: "High Point Panthers",
+        pickedAt: "2026-03-17T18:05:00",
+      },
+    ],
+  },
+  {
+    id: "entry-3",
+    name: "Ponyboiz 3",
+    contest: "Splash NCAAB Survivor",
+    picks: [
+      {
+        pickDate: "2026-03-19",
+        teamId: "c70c23c4-ab09-4797-a1af-792c848ab17f",
+        teamName: "Arkansas Razorbacks",
+        pickedAt: "2026-03-17T18:05:00",
       },
     ],
   },

@@ -172,6 +172,8 @@ export function resolveEntryPick(pick, games = []) {
       ...pick,
       gameId: null,
       opponentName: "",
+      pickedSeed: null,
+      opponentSeed: null,
       result: "pending",
       statusLabel: "No matchup found",
       gameStatus: "",
@@ -179,12 +181,18 @@ export function resolveEntryPick(pick, games = []) {
   }
 
   const opponent = getOpponentFromGame(matchingGame, pick?.teamId);
+  const { homeTeam, awayTeam } = getGameTeams(matchingGame);
+
+  const pickedTeam =
+    String(homeTeam?.id) === String(pick?.teamId) ? homeTeam : awayTeam;
 
   if (!isFinalStatus(matchingGame.status)) {
     return {
       ...pick,
       gameId: matchingGame.id ?? null,
       opponentName: getTeamName(opponent),
+      pickedSeed: pickedTeam?.seed ?? null,
+      opponentSeed: opponent?.seed ?? null,
       result: "pending",
       statusLabel: "Pending",
       gameStatus: matchingGame.status,
@@ -198,6 +206,8 @@ export function resolveEntryPick(pick, games = []) {
     ...pick,
     gameId: matchingGame.id ?? null,
     opponentName: getTeamName(opponent),
+    pickedSeed: pickedTeam?.seed ?? null,
+    opponentSeed: opponent?.seed ?? null,
     result: won ? "won" : "lost",
     statusLabel: won ? "Advanced" : "Eliminated",
     gameStatus: matchingGame.status,
