@@ -35,7 +35,6 @@ export default function ListGames({
   bettingData = EMPTY_ARRAY,
   selectedDate = "",
   emptyMessage = "No games found.",
-  title = "",
 }) {
   const filteredGames = useMemo(() => {
     const games = selectedDate
@@ -58,11 +57,8 @@ export default function ListGames({
   return (
     <section className="mt-3">
       <div className="d-flex justify-content-between align-items-center mb-2">
-        <div>
-          {title ? <h4 className="mb-1">{title}</h4> : null}
           <div className="text-body-secondary small">
             Hover over team names for more info
-          </div>
         </div>
 
         <div className="small text-body-secondary">

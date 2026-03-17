@@ -74,7 +74,6 @@ export default function Matchups(props) {
       </div>
 
       <ListGames
-        title={listTitle}
         gamesData={gamesData}
         bettingData={bettingData}
         selectedDate={selectedDay}
