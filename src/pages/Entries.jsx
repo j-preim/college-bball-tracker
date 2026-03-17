@@ -222,7 +222,7 @@ export default function Entries() {
                   gap: 12,
                   flexWrap: "wrap",
                   borderBottom: "1px solid #f3f4f6",
-                  borderSpacing: 3,
+                  borderSpacing: "5px",
                 }}
               >
                 {entry.hasValidationErrors ? (
