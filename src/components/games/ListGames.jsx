@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import GameRow from "./GameRow";
+import { getBettingInfo } from "../../hooks/getBettingInfo";
 
 function sortGames(games) {
   const statusPriority = {
@@ -27,9 +28,11 @@ function sortGames(games) {
   });
 }
 
+const EMPTY_ARRAY = [];
+
 export default function ListGames({
-  gamesData = [],
-  bettingData = [],
+  gamesData = EMPTY_ARRAY,
+  bettingData = EMPTY_ARRAY,
   selectedDate = "",
   emptyMessage = "No games found.",
   title = "",
@@ -41,6 +44,16 @@ export default function ListGames({
 
     return sortGames(games);
   }, [gamesData, selectedDate]);
+
+  const bettingInfoByGameId = useMemo(() => {
+    const map = new Map();
+
+    for (const game of filteredGames) {
+      map.set(game.id, getBettingInfo(game.id, bettingData) || "-");
+    }
+
+    return map;
+  }, [filteredGames, bettingData]);
 
   return (
     <section className="mt-3">
@@ -78,7 +91,7 @@ export default function ListGames({
                 <GameRow
                   key={game.id}
                   game={game}
-                  bettingData={bettingData}
+                  bettingInfo={bettingInfoByGameId.get(game.id) || "-"}
                 />
               ))}
             </tbody>

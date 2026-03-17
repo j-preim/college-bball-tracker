@@ -1,7 +1,6 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import TeamPopoverButton from "./TeamPopoverButton";
 import ScoreDisplay from "./ScoreDisplay";
-import { getBettingInfo } from "../../hooks/getBettingInfo";
 import { formatTournamentTime } from "../../utils/dateHelpers";
 
 function getRowClassName(game) {
@@ -39,11 +38,7 @@ function getTeamCellClass(game, side) {
     : "border border-danger table-danger";
 }
 
-function GameRow({ game, bettingData }) {
-  const bettingInfo = useMemo(() => {
-  return getBettingInfo(game.id, bettingData);
-}, [game.id, bettingData]);
-
+function GameRow({ game, bettingInfo }) {
   return (
     <tr className={getRowClassName(game)}>
       <td>{game.roundName ?? "-"}</td>

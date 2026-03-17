@@ -1,33 +1,47 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ListGames from "../components/games/ListGames";
 import CountTables from "../components/CountTables";
 import { getBestAvailableDate, formatDisplayDate } from "../utils/dateHelpers";
 
+const EMPTY_ARRAY = [];
+
 export default function Matchups(props) {
   const [selectedDay, setSelectedDay] = useState("");
 
+  const gameDates = props.gameDates || EMPTY_ARRAY;
+  const gamesData = props.gamesData || EMPTY_ARRAY;
+  const bettingData = props.bettingData || EMPTY_ARRAY;
+
   useEffect(() => {
-    if (!props.gameDates.length) {
-      if (selectedDay !== "") {
-        setSelectedDay("");
-      }
+    if (!gameDates.length) {
+      setSelectedDay((current) => (current !== "" ? "" : current));
       return;
     }
 
-    const bestDate = getBestAvailableDate(
-      props.gameDates || []
-    );
+    const selectedStillExists = gameDates.includes(selectedDay);
 
-    const selectedStillExists = props.gameDates.includes(selectedDay);
-
-    if (!selectedDay || !selectedStillExists) {
-      setSelectedDay(bestDate);
+    if (selectedStillExists) {
+      return;
     }
-  }, [props.gameDates, selectedDay]);
 
-  function handleInputChange(e) {
+    const bestDate = getBestAvailableDate(gameDates);
+    setSelectedDay((current) => (current !== bestDate ? bestDate : current));
+  }, [gameDates, selectedDay]);
+
+  const handleInputChange = useCallback((e) => {
     setSelectedDay(e.target.value);
-  }
+  }, []);
+
+  const dateOptions = useMemo(() => {
+    return gameDates.map((date) => ({
+      value: date,
+      label: formatDisplayDate(date),
+    }));
+  }, [gameDates]);
+
+  const listTitle = useMemo(() => {
+    return selectedDay ? `Games for ${formatDisplayDate(selectedDay)}` : "Games";
+  }, [selectedDay]);
 
   if (props.loading) {
     return (
@@ -53,26 +67,26 @@ export default function Matchups(props) {
           className="form-select"
           value={selectedDay}
           onChange={handleInputChange}
-          disabled={!props.gameDates?.length}
+          disabled={!gameDates.length}
         >
-          {props.gameDates?.map((date) => (
-            <option key={date} value={date}>
-              {formatDisplayDate(date)}
+          {dateOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
       </div>
 
       <ListGames
-        title={selectedDay ? `Games for ${formatDisplayDate(selectedDay)}` : "Games"}
-        gamesData={props.gamesData || []}
-        bettingData={props.bettingData || []}
+        title={listTitle}
+        gamesData={gamesData}
+        bettingData={bettingData}
         selectedDate={selectedDay}
         emptyMessage="No games found for that date."
       />
 
       <div className="mt-4">
-        <CountTables gamesData={props.gamesData || []} selectedDay={selectedDay} />
+        <CountTables gamesData={gamesData} selectedDay={selectedDay} />
       </div>
     </div>
   );
