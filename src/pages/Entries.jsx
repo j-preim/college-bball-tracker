@@ -71,7 +71,7 @@ function PickHistory({ picks = [] }) {
             <th style={thStyle}>Result</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-light">
           {picks.map((pick, index) => (
             <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
               <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
