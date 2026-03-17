@@ -245,10 +245,18 @@ table .loser {
   tr {
     font-size: 90%;
   }
+
+  button {
+    font-size: 90%;
+  }
 }
 
 @media (max-width: 900px) {
   body {
+    font-size: 80%;
+  }
+
+  button {
     font-size: 80%;
   }
 }
@@ -261,10 +269,18 @@ table .loser {
   tr {
     font-size: 65%;
   }
+
+  button {
+    font-size: 70%;
+  }
 }
 
 @media (max-width: 650px) {
   body {
+    font-size: 60%;
+  }
+
+  button {
     font-size: 60%;
   }
 }
