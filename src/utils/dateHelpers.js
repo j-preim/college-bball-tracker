@@ -72,7 +72,7 @@ export function formatTournamentTime(dateTime) {
     timeZone: TOURNAMENT_TIME_ZONE,
     hour: "numeric",
     minute: "2-digit",
-    timeZoneName: "short",
+    // timeZoneName: "short",
   });
 }
 

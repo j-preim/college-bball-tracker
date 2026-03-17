@@ -19,5 +19,5 @@ export default function ScoreDisplay({ game }) {
     );
   }
 
-  return <span className="text-body-secondary">Upcoming</span>;
+  return <span className="text-body-secondary">TBD</span>;
 }
