@@ -93,6 +93,71 @@ function comparePicksByDate(a, b) {
   return 0;
 }
 
+function normalizeTeamId(teamId) {
+  return String(teamId ?? "");
+}
+
+function validateEntryPicks(entry) {
+  const picks = [...(entry?.picks || [])].sort(comparePicksByDate);
+  const validationByKey = {};
+  const usedTeams = new Map();
+  const usedDates = new Map();
+
+  for (const pick of picks) {
+    const pickDate = normalizeDate(pick?.pickDate);
+    const teamId = normalizeTeamId(pick?.teamId);
+    const pickKey = `${pickDate}__${teamId}__${pick?.pickedAt || ""}`;
+
+    const issues = [];
+
+    if (!pickDate) {
+      issues.push({
+        code: "missing_pick_date",
+        message: "Pick date is missing.",
+      });
+    }
+
+    if (!teamId) {
+      issues.push({
+        code: "missing_team_id",
+        message: "Team ID is missing.",
+      });
+    }
+
+    const priorDateForTeam = usedTeams.get(teamId);
+    if (teamId && priorDateForTeam && priorDateForTeam !== pickDate) {
+      issues.push({
+        code: "reused_team",
+        message: `Team was already used on ${priorDateForTeam}.`,
+      });
+    }
+
+    const priorTeamForDate = usedDates.get(pickDate);
+    if (pickDate && priorTeamForDate) {
+      issues.push({
+        code: "duplicate_date",
+        message: `Entry already has a pick for ${pickDate}.`,
+      });
+    }
+
+    if (teamId && !usedTeams.has(teamId)) {
+      usedTeams.set(teamId, pickDate);
+    }
+
+    if (pickDate && !usedDates.has(pickDate)) {
+      usedDates.set(pickDate, teamId);
+    }
+
+    validationByKey[pickKey] = issues;
+  }
+
+  return validationByKey;
+}
+
+function getPickValidationKey(pick) {
+  return `${normalizeDate(pick?.pickDate)}__${normalizeTeamId(pick?.teamId)}__${pick?.pickedAt || ""}`;
+}
+
 export function resolveEntryPick(pick, games = []) {
   const targetDate = normalizeDate(pick?.pickDate);
 
@@ -141,9 +206,18 @@ export function resolveEntryPick(pick, games = []) {
 
 export function resolveEntry(entry, games = []) {
   const sortedPicks = [...(entry?.picks || [])].sort(comparePicksByDate);
-  const resolvedPicks = sortedPicks.map((pick) =>
-    resolveEntryPick(pick, games),
-  );
+  const validationByKey = validateEntryPicks(entry);
+
+  const resolvedPicks = sortedPicks.map((pick) => {
+    const resolvedPick = resolveEntryPick(pick, games);
+    const validationIssues = validationByKey[getPickValidationKey(pick)] || [];
+
+    return {
+      ...resolvedPick,
+      validationIssues,
+      isValid: validationIssues.length === 0,
+    };
+  });
 
   let eliminatedAt = null;
   let isActive = true;
@@ -174,6 +248,9 @@ export function resolveEntry(entry, games = []) {
     effectivePicks[effectivePicks.length - 1] ||
     null;
 
+  const invalidPicks = resolvedPicks.filter((pick) => !pick.isValid);
+  const hasValidationErrors = invalidPicks.length > 0;
+
   return {
     ...entry,
     picks: effectivePicks,
@@ -181,6 +258,8 @@ export function resolveEntry(entry, games = []) {
     isActive,
     eliminatedAt,
     currentPick,
+    hasValidationErrors,
+    invalidPicks,
   };
 }
 

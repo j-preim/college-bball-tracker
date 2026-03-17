@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { survivorEntries } from "../data/entriesData";
 import { resolveSurvivorEntries, getSurvivorSummary } from "../utils/entries";
 import { useTournamentData } from "../hooks/useTournamentData";
+import { formatDisplayDate } from "../utils/dateHelpers";
 
 function StatusBadge({ status }) {
   const normalized = String(status).toLowerCase();
@@ -13,7 +14,9 @@ function StatusBadge({ status }) {
         ? "Lost"
         : normalized === "active"
           ? "Active"
-          : "Pending";
+          : normalized === "invalid"
+            ? "Invalid"
+            : "Pending";
 
   const styles =
     normalized === "won"
@@ -22,13 +25,15 @@ function StatusBadge({ status }) {
         ? { background: "#fee2e2", color: "#991b1b" }
         : normalized === "active"
           ? { background: "#dbeafe", color: "#1d4ed8" }
-          : { background: "#f3f4f6", color: "#374151" };
+          : normalized === "invalid"
+            ? { background: "#fef3c7", color: "#92400e" }
+            : { background: "#f3f4f6", color: "#374151" };
 
   return (
     <span
       style={{
         display: "inline-block",
-        padding: "3px 8px",
+        padding: "4px 10px",
         borderRadius: 999,
         fontSize: 12,
         fontWeight: 600,
@@ -58,16 +63,34 @@ function PickHistory({ picks = [] }) {
             <th style={thStyle}>Team</th>
             <th style={thStyle}>Opponent</th>
             <th style={thStyle}>Result</th>
+            <th style={thStyle}>Validation</th>
           </tr>
         </thead>
         <tbody>
           {picks.map((pick, index) => (
             <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
-              <td style={tdStyle}>{pick.pickDate || "—"}</td>
+              <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
               <td style={tdStyle}>{pick.teamName || "—"}</td>
               <td style={tdStyle}>{pick.opponentName || "—"}</td>
               <td style={tdStyle}>
                 <StatusBadge status={pick.result} />
+              </td>
+              <td style={tdStyle}>
+                {pick.isValid ? (
+                  <span style={{ color: "#166534", fontWeight: 600 }}>OK</span>
+                ) : (
+                  <div style={{ display: "grid", gap: 4 }}>
+                    <StatusBadge status="invalid" />
+                    {pick.validationIssues.map((issue) => (
+                      <div
+                        key={issue.code}
+                        style={{ color: "#92400e", fontSize: 12 }}
+                      >
+                        {issue.message}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </td>
             </tr>
           ))}
@@ -114,7 +137,7 @@ export default function Entries() {
   if (loading) {
     return (
       <div style={{ padding: 20 }}>
-        <h1>Entries</h1>
+        <h4>Project Payday Survivor Entries</h4>
         <p>Loading tournament data...</p>
       </div>
     );
@@ -123,7 +146,7 @@ export default function Entries() {
   if (error) {
     return (
       <div style={{ padding: 20 }}>
-        <h1>Entries</h1>
+        <h4>Project Payday Survivor Entries</h4>
         <p style={{ color: "#b91c1c" }}>{error}</p>
         <button onClick={refreshTournamentData}>Retry</button>
       </div>
@@ -143,7 +166,7 @@ export default function Entries() {
         }}
       >
         <div>
-          <h4 style={{ margin: 0 }}>Project Payday Survivor Entries</h4>
+          <h4>Project Payday Survivor Entries</h4>
           {/* <p style={{ marginTop: 8}}>
             Track your entries against live tournament data.
           </p> */}
@@ -208,6 +231,22 @@ export default function Entries() {
                   flexWrap: "wrap",
                 }}
               >
+                {entry.hasValidationErrors ? (
+                  <div
+                    style={{
+                      marginTop: 12,
+                      padding: 12,
+                      borderRadius: 8,
+                      background: "#fffbeb",
+                      border: "1px solid #fde68a",
+                      color: "#92400e",
+                      fontSize: 14,
+                    }}
+                  >
+                    This entry has validation issues that may make one or more
+                    picks invalid.
+                  </div>
+                ) : null}
                 <div>
                   <h4 style={{ margin: 0 }}>{entry.name}</h4>
                 </div>
@@ -236,16 +275,17 @@ export default function Entries() {
                     {entry.currentPick?.opponentName || "—"}
                   </div>
                 </div>
-
-                <div style={{ fontSize: 12 }}>Pick Date</div>
-                <div style={{ fontWeight: 600 }}>
-                  {entry.currentPick?.pickDate || "—"}
+                <div>
+                  <div style={{ fontSize: 12 }}>Pick Date</div>
+                  <div style={{ fontWeight: 600 }}>
+                    {formatDisplayDate(entry.currentPick?.pickDate) || "—"}
+                  </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: 12 }}>Eliminated On</div>
                   <div style={{ fontWeight: 600 }}>
-                    {entry.eliminatedAt || "—"}
+                    {formatDisplayDate(entry.eliminatedAt) || "—"}
                   </div>
                 </div>
               </div>
