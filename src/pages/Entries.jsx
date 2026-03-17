@@ -84,7 +84,8 @@ const sectionCardStyle = {
   border: "1px solid #e5e7eb",
   borderRadius: 12,
   padding: 16,
-  background: "#ffffff",
+  background: "#565656",
+  color: "#ffffff",
 };
 
 const thStyle = {
@@ -151,11 +152,11 @@ export default function Entries() {
       >
         <div>
           <h1 style={{ margin: 0 }}>Entries</h1>
-          <p style={{ marginTop: 8, color: "#6b7280" }}>
+          <p style={{ marginTop: 8}}>
             Track your Splash Sports NCAAB survivor entries against your live tournament data.
           </p>
           {lastUpdated ? (
-            <p style={{ marginTop: 4, fontSize: 13, color: "#6b7280" }}>
+            <p style={{ marginTop: 4, fontSize: 13, color: "#83817d" }}>
               Last updated: {lastUpdated}
             </p>
           ) : null}
@@ -173,21 +174,21 @@ export default function Entries() {
         }}
       >
         <div style={sectionCardStyle}>
-          <div style={{ fontSize: 13, color: "#6b7280" }}>Total Entries</div>
+          <div style={{ fontSize: 13}}>Total Entries</div>
           <div style={{ fontSize: 28, fontWeight: 700 }}>
             {summary.totalEntries}
           </div>
         </div>
 
         <div style={sectionCardStyle}>
-          <div style={{ fontSize: 13, color: "#6b7280" }}>Active</div>
+          <div style={{ fontSize: 13 }}>Active</div>
           <div style={{ fontSize: 28, fontWeight: 700 }}>
             {summary.activeEntries}
           </div>
         </div>
 
         <div style={sectionCardStyle}>
-          <div style={{ fontSize: 13, color: "#6b7280" }}>Eliminated</div>
+          <div style={{ fontSize: 13 }}>Eliminated</div>
           <div style={{ fontSize: 28, fontWeight: 700 }}>
             {summary.eliminatedEntries}
           </div>
@@ -197,7 +198,7 @@ export default function Entries() {
       {resolvedEntries.length === 0 ? (
         <div style={sectionCardStyle}>
           <h2 style={{ marginTop: 0 }}>No entries yet</h2>
-          <p style={{ marginBottom: 0, color: "#6b7280" }}>
+          <p style={{ marginBottom: 0 }}>
             Add entries in <code>src/data/entriesData.js</code> to start tracking your survivor picks.
           </p>
         </div>
@@ -216,7 +217,7 @@ export default function Entries() {
               >
                 <div>
                   <h2 style={{ margin: 0 }}>{entry.name}</h2>
-                  <div style={{ marginTop: 6, color: "#6b7280", fontSize: 14 }}>
+                  <div style={{ marginTop: 6, fontSize: 14 }}>
                     {entry.contest}
                   </div>
                 </div>
@@ -233,28 +234,28 @@ export default function Entries() {
                 }}
               >
                 <div>
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>Current Pick</div>
+                  <div style={{ fontSize: 12 }}>Current Pick</div>
                   <div style={{ fontWeight: 600 }}>
                     {entry.currentPick?.teamName || "—"}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>Opponent</div>
+                  <div style={{ fontSize: 12 }}>Opponent</div>
                   <div style={{ fontWeight: 600 }}>
                     {entry.currentPick?.opponentName || "—"}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>Current Round</div>
+                  <div style={{ fontSize: 12 }}>Current Round</div>
                   <div style={{ fontWeight: 600 }}>
                     {entry.currentPick?.roundName || entry.currentPick?.roundId || "—"}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>Eliminated In</div>
+                  <div style={{ fontSize: 12 }}>Eliminated In</div>
                   <div style={{ fontWeight: 600 }}>
                     {entry.eliminatedAt || "—"}
                   </div>
