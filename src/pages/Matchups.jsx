@@ -39,10 +39,6 @@ export default function Matchups(props) {
     }));
   }, [gameDates]);
 
-  const listTitle = useMemo(() => {
-    return selectedDay ? `Games for ${formatDisplayDate(selectedDay)}` : "Games";
-  }, [selectedDay]);
-
   if (props.loading) {
     return (
       <div className="container py-4">

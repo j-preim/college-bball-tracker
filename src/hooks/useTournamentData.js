@@ -33,7 +33,10 @@ export function useTournamentData() {
         bettingData: bettingData?.sport_events || [],
         loading: false,
         error: "",
-        lastUpdated: new Date().toLocaleTimeString(),
+        lastUpdated: new Date().toLocaleTimeString({
+          hour: "numeric",
+          minute: "2-digit",
+        }),
       });
     } catch (error) {
       setState({
@@ -53,35 +56,35 @@ export function useTournamentData() {
 
   const REFRESH_KEY = "mm_last_refresh";
 
-useEffect(() => {
-  loadTournamentData();
+  useEffect(() => {
+    loadTournamentData();
 
-  const refreshMinutes = 10;
-  const refreshInterval = refreshMinutes * 60 * 1000;
+    const refreshMinutes = 10;
+    const refreshInterval = refreshMinutes * 60 * 1000;
 
-  const intervalId = window.setInterval(() => {
-    const lastRefresh = Number(localStorage.getItem(REFRESH_KEY) || 0);
+    const intervalId = window.setInterval(() => {
+      const lastRefresh = Number(localStorage.getItem(REFRESH_KEY) || 0);
 
-    if (Date.now() - lastRefresh > refreshInterval) {
-      localStorage.setItem(REFRESH_KEY, Date.now());
-      loadTournamentData();
-    }
-  }, refreshInterval);
+      if (Date.now() - lastRefresh > refreshInterval) {
+        localStorage.setItem(REFRESH_KEY, Date.now());
+        loadTournamentData();
+      }
+    }, refreshInterval);
 
-  return () => window.clearInterval(intervalId);
-}, [loadTournamentData]);
+    return () => window.clearInterval(intervalId);
+  }, [loadTournamentData]);
 
   const liveGames = useMemo(
     () => state.games.filter((game) => game.status === "inprogress"),
-    [state.games]
+    [state.games],
   );
 
   const completedGames = useMemo(
     () =>
       state.games.filter(
-        (game) => game.status === "closed" || game.status === "complete"
+        (game) => game.status === "closed" || game.status === "complete",
       ),
-    [state.games]
+    [state.games],
   );
 
   const upcomingGames = useMemo(
@@ -90,9 +93,9 @@ useEffect(() => {
         (game) =>
           game.status !== "closed" &&
           game.status !== "complete" &&
-          game.status !== "inprogress"
+          game.status !== "inprogress",
       ),
-    [state.games]
+    [state.games],
   );
 
   return {
