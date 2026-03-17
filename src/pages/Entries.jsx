@@ -76,10 +76,10 @@ function PickHistory({ picks = [] }) {
             <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
               <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
               <td style={tdStyle}>
-                <span className="seed">{pick.pickedSeed}</span>&nbsp;{pick.teamName}
+                <span className="seed">{pick.pickedSeed}</span>&nbsp;&nbsp;{pick.teamName}
               </td>
               <td style={tdStyle}>
-                <span className="seed">{pick.opponentSeed}</span>&nbsp;{pick.opponentName}
+                <span className="seed">{pick.opponentSeed}</span>&nbsp;&nbsp;{pick.opponentName}
               </td>
               <td style={tdStyle}>
                 <StatusBadge status={pick.result} />
@@ -257,14 +257,14 @@ export default function Entries() {
                 <div>
                   <div style={{ fontSize: 12 }}>Current Pick</div>
                   <div style={{ fontWeight: 600 }}>
-                    <span className="seed">{entry.currentPick?.pickedSeed}</span>&nbsp;{entry.currentPick?.teamName}
+                    <span className="seed">{entry.currentPick?.pickedSeed}</span>&nbsp;&nbsp;{entry.currentPick?.teamName}
                   </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: 12 }}>Opponent</div>
                   <div style={{ fontWeight: 600 }}>
-                    <span className="seed">{entry.currentPick?.opponentSeed}</span>&nbsp;{entry.currentPick?.opponentName}
+                    <span className="seed">{entry.currentPick?.opponentSeed}</span>&nbsp;&nbsp;{entry.currentPick?.opponentName}
                   </div>
                 </div>
                 <div>
