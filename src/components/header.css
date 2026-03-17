@@ -23,13 +23,13 @@
 
 .nav-item {
   padding-top: 8px;
-  font-size: 110%;
+  font-size: 100%;
 }
 
 .nav-item:hover {
   color: white;
-  text-decoration: solid underline rgb(241, 85, 35, 0.8) 5px;
-  text-underline-offset: 10px;
+  /* text-decoration: solid underline rgb(241, 85, 35, 0.8) 5px; */
+  /* text-underline-offset: 10px; */
 }
 
 .buttons {
