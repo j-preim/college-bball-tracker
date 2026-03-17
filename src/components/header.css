@@ -32,6 +32,10 @@
   /* text-underline-offset: 10px; */
 }
 
+.hoverText {
+  color:lightgrey;
+}
+
 .buttons {
   margin-top: 6px
 }
