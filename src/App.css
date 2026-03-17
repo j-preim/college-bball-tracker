@@ -111,8 +111,8 @@ body {
   
 }
 
-.entryName {
-  cursor: context-menu;
+.entry-name {
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .teamNamePopover {
