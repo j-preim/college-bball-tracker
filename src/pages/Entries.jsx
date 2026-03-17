@@ -151,7 +151,7 @@ export default function Entries() {
         }}
       >
         <div>
-          <h1 style={{ margin: 0 }}>Splash NCAAB Survivor Entries</h1>
+          <h2 style={{ margin: 0 }}>Splash NCAAB Survivor Entries</h2>
           <p style={{ marginTop: 8}}>
             Track your entries against live tournament data.
           </p>
@@ -175,21 +175,21 @@ export default function Entries() {
       >
         <div style={sectionCardStyle}>
           <div style={{ fontSize: 13}}>Total Entries</div>
-          <div style={{ fontSize: 28, fontWeight: 700 }}>
+          <div style={{ fontSize: 20, fontWeight: 700 }}>
             {summary.totalEntries}
           </div>
         </div>
 
         <div style={sectionCardStyle}>
           <div style={{ fontSize: 13 }}>Active</div>
-          <div style={{ fontSize: 28, fontWeight: 700 }}>
+          <div style={{ fontSize: 20, fontWeight: 700 }}>
             {summary.activeEntries}
           </div>
         </div>
 
         <div style={sectionCardStyle}>
           <div style={{ fontSize: 13 }}>Eliminated</div>
-          <div style={{ fontSize: 28, fontWeight: 700 }}>
+          <div style={{ fontSize: 20, fontWeight: 700 }}>
             {summary.eliminatedEntries}
           </div>
         </div>
@@ -216,7 +216,7 @@ export default function Entries() {
                 }}
               >
                 <div>
-                  <h2 style={{ margin: 0 }}>{entry.name}</h2>
+                  <h3 style={{ margin: 0 }}>{entry.name}</h3>
                 </div>
 
                 <StatusBadge status={entry.isActive ? "active" : "lost"} />
