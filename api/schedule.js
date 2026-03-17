@@ -51,9 +51,14 @@ function formatGameDate(isoString) {
   return toTournamentDateKey(isoString);
 }
 
+function parseRegion(name) {
+  const regionName = name.split("")[0];
+  return regionName;
+}
+
 function normalizeGame(game, round, bracketInfo = {}) {
   const parsedTitle = parseTitleParts(game.title, round.name);
-  const bracketName = parsedTitle.region || "National";
+  const bracketName = bracketInfo.name || parsedTitle.region || "National";
 
   const home = {
     name: game.home?.name || "TBD Team",
@@ -82,7 +87,7 @@ function normalizeGame(game, round, bracketInfo = {}) {
     matchupLabel: parsedTitle.matchupLabel,
 
     bracket: bracketName,
-    region: parsedTitle.region,
+    region: bracketName,
 
     status: game.status || "scheduled",
     scheduled: game.scheduled,
