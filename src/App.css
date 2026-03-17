@@ -64,7 +64,11 @@ body {
     -0px 1px 0 #000,
     -0px -0px 0 #000,
     1px 1px 0 #000;
-} 
+}
+
+.btn {
+  text-align: left;
+}
 
 .bracket {
   font-size: 11px;

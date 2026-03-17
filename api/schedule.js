@@ -53,7 +53,7 @@ function formatGameDate(isoString) {
 
 function normalizeGame(game, round, bracketInfo = {}) {
   const parsedTitle = parseTitleParts(game.title, round.name);
-  const bracketName = bracketInfo.name || parsedTitle.region || "National";
+  const bracketName = parsedTitle.region || "National";
 
   const home = {
     name: game.home?.name || "TBD Team",
@@ -82,7 +82,7 @@ function normalizeGame(game, round, bracketInfo = {}) {
     matchupLabel: parsedTitle.matchupLabel,
 
     bracket: bracketName,
-    region: bracketName,
+    region: parsedTitle.region,
 
     status: game.status || "scheduled",
     scheduled: game.scheduled,
