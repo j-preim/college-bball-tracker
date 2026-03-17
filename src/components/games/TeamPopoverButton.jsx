@@ -67,9 +67,9 @@ export default function TeamPopoverButton({ team, bracketRank }) {
       type="button"
       className="btn btn-link btn-sm p-0 text-decoration-none team-popover-button"
     >
-      <span className="badge rounded-pill text-bg-light border me-1">
+      <span className="seed">
         {team.seed ?? "-"}
-      </span>
+      </span> &nbsp;
       <span>{team.name}</span>
     </button>
   );
