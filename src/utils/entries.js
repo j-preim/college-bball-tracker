@@ -14,15 +14,10 @@ function isFinalStatus(status = "") {
 }
 
 function getGameTeams(game) {
-  const homeTeam =
-    game?.home ||
-    null;
-
-  const awayTeam =
-    game?.away ||
-    null;
-
-  return { homeTeam, awayTeam };
+  return {
+    homeTeam: game?.home || null,
+    awayTeam: game?.away || null,
+  };
 }
 
 function getTeamId(team) {
@@ -78,22 +73,33 @@ function getOpponentFromGame(game, pickedTeamId) {
   return null;
 }
 
-function matchesRound(game, pick) {
-  if (pick.roundId != null) {
-    return Number(game?.roundId) === Number(pick.roundId);
-  }
-
-  if (pick.roundName) {
-    return String(game?.roundName) === String(pick.roundName);
-  }
-
-  return true;
+function normalizeDate(value = "") {
+  return String(value).slice(0, 10);
 }
 
-export function resolveSurvivorPick(pick, games = []) {
+function comparePicksByDate(a, b) {
+  const aDate = normalizeDate(a?.pickDate);
+  const bDate = normalizeDate(b?.pickDate);
+
+  if (aDate < bDate) return -1;
+  if (aDate > bDate) return 1;
+
+  const aPickedAt = String(a?.pickedAt || "");
+  const bPickedAt = String(b?.pickedAt || "");
+
+  if (aPickedAt < bPickedAt) return -1;
+  if (aPickedAt > bPickedAt) return 1;
+
+  return 0;
+}
+
+export function resolveEntryPick(pick, games = []) {
+  const targetDate = normalizeDate(pick?.pickDate);
+
   const matchingGame = games.find((game) => {
-    if (!gameContainsTeam(game, pick.teamId)) return false;
-    return matchesRound(game, pick);
+    const gameDate = normalizeDate(game?.gameDate || game?.scheduled);
+
+    return gameContainsTeam(game, pick?.teamId) && gameDate === targetDate;
   });
 
   if (!matchingGame) {
@@ -102,10 +108,12 @@ export function resolveSurvivorPick(pick, games = []) {
       gameId: null,
       opponentName: "",
       result: "pending",
+      statusLabel: "No matchup found",
+      gameStatus: "",
     };
   }
 
-  const opponent = getOpponentFromGame(matchingGame, pick.teamId);
+  const opponent = getOpponentFromGame(matchingGame, pick?.teamId);
 
   if (!isFinalStatus(matchingGame.status)) {
     return {
@@ -113,41 +121,71 @@ export function resolveSurvivorPick(pick, games = []) {
       gameId: matchingGame.id ?? null,
       opponentName: getTeamName(opponent),
       result: "pending",
+      statusLabel: "Pending",
+      gameStatus: matchingGame.status,
     };
   }
 
   const winnerId = inferWinnerId(matchingGame);
+  const won = winnerId === String(pick?.teamId);
 
   return {
     ...pick,
     gameId: matchingGame.id ?? null,
     opponentName: getTeamName(opponent),
-    result: winnerId === String(pick.teamId) ? "won" : "lost",
+    result: won ? "won" : "lost",
+    statusLabel: won ? "Advanced" : "Eliminated",
+    gameStatus: matchingGame.status,
   };
 }
 
-export function resolveSurvivorEntry(entry, games = []) {
-  const resolvedPicks = (entry.picks || []).map((pick) =>
-    resolveSurvivorPick(pick, games)
+export function resolveEntry(entry, games = []) {
+  const sortedPicks = [...(entry?.picks || [])].sort(comparePicksByDate);
+  const resolvedPicks = sortedPicks.map((pick) =>
+    resolveEntryPick(pick, games),
   );
 
-  const losingPick = resolvedPicks.find((pick) => pick.result === "lost");
+  let eliminatedAt = null;
+  let isActive = true;
+
+  for (const pick of resolvedPicks) {
+    if (pick.result === "lost") {
+      eliminatedAt = pick.pickDate;
+      isActive = false;
+      break;
+    }
+  }
+
+  const effectivePicks = [];
+  let entryAlive = true;
+
+  for (const pick of resolvedPicks) {
+    if (!entryAlive) break;
+
+    effectivePicks.push(pick);
+
+    if (pick.result === "lost") {
+      entryAlive = false;
+    }
+  }
+
   const currentPick =
-    resolvedPicks.find((pick) => pick.result === "pending") ||
-    resolvedPicks[resolvedPicks.length - 1] ||
+    effectivePicks.find((pick) => pick.result === "pending") ||
+    effectivePicks[effectivePicks.length - 1] ||
     null;
 
   return {
     ...entry,
-    picks: resolvedPicks,
-    isActive: !losingPick,
-    eliminatedAt: losingPick?.roundName || losingPick?.roundId || null,
+    picks: effectivePicks,
+    allResolvedPicks: resolvedPicks,
+    isActive,
+    eliminatedAt,
     currentPick,
   };
 }
 
 export function resolveSurvivorEntries(entries = [], games = []) {
-  return entries.map((entry) => resolveSurvivorEntry(entry, games));
+  return entries.map((entry) => resolveEntry(entry, games));
 }
 
 export function getSurvivorSummary(entries = []) {

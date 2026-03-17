@@ -1,9 +1,6 @@
 import { useMemo } from "react";
 import { survivorEntries } from "../data/entriesData";
-import {
-  resolveSurvivorEntries,
-  getSurvivorSummary,
-} from "../utils/entries";
+import { resolveSurvivorEntries, getSurvivorSummary } from "../utils/entries";
 import { useTournamentData } from "../hooks/useTournamentData";
 
 function StatusBadge({ status }) {
@@ -13,19 +10,19 @@ function StatusBadge({ status }) {
     normalized === "won"
       ? "Won"
       : normalized === "lost"
-      ? "Lost"
-      : normalized === "active"
-      ? "Active"
-      : "Pending";
+        ? "Lost"
+        : normalized === "active"
+          ? "Active"
+          : "Pending";
 
   const styles =
     normalized === "won"
       ? { background: "#dcfce7", color: "#166534" }
       : normalized === "lost"
-      ? { background: "#fee2e2", color: "#991b1b" }
-      : normalized === "active"
-      ? { background: "#dbeafe", color: "#1d4ed8" }
-      : { background: "#f3f4f6", color: "#374151" };
+        ? { background: "#fee2e2", color: "#991b1b" }
+        : normalized === "active"
+          ? { background: "#dbeafe", color: "#1d4ed8" }
+          : { background: "#f3f4f6", color: "#374151" };
 
   return (
     <span
@@ -57,7 +54,7 @@ function PickHistory({ picks = [] }) {
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
-            <th style={thStyle}>Round</th>
+            <th style={thStyle}>Date</th>
             <th style={thStyle}>Team</th>
             <th style={thStyle}>Opponent</th>
             <th style={thStyle}>Result</th>
@@ -65,8 +62,8 @@ function PickHistory({ picks = [] }) {
         </thead>
         <tbody>
           {picks.map((pick, index) => (
-            <tr key={`${pick.roundId || pick.roundName}-${pick.teamId}-${index}`}>
-              <td style={tdStyle}>{pick.roundName || pick.roundId || "—"}</td>
+            <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
+              <td style={tdStyle}>{pick.pickDate || "—"}</td>
               <td style={tdStyle}>{pick.teamName || "—"}</td>
               <td style={tdStyle}>{pick.opponentName || "—"}</td>
               <td style={tdStyle}>
@@ -103,13 +100,8 @@ const tdStyle = {
 };
 
 export default function Entries() {
-  const {
-    games,
-    loading,
-    error,
-    lastUpdated,
-    refreshTournamentData,
-  } = useTournamentData();
+  const { games, loading, error, lastUpdated, refreshTournamentData } =
+    useTournamentData();
 
   const resolvedEntries = useMemo(() => {
     return resolveSurvivorEntries(survivorEntries, games);
@@ -174,7 +166,7 @@ export default function Entries() {
         }}
       >
         <div style={sectionCardStyle}>
-          <div style={{ fontSize: 13}}>Total Entries</div>
+          <div style={{ fontSize: 13 }}>Total Entries</div>
           <div style={{ fontSize: 20, fontWeight: 700 }}>
             {summary.totalEntries}
           </div>
@@ -199,7 +191,8 @@ export default function Entries() {
         <div style={sectionCardStyle}>
           <h2 style={{ marginTop: 0 }}>No entries yet</h2>
           <p style={{ marginBottom: 0 }}>
-            Add entries in <code>src/data/entriesData.js</code> to start tracking your survivor picks.
+            Add entries in <code>src/data/entriesData.js</code> to start
+            tracking your survivor picks.
           </p>
         </div>
       ) : (
@@ -244,15 +237,13 @@ export default function Entries() {
                   </div>
                 </div>
 
-                <div>
-                  <div style={{ fontSize: 12 }}>Current Round</div>
-                  <div style={{ fontWeight: 600 }}>
-                    {entry.currentPick?.roundName || entry.currentPick?.roundId || "—"}
-                  </div>
+                <div style={{ fontSize: 12 }}>Pick Date</div>
+                <div style={{ fontWeight: 600 }}>
+                  {entry.currentPick?.pickDate || "—"}
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 12 }}>Eliminated In</div>
+                  <div style={{ fontSize: 12 }}>Eliminated On</div>
                   <div style={{ fontWeight: 600 }}>
                     {entry.eliminatedAt || "—"}
                   </div>
