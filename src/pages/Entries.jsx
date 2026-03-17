@@ -152,14 +152,14 @@ export default function Entries() {
       >
         <div>
           <h2 style={{ margin: 0 }}>Splash NCAAB Survivor Entries</h2>
-          <p style={{ marginTop: 8}}>
+          {/* <p style={{ marginTop: 8}}>
             Track your entries against live tournament data.
-          </p>
-          {lastUpdated ? (
+          </p> */}
+          {/* {lastUpdated ? (
             <p style={{ marginTop: 4, fontSize: 13, color: "#83817d" }}>
               Last updated: {lastUpdated}
             </p>
-          ) : null}
+          ) : null} */}
         </div>
 
         <button onClick={refreshTournamentData}>Refresh</button>
