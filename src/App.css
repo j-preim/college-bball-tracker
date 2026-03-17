@@ -235,7 +235,7 @@ table .loser {
 
 @media (max-width: 1000px) {
   body {
-    font-size: 90%;
+    font-size: 95%;
   }
 
   h4 {
@@ -253,7 +253,7 @@ table .loser {
 
 @media (max-width: 900px) {
   body {
-    font-size: 80%;
+    font-size: 85%;
   }
 
   .btn {
@@ -263,7 +263,7 @@ table .loser {
 
 @media (max-width: 750px) {
   body {
-    font-size: 70%;
+    font-size: 80%;
   }
 
   tr {
@@ -277,7 +277,7 @@ table .loser {
 
 @media (max-width: 650px) {
   body {
-    font-size: 60%;
+    font-size: 70%;
   }
 
   .btn {
@@ -287,7 +287,7 @@ table .loser {
 
 @media (max-width: 600px) {
   body {
-    font-size: 60%;
+    font-size: 70%;
     /* min-height: 1200px; */
   }
 
