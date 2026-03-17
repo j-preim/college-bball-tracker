@@ -62,14 +62,13 @@ function PickHistory({ picks = [] }) {
 
   return (
     <div style={{ marginTop: 16, overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
+      <table className="table table-striped" style={{ width: "100%", borderCollapse: "collapse" }}>
+        <thead className="table-head">
           <tr>
             <th style={thStyle}>Date</th>
             <th style={thStyle}>Team</th>
             <th style={thStyle}>Opponent</th>
             <th style={thStyle}>Result</th>
-            <th style={thStyle}>Validation</th>
           </tr>
         </thead>
         <tbody>
@@ -84,23 +83,6 @@ function PickHistory({ picks = [] }) {
               </td>
               <td style={tdStyle}>
                 <StatusBadge status={pick.result} />
-              </td>
-              <td style={tdStyle}>
-                {pick.isValid ? (
-                  <span style={{ color: "#166534", fontWeight: 600 }}>OK</span>
-                ) : (
-                  <div style={{ display: "grid", gap: 4 }}>
-                    <StatusBadge status="invalid" />
-                    {pick.validationIssues.map((issue) => (
-                      <div
-                        key={`${issue.code}-${issue.message}`}
-                        style={{ color: "#92400e", fontSize: 12 }}
-                      >
-                        {issue.message}
-                      </div>
-                    ))}
-                  </div>
-                )}
               </td>
             </tr>
           ))}
