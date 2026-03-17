@@ -62,7 +62,10 @@ function PickHistory({ picks = [] }) {
 
   return (
     <div style={{ marginTop: 16, overflowX: "auto" }}>
-      <table className="table table-striped" style={{ width: "100%", borderCollapse: "collapse" }}>
+      <table
+        className="table table-striped"
+        style={{ width: "100%", borderCollapse: "collapse" }}
+      >
         <thead className="table-head">
           <tr>
             <th style={thStyle}>Date</th>
@@ -76,10 +79,12 @@ function PickHistory({ picks = [] }) {
             <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
               <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
               <td style={tdStyle}>
-                {formatTeamWithSeed(pick.teamName, pick.pickedSeed)}
+                <span className="seed">{pick.teamName}</span>&nbsp;
+                {pick.pickedSeed}
               </td>
               <td style={tdStyle}>
-                {formatTeamWithSeed(pick.opponentName, pick.opponentSeed)}
+                <span className="seed">{pick.teamName}</span>&nbsp;
+                {pick.pickedSeed}
               </td>
               <td style={tdStyle}>
                 <StatusBadge status={pick.result} />
@@ -257,20 +262,16 @@ export default function Entries() {
                 <div>
                   <div style={{ fontSize: 12 }}>Current Pick</div>
                   <div style={{ fontWeight: 600 }}>
-                    {formatTeamWithSeed(
-                      entry.currentPick?.teamName,
-                      entry.currentPick?.pickedSeed,
-                    )}
+                    <span className="seed">{pick.teamName}</span>&nbsp;
+                    {pick.pickedSeed}
                   </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: 12 }}>Opponent</div>
                   <div style={{ fontWeight: 600 }}>
-                    {formatTeamWithSeed(
-                      entry.currentPick?.opponentName,
-                      entry.currentPick?.opponentSeed,
-                    )}
+                    <span className="seed">{pick.teamName}</span>&nbsp;
+                    {pick.pickedSeed}
                   </div>
                 </div>
                 <div>
