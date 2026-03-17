@@ -257,7 +257,7 @@ table .loser {
   }
 
   .btn {
-    font-size: 90%;
+    font-size: 95%;
   }
 }
 
@@ -271,7 +271,7 @@ table .loser {
   }
 
   .btn {
-    font-size: 85%;
+    font-size: 90%;
   }
 }
 
@@ -285,7 +285,7 @@ table .loser {
   }
 
   .btn {
-    font-size: 80%;
+    font-size: 90%;
   }
 }
 
@@ -299,8 +299,8 @@ table .loser {
     font-size: 200%;
   }
 
-  .table {
+  /* .table {
     width: 96%;
-  }
+  } */
 
 }
