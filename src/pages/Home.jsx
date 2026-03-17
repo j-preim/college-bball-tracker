@@ -42,9 +42,7 @@ export default function Home(props) {
           available slate on <strong>{formatDisplayDate(selectedDate)}</strong>.
         </div>
       ) : (
-        <div>
-          <h4>Games for {formatDisplayDate(selectedDate)}</h4>
-        </div>
+        <h4>Games for {formatDisplayDate(selectedDate)}</h4>
       )}
 
       <ListGames

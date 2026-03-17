@@ -31,7 +31,7 @@ function StatusBadge({ status }) {
     <span
       style={{
         display: "inline-block",
-        padding: "4px 10px",
+        padding: "3px 8px",
         borderRadius: 999,
         fontSize: 12,
         fontWeight: 600,
@@ -151,7 +151,7 @@ export default function Entries() {
         }}
       >
         <div>
-          <h3 style={{ margin: 0 }}>Project Payday Survivor Entries</h3>
+          <h4 style={{ margin: 0 }}>Project Payday Survivor Entries</h4>
           {/* <p style={{ marginTop: 8}}>
             Track your entries against live tournament data.
           </p> */}
@@ -216,7 +216,7 @@ export default function Entries() {
                 }}
               >
                 <div>
-                  <h3 style={{ margin: 0 }}>{entry.name}</h3>
+                  <h4 style={{ margin: 0 }}>{entry.name}</h4>
                 </div>
 
                 <StatusBadge status={entry.isActive ? "active" : "lost"} />
