@@ -43,7 +43,7 @@ export default function Home(props) {
         </div>
       ) : (
         <div>
-          <h3>Games for ${formatDisplayDate(selectedDate)}</h3>
+          <h4>Games for {formatDisplayDate(selectedDate)}</h4>
         </div>
       )}
 

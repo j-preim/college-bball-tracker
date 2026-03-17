@@ -151,7 +151,7 @@ export default function Entries() {
         }}
       >
         <div>
-          <h2 style={{ margin: 0 }}>Splash NCAAB Survivor Entries</h2>
+          <h3 style={{ margin: 0 }}>Project Payday Survivor Entries</h3>
           {/* <p style={{ marginTop: 8}}>
             Track your entries against live tournament data.
           </p> */}
