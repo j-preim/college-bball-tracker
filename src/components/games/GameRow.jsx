@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import TeamPopoverButton from "./TeamPopoverButton";
 import ScoreDisplay from "./ScoreDisplay";
 import { getBettingInfo } from "../../hooks/getBettingInfo";
@@ -38,7 +39,11 @@ function getTeamCellClass(game, side) {
     : "border border-danger table-danger";
 }
 
-export default function GameRow({ game, bettingData }) {
+function GameRow({ game, bettingData }) {
+  const bettingInfo = useMemo(() => {
+  return getBettingInfo(game.id, bettingData);
+}, [game.id, bettingData]);
+
   return (
     <tr className={getRowClassName(game)}>
       <td>{game.roundName ?? "-"}</td>
@@ -56,10 +61,12 @@ export default function GameRow({ game, bettingData }) {
           bracketRank={game.bracketRank}
         />
       </td>
-      <td>{getBettingInfo(game.id, bettingData) || "-"}</td>
+      <td>{bettingInfo || "-"}</td>
       <td>
         <ScoreDisplay game={game} />
       </td>
     </tr>
   );
 }
+
+export default memo(GameRow);

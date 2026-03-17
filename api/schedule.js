@@ -1,3 +1,7 @@
+export const config = {
+  runtime: "nodejs",
+};
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -123,7 +127,6 @@ function normalizeGame(game, round, bracketInfo = {}) {
     trackOnCourt: Boolean(game.track_on_court),
 
     broadcasts: game.broadcasts || [],
-    raw: game,
   };
 }
 

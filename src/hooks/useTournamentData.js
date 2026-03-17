@@ -51,14 +51,21 @@ export function useTournamentData() {
     }
   }, []);
 
-  useEffect(() => {
+  const REFRESH_KEY = "mm_last_refresh";
+
+useEffect(() => {
   loadTournamentData();
 
-  const refreshMinutes = 15;
+  const refreshMinutes = 10;
   const refreshInterval = refreshMinutes * 60 * 1000;
 
   const intervalId = window.setInterval(() => {
-    loadTournamentData();
+    const lastRefresh = Number(localStorage.getItem(REFRESH_KEY) || 0);
+
+    if (Date.now() - lastRefresh > refreshInterval) {
+      localStorage.setItem(REFRESH_KEY, Date.now());
+      loadTournamentData();
+    }
   }, refreshInterval);
 
   return () => window.clearInterval(intervalId);
