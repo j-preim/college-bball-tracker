@@ -7,7 +7,7 @@ import { formatDisplayDate } from "../utils/dateHelpers";
 function formatTeamWithSeed(name, seed) {
   if (!name) return "—";
   if (seed == null || seed === "") return name;
-  return `(${seed}) ${name}`;
+  return `<span className="seed">${seed}</span> ${name}`;
 }
 
 function StatusBadge({ status }) {
