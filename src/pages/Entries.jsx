@@ -221,7 +221,8 @@ export default function Entries() {
                   alignItems: "center",
                   gap: 12,
                   flexWrap: "wrap",
-                  borderBottom: "1px solid #f3f4f6"
+                  borderBottom: "1px solid #f3f4f6",
+                  borderSpacing: 3,
                 }}
               >
                 {entry.hasValidationErrors ? (
