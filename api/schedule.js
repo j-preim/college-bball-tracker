@@ -1,4 +1,17 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { toTournamentDateKey } from "../src/utils/dateHelpers.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const MEMORY_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+let memoryCache = {
+  data: null,
+  fetchedAt: 0,
+};
 
 function parseTitleParts(title = "", roundName = "") {
   const parts = title
@@ -68,10 +81,7 @@ function normalizeGame(game, round, bracketInfo = {}) {
     title: game.title,
     matchupLabel: parsedTitle.matchupLabel,
 
-    // old UI-compatible field
     bracket: bracketName,
-
-    // newer normalized field
     region: bracketName,
 
     status: game.status || "scheduled",
@@ -79,15 +89,12 @@ function normalizeGame(game, round, bracketInfo = {}) {
     scheduledRaw: game.scheduled,
     gameDate: formatGameDate(game.scheduled),
 
-    // old UI-compatible nested team objects
     home,
     away,
 
-    // old UI-compatible score fields
     home_points: homePoints,
     away_points: awayPoints,
 
-    // newer flattened fields
     homeTeam: home.name,
     homeAlias: home.alias,
     homeId: home.id,
@@ -161,8 +168,7 @@ function normalizeTournament(data) {
     round.brackets.flatMap((bracket) => bracket.bracketGames)
   );
 
-  const gameDates = [...new Set(games.map((game) => game.gameDate).filter(Boolean))]
-    .sort((a, b) => new Date(a) - new Date(b));
+  const gameDates = [...new Set(games.map((game) => game.gameDate).filter(Boolean))].sort();
 
   return {
     tournament: {
@@ -176,12 +182,64 @@ function normalizeTournament(data) {
     rounds,
     games,
     gameDates,
+    meta: {
+      source: "live",
+      generatedAt: new Date().toISOString(),
+    },
+  };
+}
+
+async function readFallbackSchedule() {
+  try {
+    const fallbackPath = path.join(__dirname, "..", "public", "initSched.json");
+    const raw = await fs.readFile(fallbackPath, "utf8");
+    const parsed = JSON.parse(raw);
+
+    return {
+      ...parsed,
+      meta: {
+        ...(parsed.meta || {}),
+        source: "fallback",
+        generatedAt: parsed.meta?.generatedAt || "",
+      },
+    };
+  } catch {
+    return null;
+  }
+}
+
+function getCachedMemoryResponse() {
+  if (!memoryCache.data) {
+    return null;
+  }
+
+  const age = Date.now() - memoryCache.fetchedAt;
+  if (age > MEMORY_CACHE_TTL_MS) {
+    return null;
+  }
+
+  return {
+    ...memoryCache.data,
+    meta: {
+      ...(memoryCache.data.meta || {}),
+      source: "memory-cache",
+      generatedAt:
+        memoryCache.data.meta?.generatedAt ||
+        new Date(memoryCache.fetchedAt).toISOString(),
+    },
   };
 }
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Method not allowed" });
+  }
+
+  const cached = getCachedMemoryResponse();
+
+  if (cached) {
+    res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate=1800");
+    return res.status(200).json(cached);
   }
 
   try {
@@ -200,18 +258,34 @@ export default async function handler(req, res) {
     });
 
     if (!upstreamResponse.ok) {
-      return res.status(upstreamResponse.status).json({
-        message: `Sportradar request failed (${upstreamResponse.status})`,
-      });
+      throw new Error(`Sportradar request failed (${upstreamResponse.status})`);
     }
 
     const data = await upstreamResponse.json();
     const normalized = normalizeTournament(data);
 
-    res.setHeader("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
+    memoryCache = {
+      data: normalized,
+      fetchedAt: Date.now(),
+    };
 
+    res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate=1800");
     return res.status(200).json(normalized);
   } catch (error) {
+    const fallback = await readFallbackSchedule();
+
+    if (fallback) {
+      res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
+      return res.status(200).json({
+        ...fallback,
+        meta: {
+          ...(fallback.meta || {}),
+          fallbackReason:
+            error instanceof Error ? error.message : "Unknown upstream error",
+        },
+      });
+    }
+
     return res.status(500).json({
       message: "Failed to fetch live schedule",
       error: error instanceof Error ? error.message : "Unknown error",

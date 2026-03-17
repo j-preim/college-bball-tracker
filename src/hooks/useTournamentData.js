@@ -52,17 +52,17 @@ export function useTournamentData() {
   }, []);
 
   useEffect(() => {
+  loadTournamentData();
+
+  const refreshMinutes = 15;
+  const refreshInterval = refreshMinutes * 60 * 1000;
+
+  const intervalId = window.setInterval(() => {
     loadTournamentData();
+  }, refreshInterval);
 
-    const refreshHours = 12;
-    const refreshInterval = refreshHours * 60 * 60000;
-
-    const intervalId = window.setInterval(() => {
-      loadTournamentData();
-    }, refreshInterval);
-
-    return () => window.clearInterval(intervalId);
-  }, [loadTournamentData]);
+  return () => window.clearInterval(intervalId);
+}, [loadTournamentData]);
 
   const liveGames = useMemo(
     () => state.games.filter((game) => game.status === "inprogress"),

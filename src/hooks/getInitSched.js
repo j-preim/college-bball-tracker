@@ -6,7 +6,6 @@ export async function getScheduleData() {
     headers: {
       Accept: "application/json",
     },
-    cache: "no-store",
   });
 
   if (!response.ok) {
