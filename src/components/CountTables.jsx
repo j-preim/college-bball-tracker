@@ -16,7 +16,7 @@ export default function CountTables({ gamesData = [], selectedDay = "" }) {
 
   return (
     <div className="row g-4">
-      <div className="col-12 col-lg-5">
+      <div className="col-12 col-lg-6">
             <table className="table table-striped table-sm mb-0">
               <thead className="table-head">
                 <tr>
@@ -43,7 +43,7 @@ export default function CountTables({ gamesData = [], selectedDay = "" }) {
             </table>
       </div>
 
-      <div className="col-12 col-lg-5">
+      <div className="col-12 col-lg-6">
             <table className="table table-striped table-sm mb-0">
               <thead className="table-head">
                 <tr>

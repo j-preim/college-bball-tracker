@@ -1,10 +1,15 @@
 import ListGames from "../components/games/ListGames";
-import { getBestAvailableDate, getTodayDateString, formatDisplayDate } from "../utils/dateHelpers";
+import {
+  getBestAvailableDate,
+  getTodayDateString,
+  formatDisplayDate,
+} from "../utils/dateHelpers";
 
 export default function Home(props) {
   const todayFormatted = props.todayFormatted || getTodayDateString();
   const selectedDate = getBestAvailableDate(props.gameDates || []);
-  const isFallbackDate = Boolean(selectedDate) && selectedDate !== todayFormatted;
+  const isFallbackDate =
+    Boolean(selectedDate) && selectedDate !== todayFormatted;
 
   if (props.loading) {
     return (
@@ -33,12 +38,21 @@ export default function Home(props) {
     <div className="container py-3">
       {isFallbackDate ? (
         <div className="alert alert-secondary">
-          No games were found for today, so this view is showing the next available slate on <strong>{selectedDate}</strong>.
+          No games were found for today, so this view is showing the next
+          available slate on <strong>{formatDisplayDate(selectedDate)}</strong>.
         </div>
-      ) : null}
+      ) : (
+        <div>
+          <h3>Games for ${formatDisplayDate(selectedDate)}</h3>
+        </div>
+      )}
 
       <ListGames
-        title={selectedDate ? `Games for ${formatDisplayDate(selectedDate)}` : "Tournament games"}
+        title={
+          selectedDate
+            ? `Games for ${formatDisplayDate(selectedDate)}`
+            : "Tournament games"
+        }
         gamesData={props.gamesData || []}
         bettingData={props.bettingData || []}
         selectedDate={selectedDate}
