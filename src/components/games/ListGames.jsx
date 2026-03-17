@@ -46,14 +46,14 @@ export default function ListGames({
   }, [gamesData, selectedDate]);
 
   const bettingInfoByGameId = useMemo(() => {
-    const map = new Map();
+  const map = new Map();
 
-    for (const game of filteredGames) {
-      map.set(game.id, getBettingInfo(game.id, bettingData) || "-");
-    }
+  for (const game of filteredGames) {
+    map.set(game.id, getBettingInfo(game.id, bettingData));
+  }
 
-    return map;
-  }, [filteredGames, bettingData]);
+  return map;
+}, [filteredGames, bettingData]);
 
   return (
     <section className="mt-3">
