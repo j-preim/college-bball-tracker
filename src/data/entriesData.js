@@ -1,7 +1,7 @@
 export const survivorEntries = [
   {
     id: "entry-1",
-    name: "Entry 1",
+    name: "Ponyboiz 1",
     contest: "Splash NCAAB Survivor",
     picks: [
       {
@@ -15,7 +15,7 @@ export const survivorEntries = [
   },
   {
     id: "entry-2",
-    name: "Entry 2",
+    name: "Ponyboiz 2",
     contest: "Splash NCAAB Survivor",
     picks: [
       {

@@ -57,6 +57,7 @@ function PickHistory({ picks = [] }) {
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
+            <th style={thstyle}>Date</th>
             <th style={thStyle}>Round</th>
             <th style={thStyle}>Team</th>
             <th style={thStyle}>Opponent</th>
@@ -66,6 +67,7 @@ function PickHistory({ picks = [] }) {
         <tbody>
           {picks.map((pick, index) => (
             <tr key={`${pick.roundId || pick.roundName}-${pick.teamId}-${index}`}>
+              <td style={tdStyle}>{pick.gameDate || "—"}</td>
               <td style={tdStyle}>{pick.roundName || pick.roundId || "—"}</td>
               <td style={tdStyle}>{pick.teamName || "—"}</td>
               <td style={tdStyle}>{pick.opponentName || "—"}</td>
@@ -151,9 +153,9 @@ export default function Entries() {
         }}
       >
         <div>
-          <h1 style={{ margin: 0 }}>Entries</h1>
+          <h1 style={{ margin: 0 }}>Splash NCAAB Survivor Entries</h1>
           <p style={{ marginTop: 8}}>
-            Track your Splash Sports NCAAB survivor entries against your live tournament data.
+            Track your entries against live tournament data.
           </p>
           {lastUpdated ? (
             <p style={{ marginTop: 4, fontSize: 13, color: "#83817d" }}>
@@ -217,9 +219,6 @@ export default function Entries() {
               >
                 <div>
                   <h2 style={{ margin: 0 }}>{entry.name}</h2>
-                  <div style={{ marginTop: 6, fontSize: 14 }}>
-                    {entry.contest}
-                  </div>
                 </div>
 
                 <StatusBadge status={entry.isActive ? "active" : "lost"} />
