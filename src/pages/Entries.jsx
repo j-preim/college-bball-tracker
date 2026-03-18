@@ -48,7 +48,7 @@ function StatusBadge({ status, isMobile }) {
           : normalized === "invalid"
             ? { background: "#fef3c7", color: "#92400e" }
             : { background: "#374151", color: "#f3f4f6" };
-f3f4f6
+
   return (
     <span
       style={{
