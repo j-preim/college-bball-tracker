@@ -9,6 +9,18 @@ import {
 import { loadSavedEntries, saveEntries } from "../utils/entriesStorage";
 import { formatDisplayDate } from "../utils/dateHelpers";
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return isMobile;
+}
+
 function StatusBadge({ status }) {
   const normalized = String(status).toLowerCase();
 
@@ -61,72 +73,93 @@ function PickHistory({ entryId, picks = [], onRemovePick }) {
 
   return (
     <div style={{ marginTop: 16, overflowX: "auto" }}>
-      <table
-        className="table table-striped"
-        style={{ width: "100%", borderCollapse: "collapse" }}
-      >
-        <thead className="table-head">
-          <tr>
-            <th style={thStyle}>Date</th>
-            <th style={thStyle}>Team</th>
-            <th style={thStyle}>Opponent</th>
-            <th style={thStyle}>Result</th>
-            <th style={thStyle}>Actions</th>
-          </tr>
-        </thead>
-        <tbody className="table-light">
+      {isMobile ? (
+        <div style={{ marginTop: 12 }}>
           {picks.map((pick, index) => (
-            <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
-              <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
-              <td style={tdStyle}>
-                <span className="seed">{pick.pickedSeed}</span>&nbsp;&nbsp;
-                {pick.teamName}
-              </td>
-              <td style={tdStyle}>
-                <span className="seed">{pick.opponentSeed}</span>&nbsp;&nbsp;
-                {pick.opponentName}
-              </td>
-              <td style={tdStyle}>
-                <StatusBadge status={pick.result} />
-              </td>
-              <td style={tdStyle}>
-                <button
-                  onClick={() => onRemovePick(entryId, pick.pickDate)}
-                  style={buttonStyle}
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
+            <div key={index} style={{ marginBottom: 8 }}>
+              <div>{formatDisplayDate(pick.pickDate)}</div>
+              <div>{formatTeamWithSeed(pick.teamName, pick.pickedSeed)}</div>
+              <div>
+                vs {formatTeamWithSeed(pick.opponentName, pick.opponentSeed)}
+              </div>
+              <StatusBadge status={pick.result} />
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      ) : (
+        <table
+          className="table table-striped"
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            minWidth: isMobile ? 500 : "100%",
+          }}
+        >
+          <thead className="table-head">
+            <tr>
+              <th style={thStyle(isMobile)}>Date</th>
+              <th style={thStyle(isMobile)}>Team</th>
+              <th style={thStyle(isMobile)}>Opponent</th>
+              <th style={thStyle(isMobile)}>Result</th>
+              <th style={thStyle(isMobile)}>Actions</th>
+            </tr>
+          </thead>
+          <tbody className="table-light">
+            {picks.map((pick, index) => (
+              <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
+                <td style={tdStyle(isMobile)}>
+                  {formatDisplayDate(pick.pickDate) || "—"}
+                </td>
+                <td style={tdStyle(isMobile)}>
+                  <span className="seed">{pick.pickedSeed}</span>&nbsp;&nbsp;
+                  {pick.teamName}
+                </td>
+                <td style={tdStyle(isMobile)}>
+                  <span className="seed">{pick.opponentSeed}</span>&nbsp;&nbsp;
+                  {pick.opponentName}
+                </td>
+                <td style={tdStyle(isMobile)}>
+                  <StatusBadge status={pick.result} />
+                </td>
+                <td style={tdStyle(isMobile)}>
+                  <button
+                    onClick={() => onRemovePick(entryId, pick.pickDate)}
+                    style={buttonStyle}
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
 
-const sectionCardStyle = {
+const sectionCardStyle = (isMobile) => ({
   border: "1px solid #e5e7eb",
   borderRadius: 12,
-  padding: 16,
+  padding: isMobile ? 12 : 16,
   background: "#565656",
   color: "#ffffff",
-};
+});
 
-const thStyle = {
+thStyle = (isMobile) => ({
   textAlign: "left",
-  padding: "10px 8px",
+  padding: isMobile ? "6px 4px" : "10px 8px",
   borderBottom: "1px solid #e5e7eb",
-  fontSize: 14,
+  fontSize: isMobile ? 11 : 14,
   whiteSpace: "nowrap",
-};
+});
 
-const tdStyle = {
-  padding: "8px 6px",
+thStyle = (isMobile) => ({
+  padding: isMobile ? "6px 4px" : "8px 6px",
   borderBottom: "1px solid #f3f4f6",
-  fontSize: 14,
+  fontSize: isMobile ? 11 : 14,
   alignContent: "center",
-};
+});
 
 const inputStyle = {
   width: "100%",
@@ -144,6 +177,7 @@ const buttonStyle = {
   background: "#ffffff",
   color: "#111827",
   cursor: "pointer",
+  width: "100%", // important for mobile
 };
 
 export default function Entries({
@@ -158,6 +192,8 @@ export default function Entries({
   );
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTeamId, setSelectedTeamId] = useState("");
+
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const saved = loadSavedEntries();
@@ -308,7 +344,9 @@ export default function Entries({
   if (loading) {
     return (
       <div style={{ padding: 20 }}>
-        <h4>Project Payday Survivor Entries</h4>
+        <h4 style={{ margin: 0, fontSize: isMobile ? 16 : 20 }}>
+          Project Payday Survivor Entries
+        </h4>
         <p>Loading tournament data...</p>
       </div>
     );
@@ -317,7 +355,9 @@ export default function Entries({
   if (error) {
     return (
       <div style={{ padding: 20 }}>
-        <h4>Project Payday Survivor Entries</h4>
+        <h4 style={{ margin: 0, fontSize: isMobile ? 16 : 20 }}>
+          Project Payday Survivor Entries
+        </h4>
         <p style={{ color: "#b91c1c" }}>{error}</p>
         <button onClick={refreshTournamentData}>Retry</button>
       </div>
@@ -337,7 +377,9 @@ export default function Entries({
         }}
       >
         <div>
-          <h4>Project Payday Survivor Entries</h4>
+          <h4 style={{ margin: 0, fontSize: isMobile ? 16 : 20 }}>
+            Project Payday Survivor Entries
+          </h4>
         </div>
 
         <button onClick={refreshTournamentData} style={buttonStyle}>
@@ -345,13 +387,15 @@ export default function Entries({
         </button>
       </div>
 
-      <div style={{ ...sectionCardStyle, marginBottom: 20 }}>
+      <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
         <h4 style={{ marginTop: 0 }}>Pick Editor</h4>
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gridTemplateColumns: isMobile
+              ? "1fr"
+              : "repeat(auto-fit, minmax(180px, 1fr))",
             gap: 12,
             alignItems: "end",
           }}
@@ -439,26 +483,28 @@ export default function Entries({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+          gridTemplateColumns: isMobile
+            ? "1fr"
+            : "repeat(auto-fit, minmax(180px, 1fr))",
           gap: 12,
           marginBottom: 20,
         }}
       >
-        <div style={sectionCardStyle}>
+        <div style={sectionCardStyle(isMobile)}>
           <div style={{ fontSize: 13 }}>Total Entries</div>
           <div style={{ fontSize: 20, fontWeight: 700 }}>
             {summary.totalEntries}
           </div>
         </div>
 
-        <div style={sectionCardStyle}>
+        <div style={sectionCardStyle(isMobile)}>
           <div style={{ fontSize: 13 }}>Active</div>
           <div style={{ fontSize: 20, fontWeight: 700 }}>
             {summary.activeEntries}
           </div>
         </div>
 
-        <div style={sectionCardStyle}>
+        <div style={sectionCardStyle(isMobile)}>
           <div style={{ fontSize: 13 }}>Eliminated</div>
           <div style={{ fontSize: 20, fontWeight: 700 }}>
             {summary.eliminatedEntries}
@@ -467,7 +513,7 @@ export default function Entries({
       </div>
 
       {resolvedEntries.length === 0 ? (
-        <div style={sectionCardStyle}>
+        <div style={sectionCardStyle(isMobile)}>
           <h2 style={{ marginTop: 0 }}>No entries yet</h2>
           <p style={{ marginBottom: 0 }}>
             Add entries in <code>src/data/entriesData.js</code> to start
@@ -477,12 +523,13 @@ export default function Entries({
       ) : (
         <div style={{ display: "grid", gap: 16 }}>
           {resolvedEntries.map((entry) => (
-            <div key={entry.id} style={sectionCardStyle}>
+            <div key={entry.id} style={sectionCardStyle(isMobile)}>
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  flexDirection: isMobile ? "column" : "row",
+                  alignItems: isMobile ? "flex-start" : "center",
+                  gap: 8,
                   gap: 12,
                   flexWrap: "wrap",
                 }}
@@ -513,7 +560,9 @@ export default function Entries({
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                  gridTemplateColumns: isMobile
+                    ? "1fr"
+                    : "repeat(auto-fit, minmax(180px, 1fr))",
                   gap: 12,
                   marginTop: 16,
                 }}
