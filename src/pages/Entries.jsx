@@ -179,6 +179,8 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
 }
 
 const sectionCardStyle = (isMobile) => ({
+  display: "flex",
+  justifyContent: "space-between",
   border: "1px solid #e5e7eb",
   borderRadius: 12,
   padding: isMobile ? 12 : 16,
@@ -551,23 +553,25 @@ export default function Entries({
         }}
       >
         <div style={sectionCardStyle(isMobile)}>
-          <div style={{ fontSize: 13 }}>Total Entries</div>
-          <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
-            {summary.totalEntries}
+          <div>
+            <div style={{ fontSize: 13 }}>Total Entries</div>
+            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
+              {summary.totalEntries}
+            </div>
           </div>
-        </div>
 
-        <div style={sectionCardStyle(isMobile)}>
-          <div style={{ fontSize: 13 }}>Active</div>
-          <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
-            {summary.activeEntries}
+          <div>
+            <div style={{ fontSize: 13 }}>Active</div>
+            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
+              {summary.activeEntries}
+            </div>
           </div>
-        </div>
 
-        <div style={sectionCardStyle(isMobile)}>
-          <div style={{ fontSize: 13 }}>Eliminated</div>
-          <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
-            {summary.eliminatedEntries}
+          <div>
+            <div style={{ fontSize: 13 }}>Eliminated</div>
+            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
+              {summary.eliminatedEntries}
+            </div>
           </div>
         </div>
       </div>
