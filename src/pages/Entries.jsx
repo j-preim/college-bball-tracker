@@ -117,14 +117,15 @@ const thStyle = {
   textAlign: "left",
   padding: "10px 8px",
   borderBottom: "1px solid #e5e7eb",
-  fontSize: 13,
+  fontSize: 14,
   whiteSpace: "nowrap",
 };
 
 const tdStyle = {
-  padding: "10px 8px",
+  padding: "8px 6px",
   borderBottom: "1px solid #f3f4f6",
   fontSize: 14,
+  alignContent: "center",
 };
 
 const inputStyle = {
@@ -137,7 +138,7 @@ const inputStyle = {
 };
 
 const buttonStyle = {
-  padding: "8px 12px",
+  padding: "4px 8px",
   borderRadius: 6,
   border: "1px solid #d1d5db",
   background: "#ffffff",
