@@ -68,7 +68,7 @@ function StatusBadge({ status, isMobile }) {
 function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
   if (!picks.length) {
     return (
-      <div style={{ marginTop: 12, color: "#6b7280" }}>
+      <div style={{ marginTop: 12, color: "#ffffff" }}>
         No picks entered yet.
       </div>
     );

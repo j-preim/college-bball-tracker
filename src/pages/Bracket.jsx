@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { formatStatusLabel } from "../utils/dateHelpers";
+import { formatDisplayDate } from "../utils/dateHelpers";
 
 function getTeamLabel(team) {
   if (!team) {
@@ -50,12 +51,6 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-        <div>
-          <h3 className="mb-1">Bracket tracker</h3>
-          <div className="text-body-secondary small">
-            Round-by-round game cards generated from your schedule data.
-          </div>
-        </div>
         <div className="badge text-bg-light bracket-summary-badge">
           {visibleRounds.length} round{visibleRounds.length === 1 ? "" : "s"}
         </div>
@@ -75,7 +70,7 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
                     <div className="col-12 col-xl-6" key={bracket.bracketId || bracket.bracketName}>
                       <div className="border rounded-3 p-3 h-100 bg-light text-dark">
                         <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
-                          <h5 className="mb-0">{bracket.bracketName}</h5>
+                          <h6 className="mb-0">{bracket.bracketName}</h6>
                           <span className="badge text-bg-secondary">
                             {bracket.bracketGames.length} game{bracket.bracketGames.length === 1 ? "" : "s"}
                           </span>
@@ -89,18 +84,17 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
                                 <div className="card-body">
                                   <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
                                     <span className="badge text-bg-light">{formatStatusLabel(game.status)}</span>
-                                    <span className="small text-body-secondary">{game.gameDate || game.scheduled}</span>
+                                    <span className="small text-body-secondary">{formatDisplayDate(game.gameDate || game.scheduled)}</span>
                                   </div>
 
-                                  <div className={`d-flex justify-content-between gap-3 py-1 ${winningSide === "home" ? "fw-bold text-success" : ""}`}>
+                                  <div className={`d-flex justify-content-between gap-3 pb-1 ${winningSide === "home" ? "fw-bold text-success" : ""}`}>
                                     <span>{getTeamLabel(game.home)}</span>
                                     <span>{game.home_points ?? "-"}</span>
                                   </div>
-                                  <div className={`d-flex justify-content-between gap-3 py-1 ${winningSide === "away" ? "fw-bold text-success" : ""}`}>
+                                  <div className={`d-flex justify-content-between gap-3 pb-1 ${winningSide === "away" ? "fw-bold text-success" : ""}`}>
                                     <span>{getTeamLabel(game.away)}</span>
                                     <span>{game.away_points ?? "-"}</span>
                                   </div>
-                                  <div className="small text-body-secondary mt-2">{game.title || "Matchup"}</div>
                                 </div>
                               </div>
                             );
