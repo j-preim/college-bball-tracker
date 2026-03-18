@@ -53,9 +53,9 @@ function StatusBadge({ status, isMobile }) {
     <span
       style={{
         display: "inline-block",
-        padding: isMobile ? "2px 6px" : "4px 10px",
+        padding: isMobile ? "3px 8px" : "4px 10px",
         borderRadius: 999,
-        fontSize: isMobile ? 10 : 12,
+        fontSize: 12,
         fontWeight: 600,
         ...styles,
       }}
@@ -105,15 +105,15 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   display: "flex",
                   gap: 8,
                   alignItems: "center",
-                  justifyContent: "space-between"
+                  justifyContent: "space-between",
                 }}
               >
-                <div style={{marginTop: "4px"}}>
+                <div style={{ fontSize: "x-small" }}>
                   <span className="seed">
                     {pick.pickedSeed}&nbsp;&nbsp;
                     {pick.teamName}&nbsp;
                   </span>
-                  vs {pick.opponentSeed}&nbsp;&nbsp;
+                  &nbsp;vs&nbsp; {pick.opponentSeed}&nbsp;&nbsp;
                   {pick.opponentName}
                 </div>
                 {/* <button
@@ -600,7 +600,10 @@ export default function Entries({
                   </h4>
                 </div>
 
-                <StatusBadge status={entry.isActive ? "active" : "lost"} isMobile={true} />
+                <StatusBadge
+                  status={entry.isActive ? "active" : "lost"}
+                  isMobile={true}
+                />
               </div>
 
               {entry.hasValidationErrors ? (
