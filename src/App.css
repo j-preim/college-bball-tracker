@@ -289,6 +289,10 @@ table .loser {
     font-size: 60%;
   }
 
+  .table-head {
+    font-size: 110%;
+  }
+
   tr {
     font-size: 90%;
   }

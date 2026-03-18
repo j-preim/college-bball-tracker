@@ -78,7 +78,7 @@ export default function ListGames({
                 <th scope="col">Region</th>
                 <th scope="col">Home</th>
                 <th scope="col">Away</th>
-                <th scope="col">Spread</th>
+                {/* <th scope="col">Spread</th> */}
                 <th scope="col">Score</th>
               </tr>
             </thead>
