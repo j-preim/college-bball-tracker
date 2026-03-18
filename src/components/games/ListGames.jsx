@@ -56,9 +56,9 @@ export default function ListGames({
 
   return (
     <section className="mt-2">
-      First Round
+      <h4>{filteredGames[0].roundName}First Round</h4>
       <div className="d-flex justify-content-between align-items-center mb-2">
-          <div className="text-body-secondary small hoverText">
+          <div className="text-body-secondary small hoverInfo">
             Hover over team names for more info
         </div>
 
@@ -74,9 +74,8 @@ export default function ListGames({
           <table className="table table-striped table-hover align-middle">
             <thead className="table-head">
               <tr>
-                <th scope="col">Round</th>
-                <th scope="col">Region</th>
                 <th scope="col">Tipoff</th>
+                <th scope="col">Region</th>
                 <th scope="col">Home</th>
                 <th scope="col">Away</th>
                 <th scope="col">Spread</th>
