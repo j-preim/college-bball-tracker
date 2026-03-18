@@ -87,15 +87,16 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 padding: 10,
               }}
             >
-              <div style={{ display: "flex", alignItems: "end", fontSize: 12, marginBottom: 8 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "end",
+                  fontSize: 12,
+                  marginBottom: 8,
+                }}
+              >
                 <StatusBadge status={pick.result} isMobile={true} />
-                <span style={{marginLeft: "8px"}}>{formatDisplayDate(pick.pickDate) || "—"}</span>
-              </div>
-              <div style={{ }}>
-                <span className="seed">{pick.pickedSeed}&nbsp;&nbsp;
-                {pick.teamName}&nbsp;</span>
-                vs {pick.opponentSeed}&nbsp;&nbsp;
-                {pick.opponentName}
+                {formatDisplayDate(pick.pickDate) || "—"}
               </div>
               <div
                 style={{
@@ -103,8 +104,17 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   display: "flex",
                   gap: 8,
                   alignItems: "center",
+                  justifyContent: "space-between"
                 }}
               >
+                <div style={{}}>
+                  <span className="seed">
+                    {pick.pickedSeed}&nbsp;&nbsp;
+                    {pick.teamName}&nbsp;
+                  </span>
+                  vs {pick.opponentSeed}&nbsp;&nbsp;
+                  {pick.opponentName}
+                </div>
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle(isMobile), width: "auto" }}
