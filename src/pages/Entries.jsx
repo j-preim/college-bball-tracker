@@ -53,9 +53,9 @@ function StatusBadge({ status, isMobile }) {
     <span
       style={{
         display: "inline-block",
-        padding: isMobile ? "3px 8px" : "4px 10px",
+        padding: isMobile ? "2px 6px" : "4px 10px",
         borderRadius: 999,
-        fontSize: 12,
+        fontSize: isMobile ? 10 : 12,
         fontWeight: 600,
         ...styles,
       }}
