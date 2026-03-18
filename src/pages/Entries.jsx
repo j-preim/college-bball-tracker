@@ -256,7 +256,7 @@ export default function Entries({
           <h4>Project Payday Survivor Entries</h4>
         </div>
 
-        <button onClick={refreshTournamentData} style={buttonStyle}>
+        <button onClick={refreshTournamentData}>
           Refresh
         </button>
       </div>
