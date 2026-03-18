@@ -93,10 +93,11 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   alignItems: "end",
                   fontSize: 12,
                   marginBottom: 8,
+                  justifyContent: "space-between",
                 }}
               >
-                <StatusBadge status={pick.result} isMobile={true} />
                 {formatDisplayDate(pick.pickDate) || "—"}
+                <StatusBadge status={pick.result} isMobile={true} />
               </div>
               <div
                 style={{
@@ -107,7 +108,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   justifyContent: "space-between"
                 }}
               >
-                <div style={{}}>
+                <div style={{marginTop: "4px"}}>
                   <span className="seed">
                     {pick.pickedSeed}&nbsp;&nbsp;
                     {pick.teamName}&nbsp;
