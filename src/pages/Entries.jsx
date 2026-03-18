@@ -116,12 +116,12 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   &nbsp;vs&nbsp; {pick.opponentSeed}&nbsp;&nbsp;
                   {pick.opponentName}
                 </div>
-                {/* <button
+                <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle(isMobile), width: "auto" }}
                 >
                   Remove
-                </button> */}
+                </button>
               </div>
             </div>
           ))}
@@ -164,7 +164,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 <td style={tdStyle(isMobile)}>
                   <button
                     onClick={() => onRemovePick(entryId, pick.pickDate)}
-                    style={{ ...buttonStyle(isMobile), width: "auto" }}
+                    style={{ ...buttonStyle(isMobile), width: "auto", fontSize: "smaller" }}
                   >
                     Remove
                   </button>
