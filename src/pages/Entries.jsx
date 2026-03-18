@@ -111,7 +111,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 />
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
-                  style={{ ...buttonStyle, width: "auto" }}
+                  style={{ ...buttonStyle(isMobile), width: "auto" }}
                 >
                   Remove
                 </button>
@@ -157,7 +157,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 <td style={tdStyle(isMobile)}>
                   <button
                     onClick={() => onRemovePick(entryId, pick.pickDate)}
-                    style={{ ...buttonStyle, width: "auto" }}
+                    style={{ ...buttonStyle(isMobile), width: "auto" }}
                   >
                     Remove
                   </button>
@@ -203,14 +203,14 @@ const inputStyle = {
   color: "#111827",
 };
 
-const buttonStyle = {
-  padding: "8px 12px",
+const buttonStyle = (isMobile) => ({
+  padding: isMobile ? "6px 8px" : "8px 12px",
   borderRadius: 6,
   border: "1px solid #d1d5db",
   background: "#ffffff",
   color: "#111827",
   cursor: "pointer",
-};
+});
 
 export default function Entries({
   gamesData = [],
@@ -391,7 +391,7 @@ export default function Entries({
           Project Payday Survivor Entries
         </h4>
         <p style={{ color: "#b91c1c" }}>{error}</p>
-        <button onClick={refreshTournamentData} style={buttonStyle}>
+        <button onClick={refreshTournamentData} style={buttonStyle(isMobile)}>
           Retry
         </button>
       </div>
@@ -416,7 +416,7 @@ export default function Entries({
           </h4>
         </div>
 
-        <button onClick={refreshTournamentData} style={buttonStyle}>
+        <button onClick={refreshTournamentData} style={buttonStyle(isMobile)}>
           Refresh
         </button>
       </div>
@@ -508,7 +508,7 @@ export default function Entries({
                 !selectedDate ||
                 !selectedTeamId
               }
-              style={{ ...buttonStyle, width: isMobile ? "100%" : "auto" }}
+              style={{ ...buttonStyle(isMobile), width: isMobile ? "100%" : "auto" }}
             >
               Save Pick
             </button>
