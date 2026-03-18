@@ -171,6 +171,19 @@ export default function Entries({
     saveEntries(editableEntries);
   }, [editableEntries]);
 
+  useEffect(() => {
+    if (!selectedEntry || !selectedDate) {
+      setSelectedTeamId("");
+      return;
+    }
+
+    const existingPick = selectedEntry.picks?.find(
+      (pick) => String(pick.pickDate) === String(selectedDate),
+    );
+
+    setSelectedTeamId(existingPick?.teamId || "");
+  }, [selectedEntry, selectedDate]);
+
   const resolvedEntries = useMemo(() => {
     return resolveSurvivorEntries(editableEntries, gamesData);
   }, [editableEntries, gamesData]);
@@ -179,11 +192,18 @@ export default function Entries({
     return getSurvivorSummary(resolvedEntries);
   }, [resolvedEntries]);
 
+  const selectedEntry = useMemo(() => {
+    return (
+      editableEntries.find((entry) => entry.id === selectedEntryId) || null
+    );
+  }, [editableEntries, selectedEntryId]);
+
   const availableDates = useMemo(() => {
     const dates = [
       ...new Set(gamesData.map((game) => game.gameDate).filter(Boolean)),
     ];
-    return dates.sort();
+
+    return dates.filter((date) => String(date) >= "2026-03-19").sort();
   }, [gamesData]);
 
   const availableTeamsForDate = useMemo(() => {
@@ -211,10 +231,48 @@ export default function Entries({
       }
     });
 
-    return [...seen.values()].sort((a, b) =>
-      String(a.teamName).localeCompare(String(b.teamName)),
+    const currentPickForSelectedDate =
+      selectedEntry?.picks?.find(
+        (pick) => String(pick.pickDate) === String(selectedDate),
+      ) || null;
+
+    const usedTeamIds = new Set(
+      (selectedEntry?.picks || [])
+        .filter((pick) => String(pick.pickDate) !== String(selectedDate))
+        .map((pick) => String(pick.teamId)),
     );
-  }, [gamesData, selectedDate]);
+
+    return [...seen.values()]
+      .filter((team) => {
+        const teamId = String(team.teamId);
+
+        if (
+          currentPickForSelectedDate &&
+          String(currentPickForSelectedDate.teamId) === teamId
+        ) {
+          return true;
+        }
+
+        return !usedTeamIds.has(teamId);
+      })
+      .sort((a, b) => String(a.teamName).localeCompare(String(b.teamName)));
+  }, [gamesData, selectedDate, selectedEntry]);
+
+  const selectedEntryPickDates = useMemo(() => {
+    return new Set(
+      (selectedEntry?.picks || []).map((pick) => String(pick.pickDate)),
+    );
+  }, [selectedEntry]);
+
+  const selectedResolvedEntry = useMemo(() => {
+    return (
+      resolvedEntries.find((entry) => entry.id === selectedEntryId) || null
+    );
+  }, [resolvedEntries, selectedEntryId]);
+
+  const editorDisabled = selectedResolvedEntry
+    ? !selectedResolvedEntry.isActive
+    : false;
 
   function handleSavePick() {
     if (!selectedEntryId || !selectedDate || !selectedTeamId) return;
@@ -312,16 +370,21 @@ export default function Entries({
               value={selectedDate}
               onChange={(e) => {
                 setSelectedDate(e.target.value);
-                setSelectedTeamId("");
               }}
               style={inputStyle}
+              disabled={editorDisabled}
             >
               <option value="">Select date</option>
-              {availableDates.map((date) => (
-                <option key={date} value={date}>
-                  {formatDisplayDate(date)}
-                </option>
-              ))}
+              {availableDates.map((date) => {
+                const hasPick = selectedEntryPickDates.has(String(date));
+
+                return (
+                  <option key={date} value={date}>
+                    {formatDisplayDate(date)}
+                    {hasPick ? " — saved" : ""}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
@@ -331,7 +394,7 @@ export default function Entries({
               value={selectedTeamId}
               onChange={(e) => setSelectedTeamId(e.target.value)}
               style={inputStyle}
-              disabled={!selectedDate}
+              disabled={!selectedDate || editorDisabled}
             >
               <option value="">Select team</option>
               {availableTeamsForDate.map((team) => (
@@ -346,7 +409,12 @@ export default function Entries({
           <div>
             <button
               onClick={handleSavePick}
-              disabled={!selectedEntryId || !selectedDate || !selectedTeamId}
+              disabled={
+                editorDisabled ||
+                !selectedEntryId ||
+                !selectedDate ||
+                !selectedTeamId
+              }
               style={buttonStyle}
             >
               Save Pick
@@ -354,6 +422,12 @@ export default function Entries({
           </div>
         </div>
       </div>
+
+      {editorDisabled ? (
+        <div style={{ marginTop: 12, fontSize: 13, color: "#fca5a5" }}>
+          This entry has been eliminated. New picks are disabled.
+        </div>
+      ) : null}
 
       <div
         style={{
