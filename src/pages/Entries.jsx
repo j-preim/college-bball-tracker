@@ -84,7 +84,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
               style={{
                 border: "1px solid #6b7280",
                 borderRadius: 8,
-                padding: 10,
+                padding: 8,
               }}
             >
               <div
@@ -428,7 +428,7 @@ export default function Entries({
           alignItems: "flex-start",
           gap: 12,
           flexWrap: "wrap",
-          marginBottom: 20,
+          marginBottom: 16,
         }}
       >
         <div>
