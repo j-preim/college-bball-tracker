@@ -47,8 +47,8 @@ function StatusBadge({ status, isMobile }) {
           ? { background: "#dbeafe", color: "#166534" }
           : normalized === "invalid"
             ? { background: "#fef3c7", color: "#92400e" }
-            : { background: "#f3f4f6", color: "#374151" };
-
+            : { background: "#374151", color: "#f3f4f6" };
+f3f4f6
   return (
     <span
       style={{
@@ -108,7 +108,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   justifyContent: "space-between",
                 }}
               >
-                <div style={{ fontSize: "x-small" }}>
+                <div style={{ fontSize: "larger" }}>
                   <span className="seed">
                     {pick.pickedSeed}&nbsp;&nbsp;
                     {pick.teamName}&nbsp;
@@ -118,7 +118,16 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 </div>
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
-                  style={{ ...buttonStyle(isMobile), width: "auto" }}
+                  style={{
+                    padding: "1px 4px",
+                    borderRadius: 2,
+                    border: "1px solid #d1d5db",
+                    background: "#ffffff",
+                    color: "#111827",
+                    fontSize: "x-small",
+                    cursor: "pointer",
+                    width: "auto",
+                  }}
                 >
                   Remove
                 </button>
@@ -164,7 +173,11 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 <td style={tdStyle(isMobile)}>
                   <button
                     onClick={() => onRemovePick(entryId, pick.pickDate)}
-                    style={{ ...buttonStyle(isMobile), width: "auto", fontSize: "smaller" }}
+                    style={{
+                      ...buttonStyle(isMobile),
+                      width: "auto",
+                      fontSize: "smaller",
+                    }}
                   >
                     Remove
                   </button>
@@ -550,7 +563,13 @@ export default function Entries({
           marginBottom: 20,
         }}
       >
-        <div style={{ ...sectionCardStyle(isMobile), display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            ...sectionCardStyle(isMobile),
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div>
             <div style={{ fontSize: 13 }}>Total Entries</div>
             <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
