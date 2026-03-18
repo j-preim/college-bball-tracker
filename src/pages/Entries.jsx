@@ -24,12 +24,6 @@ function useIsMobile() {
   return isMobile;
 }
 
-function formatTeamWithSeed(name, seed) {
-  if (!name) return "—";
-  if (seed == null || seed === "") return name;
-  return `(${seed}) ${name}`;
-}
-
 function StatusBadge({ status }) {
   const normalized = String(status).toLowerCase();
 
@@ -103,7 +97,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 vs {formatTeamWithSeed(pick.opponentName, pick.opponentSeed)}
               </div>
               <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center" }}>
-                <StatusBadge status={pick.result} />
+                <StatusBadge status={pick.result} style={fontSize: 8, padding: "2px 6px"} />
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle, width: "auto" }}
