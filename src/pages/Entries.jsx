@@ -91,13 +91,25 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 {formatDisplayDate(pick.pickDate) || "—"}
               </div>
               <div style={{ fontWeight: 600 }}>
-                {formatTeamWithSeed(pick.teamName, pick.pickedSeed)}
+                <span className="seed">{pick.pickedSeed}</span>&nbsp;&nbsp;
+                {pick.teamName}
               </div>
               <div style={{ marginTop: 4 }}>
-                vs {formatTeamWithSeed(pick.opponentName, pick.opponentSeed)}
+                vs <span className="seed">{pick.opponentSeed}</span>&nbsp;&nbsp;
+                {pick.opponentName}
               </div>
-              <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center" }}>
-                <StatusBadge status={pick.result} style={{fontSize: 8, padding: "2px 6px"}} />
+              <div
+                style={{
+                  marginTop: 8,
+                  display: "flex",
+                  gap: 8,
+                  alignItems: "center",
+                }}
+              >
+                <StatusBadge
+                  status={pick.result}
+                  style={{ fontSize: 8, padding: "2px 6px" }}
+                />
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle, width: "auto" }}
@@ -133,10 +145,12 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   {formatDisplayDate(pick.pickDate) || "—"}
                 </td>
                 <td style={tdStyle(isMobile)}>
-                  {formatTeamWithSeed(pick.teamName, pick.pickedSeed)}
+                  <span className="seed">{pick.pickedSeed}</span>&nbsp;&nbsp;
+                  {pick.teamName}
                 </td>
                 <td style={tdStyle(isMobile)}>
-                  {formatTeamWithSeed(pick.opponentName, pick.opponentSeed)}
+                  <span className="seed">{pick.opponentSeed}</span>&nbsp;&nbsp;
+                  {pick.opponentName}
                 </td>
                 <td style={tdStyle(isMobile)}>
                   <StatusBadge status={pick.result} />
@@ -227,7 +241,9 @@ export default function Entries({
   }, [editableEntries]);
 
   const selectedEntry = useMemo(() => {
-    return editableEntries.find((entry) => entry.id === selectedEntryId) || null;
+    return (
+      editableEntries.find((entry) => entry.id === selectedEntryId) || null
+    );
   }, [editableEntries, selectedEntryId]);
 
   useEffect(() => {
@@ -252,7 +268,9 @@ export default function Entries({
   }, [resolvedEntries]);
 
   const selectedResolvedEntry = useMemo(() => {
-    return resolvedEntries.find((entry) => entry.id === selectedEntryId) || null;
+    return (
+      resolvedEntries.find((entry) => entry.id === selectedEntryId) || null
+    );
   }, [resolvedEntries, selectedEntryId]);
 
   const editorDisabled = selectedResolvedEntry
@@ -405,7 +423,9 @@ export default function Entries({
       </div>
 
       <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
-        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>Pick Editor</h4>
+        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
+          Pick Editor
+        </h4>
 
         <div
           style={{
@@ -418,7 +438,9 @@ export default function Entries({
           }}
         >
           <div>
-            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>Entry</div>
+            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
+              Entry
+            </div>
             <select
               value={selectedEntryId}
               onChange={(e) => setSelectedEntryId(e.target.value)}
@@ -433,7 +455,9 @@ export default function Entries({
           </div>
 
           <div>
-            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>Date</div>
+            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
+              Date
+            </div>
             <select
               value={selectedDate}
               onChange={(e) => {
@@ -448,7 +472,8 @@ export default function Entries({
 
                 return (
                   <option key={date} value={date}>
-                    {formatDisplayDate(date)}{hasPick ? " — saved" : ""}
+                    {formatDisplayDate(date)}
+                    {hasPick ? " — saved" : ""}
                   </option>
                 );
               })}
@@ -456,7 +481,9 @@ export default function Entries({
           </div>
 
           <div>
-            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>Team</div>
+            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
+              Team
+            </div>
             <select
               value={selectedTeamId}
               onChange={(e) => setSelectedTeamId(e.target.value)}
@@ -466,7 +493,8 @@ export default function Entries({
               <option value="">Select team</option>
               {availableTeamsForDate.map((team) => (
                 <option key={team.teamId} value={team.teamId}>
-                  {formatTeamWithSeed(team.teamName, team.seed)}
+                  <span className="seed">{team.seed}</span>&nbsp;&nbsp;
+                  {team.teamName}
                 </option>
               ))}
             </select>
@@ -490,7 +518,14 @@ export default function Entries({
       </div>
 
       {editorDisabled ? (
-        <div style={{ marginTop: -8, marginBottom: 20, fontSize: 13, color: "#fca5a5" }}>
+        <div
+          style={{
+            marginTop: -8,
+            marginBottom: 20,
+            fontSize: 13,
+            color: "#fca5a5",
+          }}
+        >
           This entry has been eliminated. New picks are disabled.
         </div>
       ) : null}
@@ -550,7 +585,9 @@ export default function Entries({
                 }}
               >
                 <div>
-                  <h4 style={{ margin: 0, fontSize: isMobile ? 15 : 18 }}>{entry.name}</h4>
+                  <h4 style={{ margin: 0, fontSize: isMobile ? 15 : 18 }}>
+                    {entry.name}
+                  </h4>
                 </div>
 
                 <StatusBadge status={entry.isActive ? "active" : "lost"} />
@@ -568,7 +605,8 @@ export default function Entries({
                     fontSize: 14,
                   }}
                 >
-                  This entry has validation issues that may make one or more picks invalid.
+                  This entry has validation issues that may make one or more
+                  picks invalid.
                 </div>
               ) : null}
 
@@ -583,22 +621,26 @@ export default function Entries({
                 }}
               >
                 <div>
-                  <div style={{ fontSize: isMobile ? 11 : 12 }}>Current Pick</div>
+                  <div style={{ fontSize: isMobile ? 11 : 12 }}>
+                    Current Pick
+                  </div>
                   <div style={{ fontWeight: 600 }}>
-                    {formatTeamWithSeed(
-                      entry.currentPick?.teamName,
-                      entry.currentPick?.pickedSeed,
-                    )}
+                    <span className="seed">
+                      {entry.currentPick?.pickedSeed}
+                    </span>
+                    &nbsp;&nbsp;
+                    {entry.currentPick?.teamName}
                   </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: isMobile ? 11 : 12 }}>Opponent</div>
                   <div style={{ fontWeight: 600 }}>
-                    {formatTeamWithSeed(
-                      entry.currentPick?.opponentName,
-                      entry.currentPick?.opponentSeed,
-                    )}
+                    <span className="seed">
+                      {entry.currentPick?.opponentSeed}
+                    </span>
+                    &nbsp;&nbsp;
+                    {entry.currentPick?.opponentName}
                   </div>
                 </div>
 
@@ -610,7 +652,9 @@ export default function Entries({
                 </div>
 
                 <div>
-                  <div style={{ fontSize: isMobile ? 11 : 12 }}>Eliminated On</div>
+                  <div style={{ fontSize: isMobile ? 11 : 12 }}>
+                    Eliminated On
+                  </div>
                   <div style={{ fontWeight: 600 }}>
                     {formatDisplayDate(entry.eliminatedAt) || "—"}
                   </div>
