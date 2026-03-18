@@ -24,7 +24,7 @@ function useIsMobile() {
   return isMobile;
 }
 
-function StatusBadge({ status }) {
+function StatusBadge({ status, isMobile }) {
   const normalized = String(status).toLowerCase();
 
   const label =
