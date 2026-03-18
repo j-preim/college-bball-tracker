@@ -14,7 +14,7 @@ const TournamentDataContext = createContext(null);
 
 const REFRESH_KEY = "mm_last_refresh";
 const CACHE_KEY = "mm_tournament_cache";
-const REFRESH_MINUTES = 10;
+const REFRESH_MINUTES = 60;
 const REFRESH_INTERVAL = REFRESH_MINUTES * 60 * 1000;
 
 function getCachedState() {

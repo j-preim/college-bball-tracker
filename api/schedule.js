@@ -6,7 +6,7 @@ import { toTournamentDateKey } from "../src/utils/dateHelpers.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const MEMORY_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const MEMORY_CACHE_TTL_MS = 30 * 60 * 1000; // 5 minutes
 
 let memoryCache = {
   data: null,
