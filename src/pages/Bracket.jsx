@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { formatStatusLabel } from "../utils/dateHelpers";
 import { formatDisplayDate } from "../utils/dateHelpers";
+import { formatTournamentTime } from "../utils/dateHelpers";
 
 function getTeamLabel(team) {
   if (!team) {
@@ -84,7 +85,7 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
                                 <div className="card-body">
                                   <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
                                     <span className="badge text-bg-light">{formatStatusLabel(game.status)}</span>
-                                    <span className="small text-body-secondary">{formatDisplayDate(game.gameDate || game.scheduled)}</span>
+                                    <span className="small text-body-secondary">{formatDisplayDate(game.gameDate || game.scheduled)} {formatTournamentTime(game.scheduledRaw || game.scheduled)}</span>
                                   </div>
 
                                   <div className={`d-flex justify-content-between gap-3 pb-1 ${winningSide === "home" ? "fw-bold text-success" : ""}`}>
