@@ -24,6 +24,14 @@ function useIsMobile() {
   return isMobile;
 }
 
+const statusBadgeStyle = (isMobile) => ({
+  display: "inline-block",
+  padding: isMobile ? "2px 6px" : "4px 10px",
+  borderRadius: 999,
+  fontSize: isMobile ? 10 : 12,
+  fontWeight: 600,
+});
+
 function StatusBadge({ status, isMobile }) {
   const normalized = String(status).toLowerCase();
 
@@ -52,11 +60,7 @@ function StatusBadge({ status, isMobile }) {
   return (
     <span
       style={{
-        display: "inline-block",
-        padding: isMobile ? "2px 6px" : "4px 10px",
-        borderRadius: 999,
-        fontSize: isMobile ? 10 : 12,
-        fontWeight: 600,
+        ...statusBadgeStyle(isMobile),
         ...styles,
       }}
     >
@@ -106,9 +110,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   alignItems: "center",
                 }}
               >
-                <StatusBadge
-                  status={pick.result}
-                />
+                <StatusBadge status={pick.result} />
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle(isMobile), width: "auto" }}
@@ -508,7 +510,10 @@ export default function Entries({
                 !selectedDate ||
                 !selectedTeamId
               }
-              style={{ ...buttonStyle(isMobile), width: isMobile ? "100%" : "auto" }}
+              style={{
+                ...buttonStyle(isMobile),
+                width: isMobile ? "100%" : "auto",
+              }}
             >
               Save Pick
             </button>
