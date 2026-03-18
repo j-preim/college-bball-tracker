@@ -52,7 +52,7 @@ export default function App() {
         <Route path="/" element={<Home {...sharedProps} />} />
         <Route path="/matchups" element={<Matchups {...sharedProps} />} />
         <Route path="/bracket" element={<Bracket {...sharedProps} />} />
-        <Route path="/entries" element={<Entries />} />
+        <Route path="/entries" element={<Entries {...sharedProps} />} />
         <Route path="/auth" element={<Auth />} />
       </Routes>
     </BrowserRouter>

@@ -1,14 +1,7 @@
 import { useMemo } from "react";
 import { survivorEntries } from "../data/entriesData";
 import { resolveSurvivorEntries, getSurvivorSummary } from "../utils/entries";
-import { useTournamentData } from "../hooks/useTournamentData";
 import { formatDisplayDate } from "../utils/dateHelpers";
-
-function formatTeamWithSeed(name, seed) {
-  if (!name) return "—";
-  if (seed == null || seed === "") return name;
-  return `(${seed}) ${name}`;
-}
 
 function StatusBadge({ status }) {
   const normalized = String(status).toLowerCase();
@@ -62,7 +55,10 @@ function PickHistory({ picks = [] }) {
 
   return (
     <div style={{ marginTop: 16, overflowX: "auto" }}>
-      <table className="table table-striped" style={{ width: "100%", borderCollapse: "collapse" }}>
+      <table
+        className="table table-striped"
+        style={{ width: "100%", borderCollapse: "collapse" }}
+      >
         <thead className="table-head">
           <tr>
             <th style={thStyle}>Date</th>
@@ -76,10 +72,12 @@ function PickHistory({ picks = [] }) {
             <tr key={`${pick.pickDate}-${pick.teamId}-${index}`}>
               <td style={tdStyle}>{formatDisplayDate(pick.pickDate) || "—"}</td>
               <td style={tdStyle}>
-                <span className="seed">{pick.pickedSeed}</span>&nbsp;&nbsp;{pick.teamName}
+                <span className="seed">{pick.pickedSeed}</span>&nbsp;&nbsp;
+                {pick.teamName}
               </td>
               <td style={tdStyle}>
-                <span className="seed">{pick.opponentSeed}</span>&nbsp;&nbsp;{pick.opponentName}
+                <span className="seed">{pick.opponentSeed}</span>&nbsp;&nbsp;
+                {pick.opponentName}
               </td>
               <td style={tdStyle}>
                 <StatusBadge status={pick.result} />
@@ -114,13 +112,15 @@ const tdStyle = {
   fontSize: 14,
 };
 
-export default function Entries() {
-  const { games, loading, error, lastUpdated, refreshTournamentData } =
-    useTournamentData();
-
+export default function Entries({
+  gamesData = [],
+  loading = false,
+  error = "",
+  refreshTournamentData,
+}) {
   const resolvedEntries = useMemo(() => {
-    return resolveSurvivorEntries(survivorEntries, games);
-  }, [games]);
+    return resolveSurvivorEntries(survivorEntries, gamesData);
+  }, [gamesData]);
 
   const summary = useMemo(() => {
     return getSurvivorSummary(resolvedEntries);
@@ -169,7 +169,12 @@ export default function Entries() {
           ) : null} */}
         </div>
 
-        <button onClick={refreshTournamentData}>Refresh</button>
+        <button
+          onClick={refreshTournamentData}
+          disabled={!refreshTournamentData}
+        >
+          Refresh
+        </button>
       </div>
 
       <div
@@ -257,14 +262,20 @@ export default function Entries() {
                 <div>
                   <div style={{ fontSize: 12 }}>Current Pick</div>
                   <div style={{ fontWeight: 600 }}>
-                    <span className="seed">{entry.currentPick?.pickedSeed}</span>&nbsp;&nbsp;{entry.currentPick?.teamName}
+                    <span className="seed">
+                      {entry.currentPick?.pickedSeed}
+                    </span>
+                    &nbsp;&nbsp;{entry.currentPick?.teamName}
                   </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: 12 }}>Opponent</div>
                   <div style={{ fontWeight: 600 }}>
-                    <span className="seed">{entry.currentPick?.opponentSeed}</span>&nbsp;&nbsp;{entry.currentPick?.opponentName}
+                    <span className="seed">
+                      {entry.currentPick?.opponentSeed}
+                    </span>
+                    &nbsp;&nbsp;{entry.currentPick?.opponentName}
                   </div>
                 </div>
                 <div>
