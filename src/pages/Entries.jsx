@@ -110,7 +110,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   alignItems: "center",
                 }}
               >
-                <StatusBadge status={pick.result} />
+                <StatusBadge status={pick.result} style={{...statusBadgeStyle(isMobile)}} />
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle(isMobile), width: "auto" }}
