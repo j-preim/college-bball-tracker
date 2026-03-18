@@ -202,12 +202,12 @@ const inputStyle = {
 };
 
 const buttonStyle = (isMobile) => ({
-  padding: isMobile ? "6px 8px" : "6px 10px",
+  padding: isMobile ? "4px 6px" : "6px 10px",
   borderRadius: 6,
   border: "1px solid #d1d5db",
   background: "#ffffff",
   color: "#111827",
-  fontSize: isMobile ? "small" : "x-small",
+  fontSize: isMobile ? "x-small" : "small",
   cursor: "pointer",
 });
 
@@ -578,8 +578,8 @@ export default function Entries({
               <div
                 style={{
                   display: "flex",
-                  flexDirection: isMobile ? "column" : "row",
-                  alignItems: isMobile ? "flex-start" : "center",
+                  flexDirection: isMobile ? "row" : "row",
+                  alignItems: isMobile ? "" : "center",
                   justifyContent: "space-between",
                   gap: 12,
                   flexWrap: "wrap",
@@ -613,7 +613,8 @@ export default function Entries({
 
               <div
                 style={{
-                  display: "grid",
+                  display: "flex",
+                  justifyContent: "space-between",
                   gridTemplateColumns: isMobile
                     ? "1fr"
                     : "repeat(auto-fit, minmax(180px, 1fr))",
@@ -642,13 +643,6 @@ export default function Entries({
                     </span>
                     &nbsp;&nbsp;
                     {entry.currentPick?.opponentName}
-                  </div>
-                </div>
-
-                <div>
-                  <div style={{ fontSize: isMobile ? 11 : 12 }}>Pick Date</div>
-                  <div style={{ fontWeight: 600 }}>
-                    {formatDisplayDate(entry.currentPick?.pickDate) || "—"}
                   </div>
                 </div>
 
