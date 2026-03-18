@@ -325,7 +325,7 @@ export default function Entries({
   }
 
   return (
-    <body style={{ padding: 20 }}>
+    <div style={{ padding: 20 }}>
       <div
         style={{
           display: "flex",
@@ -561,6 +561,6 @@ export default function Entries({
           ))}
         </div>
       )}
-    </body>
+    </div>
   );
 }
