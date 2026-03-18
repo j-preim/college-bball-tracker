@@ -47,7 +47,7 @@ function StatusBadge({ status, isMobile }) {
           ? { background: "#dbeafe", color: "#166534" }
           : normalized === "invalid"
             ? { background: "#fef3c7", color: "#92400e" }
-            : { background: "#374151", color: "#f3f4f6" };
+            : { background: "#374151", color: "#f3f4f6", outline: "1px solid #6b7280" };
 
   return (
     <span
@@ -75,9 +75,9 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
   }
 
   return (
-    <div style={{ marginTop: 16, overflowX: "auto" }}>
+    <div style={{ marginTop: 12, overflowX: "auto" }}>
       {isMobile ? (
-        <div style={{ marginTop: 12, display: "grid", gap: 8 }}>
+        <div style={{ marginTop: 2, display: "grid", gap: 8 }}>
           {picks.map((pick, index) => (
             <div
               key={`${pick.pickDate}-${pick.teamId}-${index}`}
@@ -194,7 +194,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
 const sectionCardStyle = (isMobile) => ({
   border: "1px solid #e5e7eb",
   borderRadius: 12,
-  padding: isMobile ? 12 : 16,
+  padding: isMobile ? 10 : 12,
   background: "#565656",
   color: "#ffffff",
 });
