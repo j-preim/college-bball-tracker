@@ -171,6 +171,12 @@ export default function Entries({
     saveEntries(editableEntries);
   }, [editableEntries]);
 
+  const selectedEntry = useMemo(() => {
+    return (
+      editableEntries.find((entry) => entry.id === selectedEntryId) || null
+    );
+  }, [editableEntries, selectedEntryId]);
+
   useEffect(() => {
     if (!selectedEntry || !selectedDate) {
       setSelectedTeamId("");
@@ -183,12 +189,6 @@ export default function Entries({
 
     setSelectedTeamId(existingPick?.teamId || "");
   }, [selectedEntry, selectedDate]);
-
-  const selectedEntry = useMemo(() => {
-    return (
-      editableEntries.find((entry) => entry.id === selectedEntryId) || null
-    );
-  }, [editableEntries, selectedEntryId]);
 
   const resolvedEntries = useMemo(() => {
     return resolveSurvivorEntries(editableEntries, gamesData);
