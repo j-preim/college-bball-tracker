@@ -154,7 +154,7 @@ const thStyle = (isMobile) => ({
   whiteSpace: "nowrap",
 });
 
-const thStyle = (isMobile) => ({
+const tdStyle = (isMobile) => ({
   padding: isMobile ? "6px 4px" : "8px 6px",
   borderBottom: "1px solid #f3f4f6",
   fontSize: isMobile ? 11 : 14,
