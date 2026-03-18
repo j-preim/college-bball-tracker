@@ -116,12 +116,12 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   vs {pick.opponentSeed}&nbsp;&nbsp;
                   {pick.opponentName}
                 </div>
-                <button
+                {/* <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle(isMobile), width: "auto" }}
                 >
                   Remove
-                </button>
+                </button> */}
               </div>
             </div>
           ))}
@@ -159,7 +159,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   {pick.opponentName}
                 </td>
                 <td style={tdStyle(isMobile)}>
-                  <StatusBadge status={pick.result} />
+                  <StatusBadge status={pick.result} isMobile={true} />
                 </td>
                 <td style={tdStyle(isMobile)}>
                   <button
@@ -600,7 +600,7 @@ export default function Entries({
                   </h4>
                 </div>
 
-                <StatusBadge status={entry.isActive ? "active" : "lost"} />
+                <StatusBadge status={entry.isActive ? "active" : "lost"} isMobile={true} />
               </div>
 
               {entry.hasValidationErrors ? (
