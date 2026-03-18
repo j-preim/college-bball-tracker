@@ -84,7 +84,7 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
                               <div className="card bracket-game-card shadow-sm" key={game.id}>
                                 <div className="card-body">
                                   <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-                                    <span className="small text-body-secondary"><strong>{formatDisplayDate(game.gameDate || game.scheduled)}</strong> {formatTournamentTime(game.scheduledRaw || game.scheduled)}</span>
+                                    <span className="small text-body-secondary"><strong>{formatDisplayDate(game.gameDate || game.scheduled)}</strong> | {formatTournamentTime(game.scheduledRaw || game.scheduled)}</span>
                                     <span className="badge text-bg-light">{formatStatusLabel(game.status)}</span>
                                   </div>
 
