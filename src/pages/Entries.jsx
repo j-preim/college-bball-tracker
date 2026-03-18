@@ -127,6 +127,24 @@ const tdStyle = {
   fontSize: 14,
 };
 
+const inputStyle = {
+  width: "100%",
+  padding: 8,
+  borderRadius: 6,
+  border: "1px solid #d1d5db",
+  background: "#ffffff",
+  color: "#111827",
+};
+
+const buttonStyle = {
+  padding: "8px 12px",
+  borderRadius: 6,
+  border: "1px solid #d1d5db",
+  background: "#ffffff",
+  color: "#111827",
+  cursor: "pointer",
+};
+
 export default function Entries({
   gamesData = [],
   loading = false,
@@ -256,7 +274,7 @@ export default function Entries({
           <h4>Project Payday Survivor Entries</h4>
         </div>
 
-        <button onClick={refreshTournamentData}>
+        <button onClick={refreshTournamentData} style={buttonStyle}>
           Refresh
         </button>
       </div>
