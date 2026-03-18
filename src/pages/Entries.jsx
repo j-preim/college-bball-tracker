@@ -21,6 +21,8 @@ function useIsMobile() {
   return isMobile;
 }
 
+const isMobile = useIsMobile();
+
 function StatusBadge({ status }) {
   const normalized = String(status).toLowerCase();
 
@@ -192,8 +194,6 @@ export default function Entries({
   );
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTeamId, setSelectedTeamId] = useState("");
-
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     const saved = loadSavedEntries();
