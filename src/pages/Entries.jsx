@@ -184,6 +184,12 @@ export default function Entries({
     setSelectedTeamId(existingPick?.teamId || "");
   }, [selectedEntry, selectedDate]);
 
+  const selectedEntry = useMemo(() => {
+    return (
+      editableEntries.find((entry) => entry.id === selectedEntryId) || null
+    );
+  }, [editableEntries, selectedEntryId]);
+
   const resolvedEntries = useMemo(() => {
     return resolveSurvivorEntries(editableEntries, gamesData);
   }, [editableEntries, gamesData]);
@@ -192,11 +198,15 @@ export default function Entries({
     return getSurvivorSummary(resolvedEntries);
   }, [resolvedEntries]);
 
-  const selectedEntry = useMemo(() => {
+  const selectedResolvedEntry = useMemo(() => {
     return (
-      editableEntries.find((entry) => entry.id === selectedEntryId) || null
+      resolvedEntries.find((entry) => entry.id === selectedEntryId) || null
     );
-  }, [editableEntries, selectedEntryId]);
+  }, [resolvedEntries, selectedEntryId]);
+
+  const editorDisabled = selectedResolvedEntry
+    ? !selectedResolvedEntry.isActive
+    : false;
 
   const availableDates = useMemo(() => {
     const dates = [
@@ -205,6 +215,12 @@ export default function Entries({
 
     return dates.filter((date) => String(date) >= "2026-03-19").sort();
   }, [gamesData]);
+
+  const selectedEntryPickDates = useMemo(() => {
+    return new Set(
+      (selectedEntry?.picks || []).map((pick) => String(pick.pickDate)),
+    );
+  }, [selectedEntry]);
 
   const availableTeamsForDate = useMemo(() => {
     if (!selectedDate) return [];
@@ -257,22 +273,6 @@ export default function Entries({
       })
       .sort((a, b) => String(a.teamName).localeCompare(String(b.teamName)));
   }, [gamesData, selectedDate, selectedEntry]);
-
-  const selectedEntryPickDates = useMemo(() => {
-    return new Set(
-      (selectedEntry?.picks || []).map((pick) => String(pick.pickDate)),
-    );
-  }, [selectedEntry]);
-
-  const selectedResolvedEntry = useMemo(() => {
-    return (
-      resolvedEntries.find((entry) => entry.id === selectedEntryId) || null
-    );
-  }, [resolvedEntries, selectedEntryId]);
-
-  const editorDisabled = selectedResolvedEntry
-    ? !selectedResolvedEntry.isActive
-    : false;
 
   function handleSavePick() {
     if (!selectedEntryId || !selectedDate || !selectedTeamId) return;
