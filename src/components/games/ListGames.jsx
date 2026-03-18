@@ -56,6 +56,7 @@ export default function ListGames({
 
   return (
     <section className="mt-2">
+      First Round
       <div className="d-flex justify-content-between align-items-center mb-2">
           <div className="text-body-secondary small hoverText">
             Hover over team names for more info

@@ -425,7 +425,7 @@ export default function Entries({
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "flex-start",
+          alignItems: "center",
           gap: 12,
           flexWrap: "wrap",
           marginBottom: 16,
