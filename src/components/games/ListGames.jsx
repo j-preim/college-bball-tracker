@@ -56,13 +56,13 @@ export default function ListGames({
 
   return (
     <section className="mt-2">
-      <h4>{filteredGames[0].roundName}</h4>
+      <h3>{filteredGames[0].roundName}</h3>
       <div className="d-flex justify-content-between align-items-center mb-2">
           <div className="text-body-secondary small hoverInfo">
             Hover over team names for more info
         </div>
 
-        <div className="small text-body-secondary">
+        <div className="smaller text-body-secondary">
           {filteredGames.length} game{filteredGames.length === 1 ? "" : "s"}
         </div>
       </div>

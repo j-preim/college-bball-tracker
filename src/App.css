@@ -140,6 +140,11 @@ table .loser {
   background-color: red;
 }
 
+.form-select {
+  font-size: 100%;
+  line-height: 130%;
+}
+
 .konkhmer-sleokchher-regular {
   font-family: "Konkhmer Sleokchher", system-ui;
   font-weight: 400;
@@ -285,7 +290,7 @@ table .loser {
   }
 
   tr {
-    font-size: 70%;
+    font-size: 90%;
   }
 
   .btn {
