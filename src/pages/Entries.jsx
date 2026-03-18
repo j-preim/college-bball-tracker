@@ -679,11 +679,11 @@ export default function Entries({
                   </div>
                 </div>
 
-                <div style={{ display: entry.isActive ? "hidden" : "" }}>
-                  <div style={{ fontSize: isMobile ? 11 : 12 }}>
+                <div>
+                  <div style={{ display: entry.isActive ? "none" : "", fontSize: isMobile ? 11 : 12 }}>
                     Eliminated On
                   </div>
-                  <div style={{ fontWeight: 600 }}>
+                  <div style={{ display: entry.isActive ? "none" : "", fontWeight: 600 }}>
                     {formatDisplayDate(entry.eliminatedAt) || "—"}
                   </div>
                 </div>
