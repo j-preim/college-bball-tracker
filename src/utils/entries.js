@@ -288,3 +288,48 @@ export function getSurvivorSummary(entries = []) {
     eliminatedEntries,
   };
 }
+
+export function addEntryPick(entries = [], entryId, newPick) {
+  return entries.map((entry) => {
+    if (entry.id !== entryId) return entry;
+
+    const picks = [...(entry.picks || [])];
+
+    const existingIndex = picks.findIndex(
+      (pick) => String(pick.pickDate) === String(newPick.pickDate)
+    );
+
+    if (existingIndex >= 0) {
+      picks[existingIndex] = {
+        ...picks[existingIndex],
+        ...newPick,
+      };
+    } else {
+      picks.push(newPick);
+    }
+
+    picks.sort((a, b) => {
+      const aDate = String(a.pickDate || "");
+      const bDate = String(b.pickDate || "");
+      return aDate.localeCompare(bDate);
+    });
+
+    return {
+      ...entry,
+      picks,
+    };
+  });
+}
+
+export function removeEntryPick(entries = [], entryId, pickDate) {
+  return entries.map((entry) => {
+    if (entry.id !== entryId) return entry;
+
+    return {
+      ...entry,
+      picks: (entry.picks || []).filter(
+        (pick) => String(pick.pickDate) !== String(pickDate)
+      ),
+    };
+  });
+}
