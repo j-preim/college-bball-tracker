@@ -679,7 +679,7 @@ export default function Entries({
                   </div>
                 </div>
 
-                <div style={{ display: StatusBadge(entry.isActive, isMobile) ? "hidden" : ""}}>
+                <div style={{ display: entry.isActive ? "hidden" : "" }}>
                   <div style={{ fontSize: isMobile ? 11 : 12 }}>
                     Eliminated On
                   </div>
