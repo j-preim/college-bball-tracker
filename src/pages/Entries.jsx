@@ -44,7 +44,7 @@ function StatusBadge({ status, isMobile }) {
       : normalized === "lost"
         ? { background: "#fee2e2", color: "#991b1b" }
         : normalized === "active"
-          ? { background: "#dbeafe", color: "#1d4ed8" }
+          ? { background: "#dbeafe", color: "#166534" }
           : normalized === "invalid"
             ? { background: "#fef3c7", color: "#92400e" }
             : { background: "#f3f4f6", color: "#374151" };
@@ -87,9 +87,9 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                 padding: 10,
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 4 }}>
-                {formatDisplayDate(pick.pickDate) || "—"}
+              <div style={{ display: "flex", alignItems: "end", fontSize: 12, marginBottom: 8 }}>
                 <StatusBadge status={pick.result} isMobile={true} />
+                <span style={{marginLeft: "8px"}}>{formatDisplayDate(pick.pickDate) || "—"}</span>
               </div>
               <div style={{ }}>
                 <span className="seed">{pick.pickedSeed}&nbsp;&nbsp;
