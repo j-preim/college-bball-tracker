@@ -24,14 +24,6 @@ function useIsMobile() {
   return isMobile;
 }
 
-const statusBadgeStyle = (isMobile) => ({
-  display: "inline-block",
-  padding: isMobile ? "2px 6px" : "4px 10px",
-  borderRadius: 999,
-  fontSize: isMobile ? 10 : 12,
-  fontWeight: 600,
-});
-
 function StatusBadge({ status, isMobile }) {
   const normalized = String(status).toLowerCase();
 
@@ -60,7 +52,11 @@ function StatusBadge({ status, isMobile }) {
   return (
     <span
       style={{
-        ...statusBadgeStyle(isMobile),
+        display: "inline-block",
+        padding: isMobile ? "2px 6px" : "4px 10px",
+        borderRadius: 999,
+        fontSize: isMobile ? 10 : 12,
+        fontWeight: 600,
         ...styles,
       }}
     >
@@ -110,7 +106,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                   alignItems: "center",
                 }}
               >
-                <StatusBadge status={pick.result} style={{...statusBadgeStyle(isMobile)}} />
+                <StatusBadge status={pick.result} isMobile={true} />
                 <button
                   onClick={() => onRemovePick(entryId, pick.pickDate)}
                   style={{ ...buttonStyle(isMobile), width: "auto" }}
@@ -206,11 +202,12 @@ const inputStyle = {
 };
 
 const buttonStyle = (isMobile) => ({
-  padding: isMobile ? "6px 8px" : "8px 12px",
+  padding: isMobile ? "6px 8px" : "6px 10px",
   borderRadius: 6,
   border: "1px solid #d1d5db",
   background: "#ffffff",
   color: "#111827",
+  fontSize: isMobile ? "small" : "x-small",
   cursor: "pointer",
 });
 
