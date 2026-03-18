@@ -271,7 +271,14 @@ export default function Entries({
 
         return !usedTeamIds.has(teamId);
       })
-      .sort((a, b) => String(a.teamName).localeCompare(String(b.teamName)));
+      .sort((a, b) => {
+        const seedA = Number(a.seed ?? 99);
+        const seedB = Number(b.seed ?? 99);
+
+        if (seedA !== seedB) return seedA - seedB;
+
+        return String(a.teamName).localeCompare(String(b.teamName));
+      });
   }, [gamesData, selectedDate, selectedEntry]);
 
   function handleSavePick() {
