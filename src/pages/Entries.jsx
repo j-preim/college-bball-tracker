@@ -146,7 +146,7 @@ const sectionCardStyle = (isMobile) => ({
   color: "#ffffff",
 });
 
-thStyle = (isMobile) => ({
+const thStyle = (isMobile) => ({
   textAlign: "left",
   padding: isMobile ? "6px 4px" : "10px 8px",
   borderBottom: "1px solid #e5e7eb",
@@ -154,7 +154,7 @@ thStyle = (isMobile) => ({
   whiteSpace: "nowrap",
 });
 
-thStyle = (isMobile) => ({
+const thStyle = (isMobile) => ({
   padding: isMobile ? "6px 4px" : "8px 6px",
   borderBottom: "1px solid #f3f4f6",
   fontSize: isMobile ? 11 : 14,
