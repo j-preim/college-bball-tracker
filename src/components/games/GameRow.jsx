@@ -41,7 +41,7 @@ function getTeamCellClass(game, side) {
 function GameRow({ game, bettingInfo }) {
   return (
     <tr className={getRowClassName(game)}>
-      <td>{formatTournamentTime(game.scheduledRaw || game.scheduled)}</td>
+      <td style={{ textWrapMode: "nowrap", fontStretch: "semi-condensed" }}>{formatTournamentTime(game.scheduledRaw || game.scheduled)}</td>
       <td>{game.bracket ?? "-"}</td>
       <td className={getTeamCellClass(game, "home")}>
         <TeamPopoverButton
