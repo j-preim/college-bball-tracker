@@ -51,6 +51,20 @@ function parseNumber(value) {
   return Number.isFinite(num) ? num : null;
 }
 
+function parseSpreadLine(value) {
+  if (value === null || value === undefined || value === "") return null;
+
+  const str = String(value).trim();
+  if (!str) return null;
+
+  if (/^pk$/i.test(str) || /^pick$/i.test(str)) {
+    return 0;
+  }
+
+  const num = Number(str.replace(/[^\d+.-]/g, ""));
+  return Number.isFinite(num) ? num : null;
+}
+
 function extractSpread(event) {
   const competition = event?.competitions?.[0];
   const directOdds = competition?.odds?.[0] || event?.odds?.[0] || null;
@@ -59,16 +73,19 @@ function extractSpread(event) {
     return {
       provider: "ESPN",
       spread: null,
-      details: null,
     };
   }
 
+  const homeCloseLine = directOdds?.pointSpread?.home?.close?.line;
+  const homeOpenLine = directOdds?.pointSpread?.home?.open?.line;
+  const fallbackSpread = directOdds?.spread;
+
   return {
-    provider: "ESPN",
+    provider: directOdds?.provider?.displayName || directOdds?.provider?.name || "ESPN",
     spread:
-      parseNumber(directOdds.spread) ??
-      parseNumber(directOdds.details?.match(/([+-]?\d+(\.\d+)?)/)?.[1]),
-    details: directOdds.details || null,
+      parseSpreadLine(homeCloseLine) ??
+      parseSpreadLine(homeOpenLine) ??
+      parseSpreadLine(fallbackSpread),
   };
 }
 
