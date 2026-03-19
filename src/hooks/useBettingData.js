@@ -51,9 +51,24 @@ function formatSpread(value) {
   return `${num}`;
 }
 
+function isGameComplete(game) {
+  const status = String(game?.status || "").toLowerCase();
+
+  return [
+    "complete",
+    "completed",
+    "closed",
+    "finished",
+  ].includes(status);
+}
+
 export function findBettingEventForGame(game, bettingData = []) {
-  const homeKey = canonicalizeTeamName(game?.home?.name || game?.homeTeam || "");
-  const awayKey = canonicalizeTeamName(game?.away?.name || game?.awayTeam || "");
+  const homeKey = canonicalizeTeamName(
+    game?.home?.name || game?.homeTeam || "",
+  );
+  const awayKey = canonicalizeTeamName(
+    game?.away?.name || game?.awayTeam || "",
+  );
   const scheduled = game?.scheduledRaw || game?.scheduled || "";
 
   return (
@@ -68,6 +83,15 @@ export function findBettingEventForGame(game, bettingData = []) {
 }
 
 export function getBettingInfo(game, bettingData = []) {
+  // ✅ Completed games should never show betting lines
+  if (isGameComplete(game)) {
+    return {
+      spread: "-",
+      provider: "ESPN",
+      matched: false,
+    };
+  }
+
   const matchedEvent = findBettingEventForGame(game, bettingData);
 
   if (!matchedEvent) {
