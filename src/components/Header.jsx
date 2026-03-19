@@ -36,21 +36,21 @@ export default function Header({
 
         <div className="collapse navbar-collapse" id="navbarMain">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link
                 className={`nav-link ${isActive("/", location.pathname)}`}
                 to="/"
               >
                 Today
               </Link>
-            </li>
+            </li> */}
 
             <li className="nav-item">
               <Link
-                className={`nav-link ${isActive("/matchups", location.pathname)}`}
-                to="/matchups"
+                className={`nav-link ${isActive("/", location.pathname)}`}
+                to="/"
               >
-                Matchups
+                Home
               </Link>
             </li>
 

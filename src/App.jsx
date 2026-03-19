@@ -49,8 +49,8 @@ export default function App() {
       />
 
       <Routes>
-        <Route path="/" element={<Home {...sharedProps} />} />
-        <Route path="/matchups" element={<Matchups {...sharedProps} />} />
+        {/* <Route path="/" element={<Home {...sharedProps} />} /> */}
+        <Route path="/" element={<Matchups {...sharedProps} />} />
         <Route path="/bracket" element={<Bracket {...sharedProps} />} />
         <Route path="/entries" element={<Entries {...sharedProps} />} />
         <Route path="/auth" element={<Auth />} />
