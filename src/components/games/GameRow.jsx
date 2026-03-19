@@ -38,9 +38,8 @@ function getTeamCellClass(game, side) {
     : "border border-danger table-danger";
 }
 
-console.log("matched", game.id, bettingInfo);
-
 function GameRow({ game, bettingInfo }) {
+  console.log("matched", game.id, bettingInfo);
   return (
     <tr className={getRowClassName(game)}>
       <td style={{ textWrapMode: "nowrap", fontStretch: "semi-condensed" }}>{formatTournamentTime(game.scheduledRaw || game.scheduled)}</td>
