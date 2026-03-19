@@ -4,12 +4,12 @@ export const survivorEntries = [
     name: "Ponyboiz 1",
     contest: "Splash NCAAB Survivor",
     picks: [
-      // {
-      //   pickDate: "2026-03-19",
-      //   teamId: "faeb1160-5d15-4f26-99fc-c441cf21fc7f",
-      //   teamName: "Duke Blue Devils",
-      //   pickedAt: "2026-03-16T18:00:00",
-      // },
+      {
+        pickDate: "2026-03-19",
+        teamId: "2f4d21f8-6d5f-48a5-abca-52a30583871a",
+        teamName: "Gonzaga Bulldogs",
+        pickedAt: "2026-03-18T18:00:00",
+      },
     ],
   },
   {
