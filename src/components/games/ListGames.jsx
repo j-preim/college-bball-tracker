@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import GameRow from "./GameRow";
-import { getBettingInfo } from "../../hooks/getBettingInfo";
+import { getBettingInfo } from "../../hooks/useBettingData";
 
 function sortGames(games) {
   const statusPriority = {
@@ -45,21 +45,21 @@ export default function ListGames({
   }, [gamesData, selectedDate]);
 
   const bettingInfoByGameId = useMemo(() => {
-  const map = new Map();
+    const map = new Map();
 
-  for (const game of filteredGames) {
-    map.set(game.id, getBettingInfo(game.id, bettingData));
-  }
+    for (const game of filteredGames) {
+      map.set(game.id, getBettingInfo(game, bettingData));
+    }
 
-  return map;
-}, [filteredGames, bettingData]);
+    return map;
+  }, [filteredGames, bettingData]);
 
   return (
     <section className="mt-2">
       <h3>{filteredGames[0].roundName}</h3>
       <div className="d-flex justify-content-between align-items-center mb-2">
-          <div className="text-body-secondary small hoverInfo">
-            Hover over team names for more info
+        <div className="text-body-secondary small hoverInfo">
+          Hover over team names for more info
         </div>
 
         <div className="smaller text-body-secondary">
@@ -78,7 +78,7 @@ export default function ListGames({
                 <th scope="col">Region</th>
                 <th scope="col">Home</th>
                 <th scope="col">Away</th>
-                {/* <th scope="col">Spread</th> */}
+                <th scope="col">Spread</th>
                 <th scope="col">Score</th>
               </tr>
             </thead>

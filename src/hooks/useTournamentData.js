@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getScheduleData } from "./getInitSched";
-import { getBettingData } from "./getInitBettingLines";
+import { getBettingData } from "./getBettingData";
 
 const REFRESH_KEY = "mm_last_refresh";
 const CACHE_KEY = "mm_tournament_cache";
@@ -124,16 +124,17 @@ export function useTournamentData() {
           error: "",
         }));
 
-        const [scheduleData, bettingData] = await Promise.all([
-          getScheduleData(),
-          getBettingData().catch(() => ({ sport_events: [] })),
-        ]);
+        const scheduleData = await getScheduleData();
+
+        const bettingData = await getBettingData(
+          scheduleData.gameDates || [],
+        ).catch(() => ({ events: [] }));
 
         const nextState = {
           rounds: scheduleData.rounds || [],
           games: scheduleData.games || [],
           gameDates: scheduleData.gameDates || [],
-          bettingData: bettingData?.sport_events || [],
+          bettingData: bettingData?.events || [],
           loading: false,
           error: "",
           lastUpdated: new Date().toLocaleTimeString(),
