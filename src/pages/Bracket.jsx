@@ -51,12 +51,6 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
 
   return (
     <div className="container py-4">
-      <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-        <div className="badge text-bg-light bracket-summary-badge">
-          {visibleRounds.length} round{visibleRounds.length === 1 ? "" : "s"}
-        </div>
-      </div>
-
       <div className="row g-4">
         {visibleRounds.map((round) => (
           <div className="col-12" key={round.roundId || round.roundName}>
