@@ -55,7 +55,7 @@ function GameRow({ game, bettingInfo }) {
           bracketRank={game.bracketRank}
         />
       </td>
-      <td>{bettingInfo?.spread || "-"}</td>
+      <td>{game.status === "scheduled" ? bettingInfo?.spread : "-"}</td>
       <td>
         <ScoreDisplay game={game} />
       </td>

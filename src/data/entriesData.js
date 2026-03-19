@@ -17,12 +17,12 @@ export const survivorEntries = [
     name: "Ponyboiz 2",
     contest: "Splash NCAAB Survivor",
     picks: [
-      // {
-      //   pickDate: "2026-03-19",
-      //   teamId: "a311188e-1259-4fda-b0ea-c47cb52694b1",
-      //   teamName: "High Point Panthers",
-      //   pickedAt: "2026-03-17T18:05:00",
-      // },
+      {
+        pickDate: "2026-03-19",
+        teamId: "f8b1bf00-5b73-4ac4-98c0-ec554027ae32",
+        teamName: "Nebraska Cornhuskers",
+        pickedAt: "2026-03-18T18:05:00",
+      },
     ],
   },
   {
@@ -30,12 +30,12 @@ export const survivorEntries = [
     name: "Ponyboiz 3",
     contest: "Splash NCAAB Survivor",
     picks: [
-      // {
-      //   pickDate: "2026-03-19",
-      //   teamId: "c70c23c4-ab09-4797-a1af-792c848ab17f",
-      //   teamName: "Arkansas Razorbacks",
-      //   pickedAt: "2026-03-17T18:05:00",
-      // },
+      {
+        pickDate: "2026-03-19",
+        teamId: "b18f34af-a7f1-4659-a2e5-fc11a31cd316",
+        teamName: "Saint Mary's Gaels",
+        pickedAt: "2026-03-18T18:05:00",
+      },
     ],
   },
 ];
