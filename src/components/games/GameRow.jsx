@@ -38,6 +38,8 @@ function getTeamCellClass(game, side) {
     : "border border-danger table-danger";
 }
 
+console.log("matched", game.id, bettingInfo);
+
 function GameRow({ game, bettingInfo }) {
   return (
     <tr className={getRowClassName(game)}>

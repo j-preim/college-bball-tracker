@@ -54,6 +54,8 @@ export default function ListGames({
     return map;
   }, [filteredGames, bettingData]);
 
+  console.log("betting data", bettingData);
+
   return (
     <section className="mt-2">
       <h3>{filteredGames[0].roundName}</h3>
