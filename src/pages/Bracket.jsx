@@ -65,11 +65,11 @@ export default function Bracket({ roundsData = [], loading = false, error = "" }
                 <span>{round.roundName}</span>
                 <span className="small">{round.brackets.reduce((total, bracket) => total + bracket.bracketGames.length, 0)} games</span>
               </div>
-              <div className="card-body">
+              <div className="card-body" style={{backgroundColor: "#a09b9b"}}>
                 <div className="row g-3">
                   {round.brackets.map((bracket) => (
                     <div className="col-12 col-xl-6" key={bracket.bracketId || bracket.bracketName}>
-                      <div className="border rounded-3 p-3 h-100 bg-light text-dark">
+                      <div className="border rounded-3 p-3 h-100 text-dark" style={{ backgroundColor: "#ffffff82"}}>
                         <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
                           <h6 className="mb-0">{bracket.bracketName}</h6>
                           <span className="badge text-bg-secondary">
