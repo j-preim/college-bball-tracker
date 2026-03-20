@@ -1,33 +1,4 @@
-function normalizeTeamName(name = "") {
-  return String(name)
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^\w\s&-]/g, "")
-    .replace(/&/g, "and")
-    .replace(/\bsaint\b/g, "st")
-    .replace(/\bstate\b/g, "st")
-    .replace(/\buniversity\b/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-const TEAM_ALIASES = {
-  uconn: "connecticut",
-  "ole miss": "mississippi",
-  smu: "southern methodist",
-  byu: "brigham young",
-  vcu: "virginia commonwealth",
-  "st marys": "saint marys",
-  "st mary's": "saint marys",
-  unc: "north carolina",
-  utsa: "texas san antonio",
-  "uc san diego": "california san diego",
-};
-
-function canonicalizeTeamName(name = "") {
-  const normalized = normalizeTeamName(name);
-  return TEAM_ALIASES[normalized] || normalized;
-}
+import { canonicalizeTeamName } from "../utils/teamNameUtils";
 
 function isWithinMinutes(a, b, minutes = 20) {
   const timeA = new Date(a).getTime();
