@@ -248,13 +248,13 @@ export default function Entries({
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTeamId, setSelectedTeamId] = useState("");
 
-  useEffect(() => {
-    const saved = loadSavedEntries();
-    if (saved?.length) {
-      setEditableEntries(saved);
-      setSelectedEntryId(saved[0]?.id || "");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const saved = loadSavedEntries();
+  //   if (saved?.length) {
+  //     setEditableEntries(saved);
+  //     setSelectedEntryId(saved[0]?.id || "");
+  //   }
+  // }, []);
 
   useEffect(() => {
     saveEntries(editableEntries);

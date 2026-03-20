@@ -38,4 +38,17 @@ export const survivorEntries = [
       },
     ],
   },
+  {
+    id: "entry-4",
+    name: "Preimtime",
+    contest: "Splash NCAAB Survivor",
+    picks: [
+      {
+        pickDate: "2026-03-19",
+        teamId: "1e42cce3-236b-4f3e-9650-2c45e6332e1e",
+        teamName: "Saint Louis Billikens",
+        pickedAt: "2026-03-18T18:05:00",
+      },
+    ],
+  },
 ];
