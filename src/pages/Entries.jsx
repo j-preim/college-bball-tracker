@@ -233,6 +233,16 @@ const buttonStyle = (isMobile) => ({
   cursor: "pointer",
 });
 
+function createEntryId(name = "") {
+  const slug = String(name)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return `entry-${slug || "custom"}-${Date.now()}`;
+}
+
 export default function Entries({
   gamesData = [],
   loading = false,
@@ -247,6 +257,8 @@ export default function Entries({
   );
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTeamId, setSelectedTeamId] = useState("");
+  const [newEntryName, setNewEntryName] = useState("");
+  const [entryError, setEntryError] = useState("");
 
   useEffect(() => {
     const saved = loadSavedEntries();
@@ -370,6 +382,60 @@ export default function Entries({
       });
   }, [gamesData, selectedDate, selectedEntry]);
 
+  function handleAddEntry() {
+    const trimmedName = newEntryName.trim();
+
+    if (!trimmedName) {
+      setEntryError("Enter an entry name.");
+      return;
+    }
+
+    const duplicateName = editableEntries.some(
+      (entry) =>
+        String(entry.name).trim().toLowerCase() === trimmedName.toLowerCase(),
+    );
+
+    if (duplicateName) {
+      setEntryError("An entry with that name already exists.");
+      return;
+    }
+
+    const newEntry = {
+      id: createEntryId(trimmedName),
+      name: trimmedName,
+      picks: [],
+    };
+
+    const nextEntries = [...editableEntries, newEntry];
+
+    setEditableEntries(nextEntries);
+    setSelectedEntryId(newEntry.id);
+    setSelectedDate("");
+    setSelectedTeamId("");
+    setNewEntryName("");
+    setEntryError("");
+  }
+
+  function handleDeleteEntry(entryId) {
+    const entryToDelete = editableEntries.find((entry) => entry.id === entryId);
+    if (!entryToDelete) return;
+
+    const confirmed = window.confirm(
+      `Delete entry "${entryToDelete.name}"? This will remove all saved picks for it.`,
+    );
+
+    if (!confirmed) return;
+
+    const nextEntries = editableEntries.filter((entry) => entry.id !== entryId);
+    setEditableEntries(nextEntries);
+
+    if (selectedEntryId === entryId) {
+      setSelectedEntryId(nextEntries[0]?.id || "");
+      setSelectedDate("");
+      setSelectedTeamId("");
+    }
+  }
+
   function handleSavePick() {
     if (!selectedEntryId || !selectedDate || !selectedTeamId) return;
 
@@ -444,6 +510,66 @@ export default function Entries({
 
       <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
         <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
+          Add New Entry
+        </h4>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(240px, 1fr) auto",
+            gap: 12,
+            alignItems: "end",
+          }}
+        >
+          <div>
+            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
+              Entry Name
+            </div>
+            <input
+              type="text"
+              value={newEntryName}
+              onChange={(e) => {
+                setNewEntryName(e.target.value);
+                if (entryError) setEntryError("");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleAddEntry();
+                }
+              }}
+              placeholder="Enter a new entry name"
+              style={inputStyle}
+            />
+          </div>
+
+          <div>
+            <button
+              onClick={handleAddEntry}
+              style={{
+                ...buttonStyle(isMobile),
+                width: isMobile ? "100%" : "auto",
+              }}
+            >
+              Add Entry
+            </button>
+          </div>
+        </div>
+
+        {entryError ? (
+          <div
+            style={{
+              marginTop: 10,
+              fontSize: 13,
+              color: "#fecaca",
+            }}
+          >
+            {entryError}
+          </div>
+        ) : null}
+      </div>
+
+      <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
+        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
           Pick Editor
         </h4>
 
@@ -484,7 +610,7 @@ export default function Entries({
                 setSelectedDate(e.target.value);
               }}
               style={inputStyle}
-              disabled={editorDisabled}
+              disabled={editorDisabled || !selectedEntryId}
             >
               <option value="">Select date</option>
               {availableDates.map((date) => {
@@ -508,12 +634,12 @@ export default function Entries({
               value={selectedTeamId}
               onChange={(e) => setSelectedTeamId(e.target.value)}
               style={inputStyle}
-              disabled={!selectedDate || editorDisabled}
+              disabled={!selectedDate || editorDisabled || !selectedEntryId}
             >
               <option value="">Select team</option>
               {availableTeamsForDate.map((team) => (
                 <option key={team.teamId} value={team.teamId}>
-                  <span className="seed">{team.seed}</span>&nbsp;&nbsp;
+                  {team.seed ? `${team.seed} ` : ""}
                   {team.teamName}
                 </option>
               ))}
@@ -539,6 +665,22 @@ export default function Entries({
           </div>
         </div>
       </div>
+
+      {selectedEntryId ? (
+        <div style={{ marginTop: -8, marginBottom: 20 }}>
+          <button
+            onClick={() => handleDeleteEntry(selectedEntryId)}
+            style={{
+              ...buttonStyle(isMobile),
+              background: "#fee2e2",
+              color: "#991b1b",
+              border: "1px solid #fecaca",
+            }}
+          >
+            Delete Selected Entry
+          </button>
+        </div>
+      ) : null}
 
       {editorDisabled ? (
         <div
@@ -597,8 +739,7 @@ export default function Entries({
         <div style={sectionCardStyle(isMobile)}>
           <h2 style={{ marginTop: 0 }}>No entries yet</h2>
           <p style={{ marginBottom: 0 }}>
-            Add entries in <code>src/data/entriesData.js</code> to start
-            tracking your survivor picks.
+            Add your first entry above to start tracking survivor picks.
           </p>
         </div>
       ) : (
@@ -608,7 +749,7 @@ export default function Entries({
               <div
                 style={{
                   display: "flex",
-                  flexDirection: isMobile ? "row" : "row",
+                  flexDirection: "row",
                   alignItems: isMobile ? "" : "center",
                   justifyContent: "space-between",
                   gap: 12,
@@ -680,10 +821,20 @@ export default function Entries({
                 </div>
 
                 <div>
-                  <div style={{ display: entry.isActive ? "none" : "", fontSize: isMobile ? 11 : 12 }}>
+                  <div
+                    style={{
+                      display: entry.isActive ? "none" : "",
+                      fontSize: isMobile ? 11 : 12,
+                    }}
+                  >
                     Eliminated On
                   </div>
-                  <div style={{ display: entry.isActive ? "none" : "", fontWeight: 600 }}>
+                  <div
+                    style={{
+                      display: entry.isActive ? "none" : "",
+                      fontWeight: 600,
+                    }}
+                  >
                     {formatDisplayDate(entry.eliminatedAt) || "—"}
                   </div>
                 </div>
