@@ -83,6 +83,20 @@ export default function TeamPopoverButton({ team, bracketRank }) {
     return kenpomByTeam[canonicalizeTeamName(kenpomLookupName)] ?? null;
   }, [kenpomLookupName]);
 
+  // 🔍 TEMP DEBUG
+if (team?.alias) {
+  const key = canonicalizeTeamName(team.alias);
+  const match = kenpomByTeam[key];
+
+  if (!match) {
+    console.log("KENPOM MISS:", {
+      name: team.name,
+      alias: team.alias,
+      normalized: key,
+    });
+  }
+}
+
   useEffect(() => {
     if (!buttonRef.current || !team?.name) {
       return undefined;
