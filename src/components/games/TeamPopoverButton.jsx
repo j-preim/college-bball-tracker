@@ -66,6 +66,10 @@ const MASCOT_SUFFIXES = [
   "Wolfpack",
   "Zips",
   "Cornhuskers",
+  "Bruins",
+  "Hawkeyes",
+  "Knights",
+  "Sharks",
 ];
 
 function extractSchoolName(fullName = "") {
@@ -154,12 +158,12 @@ export default function TeamPopoverButton({ team, bracketRank }) {
 
   // 🔍 TEMP DEBUG
   if (team?.name && !kenpomStats) {
-  console.log("KENPOM MISS:", {
-    name: team.name,
-    extracted: extractSchoolName(team.name),
-    normalized: canonicalizeTeamName(extractSchoolName(team.name)),
-  });
-}
+    console.log("KENPOM MISS:", {
+      name: team.name,
+      extracted: extractSchoolName(team.name),
+      normalized: canonicalizeTeamName(extractSchoolName(team.name)),
+    });
+  }
 
   useEffect(() => {
     if (!buttonRef.current || !team?.name) {

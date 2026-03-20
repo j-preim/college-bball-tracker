@@ -69,6 +69,17 @@ export const TEAM_ALIASES = {
   hawaii: "hawaii",
   "hawaii rainbow warriors": "hawaii",
   vcu: "virginia commonwealth",
+
+  liu: "long island university",
+  ucla: "ucla",
+  ucf: "central florida",
+  "california baptist": "cal baptist",
+  "kennesaw state": "kennesaw state",
+  "wright state": "wright state",
+  "iowa state": "iowa state",
+  "tennessee state": "tennessee state",
+  "utah state": "utah state",
+  iowa: "iowa",
 };
 
 export function canonicalizeTeamName(name = "") {
@@ -80,6 +91,6 @@ export function buildTeamLookup(rows = [], key = "team") {
   return Object.fromEntries(
     rows
       .filter((row) => row?.[key])
-      .map((row) => [canonicalizeTeamName(row[key]), row])
+      .map((row) => [canonicalizeTeamName(row[key]), row]),
   );
 }
