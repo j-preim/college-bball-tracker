@@ -263,6 +263,7 @@ export default function Entries({
   const [selectedTeamId, setSelectedTeamId] = useState("");
   const [newEntryName, setNewEntryName] = useState("");
   const [entryError, setEntryError] = useState("");
+  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
 
   useEffect(() => {
     const saved = loadSavedEntries();
@@ -428,6 +429,7 @@ export default function Entries({
     setSelectedTeamId("");
     setNewEntryName("");
     setEntryError("");
+    setIsAddEntryOpen(false);
   }
 
   function handleDeleteEntry(entryId) {
@@ -692,61 +694,95 @@ export default function Entries({
       ) : null}
 
       <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
-        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
-          Add New Entry
-        </h4>
-
-        <div
+        <button
+          type="button"
+          onClick={() => setIsAddEntryOpen((prev) => !prev)}
           style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(240px, 1fr) auto",
-            gap: 12,
-            alignItems: "end",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            background: "transparent",
+            border: "none",
+            color: "#ffffff",
+            cursor: "pointer",
+            padding: 0,
+            textAlign: "left",
           }}
         >
-          <div>
-            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
-              Entry Name
-            </div>
-            <input
-              type="text"
-              value={newEntryName}
-              onChange={(e) => {
-                setNewEntryName(e.target.value);
-                if (entryError) setEntryError("");
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleAddEntry();
-                }
-              }}
-              placeholder="Enter a new entry name"
-              style={inputStyle}
-            />
-          </div>
-
-          <div>
-            <button
-              onClick={handleAddEntry}
-              style={{
-                ...buttonStyle(isMobile),
-                width: isMobile ? "100%" : "auto",
-              }}
-            >
-              Add Entry
-            </button>
-          </div>
-        </div>
-
-        {entryError ? (
-          <div
+          <h4 style={{ margin: 0, fontSize: isMobile ? 16 : 20 }}>
+            Add New Entry
+          </h4>
+          <span
             style={{
-              marginTop: 10,
-              fontSize: 13,
-              color: "#fecaca",
+              fontSize: isMobile ? 20 : 24,
+              fontWeight: 700,
+              lineHeight: 1,
+              minWidth: 24,
+              textAlign: "center",
             }}
           >
-            {entryError}
+            {isAddEntryOpen ? "−" : "+"}
+          </span>
+        </button>
+
+        {isAddEntryOpen ? (
+          <div style={{ marginTop: 12 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile
+                  ? "1fr"
+                  : "minmax(240px, 1fr) auto",
+                gap: 12,
+                alignItems: "end",
+              }}
+            >
+              <div>
+                <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
+                  Entry Name
+                </div>
+                <input
+                  type="text"
+                  value={newEntryName}
+                  onChange={(e) => {
+                    setNewEntryName(e.target.value);
+                    if (entryError) setEntryError("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleAddEntry();
+                    }
+                  }}
+                  placeholder="Enter a new entry name"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <button
+                  onClick={handleAddEntry}
+                  style={{
+                    ...buttonStyle(isMobile),
+                    width: isMobile ? "100%" : "auto",
+                  }}
+                >
+                  Add Entry
+                </button>
+              </div>
+            </div>
+
+            {entryError ? (
+              <div
+                style={{
+                  marginTop: 10,
+                  fontSize: 13,
+                  color: "#fecaca",
+                }}
+              >
+                {entryError}
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>
