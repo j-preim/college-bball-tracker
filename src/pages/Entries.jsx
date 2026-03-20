@@ -509,6 +509,28 @@ export default function Entries({
       </div>
 
       <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
+          Pick Editor
+        </h4>
+        {selectedEntryId ? (
+        <div style={{ marginTop: -8, marginBottom: 20 }}>
+          <button
+            onClick={() => handleDeleteEntry(selectedEntryId)}
+            style={{
+              ...buttonStyle(isMobile),
+              background: "#fee2e2",
+              color: "#991b1b",
+              border: "1px solid #fecaca",
+            }}
+          >
+            Delete Selected Entry
+          </button>
+        </div>
+      ) : null}
+      </div>
+
+      <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
         <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
           Add New Entry
         </h4>
@@ -567,11 +589,6 @@ export default function Entries({
           </div>
         ) : null}
       </div>
-
-      <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
-        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
-          Pick Editor
-        </h4>
 
         <div
           style={{
@@ -665,22 +682,6 @@ export default function Entries({
           </div>
         </div>
       </div>
-
-      {selectedEntryId ? (
-        <div style={{ marginTop: -8, marginBottom: 20 }}>
-          <button
-            onClick={() => handleDeleteEntry(selectedEntryId)}
-            style={{
-              ...buttonStyle(isMobile),
-              background: "#fee2e2",
-              color: "#991b1b",
-              border: "1px solid #fecaca",
-            }}
-          >
-            Delete Selected Entry
-          </button>
-        </div>
-      ) : null}
 
       {editorDisabled ? (
         <div
