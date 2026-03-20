@@ -133,7 +133,7 @@ export default function Bracket({
           const isCollapsed = isRoundCollapsed(roundKey, round.isComplete);
 
           return (
-            <div className="col-12" key={roundKey}>
+            <div className="card-header col-12" key={roundKey}>
               <div className="card shadow-sm">
                 <button
                   type="button"
@@ -146,7 +146,7 @@ export default function Bracket({
                     width: "100%",
                   }}
                 >
-                  <div className="card-header d-flex align-items-center gap-2 flex-wrap">
+                  <div className="d-flex align-items-center gap-2 flex-wrap">
                     <span>{round.roundName}</span>
                   </div>
 
