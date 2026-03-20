@@ -146,22 +146,14 @@ export default function Bracket({
                     width: "100%",
                   }}
                 >
-                  <div className="d-flex align-items-center gap-2 flex-wrap">
+                  <div className="card-header d-flex align-items-center gap-2 flex-wrap">
                     <span>{round.roundName}</span>
-                    {round.isComplete ? (
-                      <span className="badge text-bg-secondary">Complete</span>
-                    ) : null}
                   </div>
 
                   <div className="d-flex align-items-center gap-2">
-                    <span className="small">
-                      {round.brackets.reduce(
-                        (total, bracket) =>
-                          total + (bracket.bracketGames?.length || 0),
-                        0,
-                      )}{" "}
-                      games
-                    </span>
+                    {round.isComplete ? (
+                      <span className="badge text-bg-secondary">Complete</span>
+                    ) : null}
                     <span
                       style={{
                         fontSize: 18,
