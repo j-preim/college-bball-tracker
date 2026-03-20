@@ -299,6 +299,16 @@ export default function Entries({
     return resolveSurvivorEntries(editableEntries, gamesData);
   }, [editableEntries, gamesData]);
 
+  const sortedResolvedEntries = useMemo(() => {
+    return [...resolvedEntries].sort((a, b) => {
+      if (a.isActive === b.isActive) {
+        return String(a.name).localeCompare(String(b.name));
+      }
+
+      return a.isActive ? -1 : 1;
+    });
+  }, [resolvedEntries]);
+
   const summary = useMemo(() => {
     return getSurvivorSummary(resolvedEntries);
   }, [resolvedEntries]);
@@ -593,9 +603,10 @@ export default function Entries({
               onChange={(e) => setSelectedEntryId(e.target.value)}
               style={inputStyle}
             >
-              {editableEntries.map((entry) => (
+              {sortedResolvedEntries.map((entry) => (
                 <option key={entry.id} value={entry.id}>
                   {entry.name}
+                  {!entry.isActive ? " — eliminated" : ""}
                 </option>
               ))}
             </select>
@@ -740,7 +751,7 @@ export default function Entries({
         ) : null}
       </div>
 
-      {resolvedEntries.length === 0 ? (
+      {sortedResolvedEntries.length === 0 ? (
         <div style={sectionCardStyle(isMobile)}>
           <h2 style={{ marginTop: 0 }}>No entries yet</h2>
           <p style={{ marginBottom: 0 }}>
@@ -749,7 +760,7 @@ export default function Entries({
         </div>
       ) : (
         <div style={{ display: "grid", gap: 16 }}>
-          {resolvedEntries.map((entry) => (
+          {sortedResolvedEntries.map((entry) => (
             <div key={entry.id} style={sectionCardStyle(isMobile)}>
               <div
                 style={{
