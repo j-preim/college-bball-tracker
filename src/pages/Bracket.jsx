@@ -143,6 +143,7 @@ export default function Bracket({
                     border: "none",
                     textAlign: "left",
                     width: "100%",
+                    borderRadius: "inherit",
                   }}
                 >
                   <div className="d-flex align-items-center gap-2 flex-wrap">
