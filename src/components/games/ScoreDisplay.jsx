@@ -13,7 +13,7 @@ export default function ScoreDisplay({ game }) {
       typeof game.away_points === "number" ? game.away_points : "-";
 
     return (
-      <span className="fw-semibold">
+      <span className="fw-semibold" style={{ textWrapMode: "nowrap", fontStretch: "semi-condensed" }}>
         {homePoints} - {awayPoints}
       </span>
     );
