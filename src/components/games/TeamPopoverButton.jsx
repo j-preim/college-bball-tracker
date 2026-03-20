@@ -31,21 +31,22 @@ function buildPopoverHtml(team, bracketRank, teamStats, kenpomStats) {
     </div>
   `;
 }
+
 // other available kenpom stats
-      // <div><strong>KenPom Net:</strong> ${formatValue(kenpomStats?.netrtg)}</div>
-      // <div><strong>Off Rating:</strong> ${formatValue(kenpomStats?.ortg)}</div>
-      // <div><strong>Def Rating:</strong> ${formatValue(kenpomStats?.drtg)}</div>
-      // <div><strong>Adj Tempo:</strong> ${formatValue(kenpomStats?.adjtempo)}</div>
-      // <div><strong>KenPom Tempo Rank:</strong> ${formatValue(kenpomStats?.adjtempo_rk)}</div>
-      // <div><strong>Luck:</strong> ${formatValue(kenpomStats?.luck)}</div>
-      // <div><strong>KenPom Luck Rank:</strong> ${formatValue(kenpomStats?.luck_rk)}</div>
-      // <div><strong>SOS Net:</strong> ${formatValue(kenpomStats?.sos_netrtg)}</div>
-      // <div><strong>SOS Off:</strong> ${formatValue(kenpomStats?.sos_ortg)}</div>
-      // <div><strong>SOS Off Rank:</strong> ${formatValue(kenpomStats?.sos_ortg_rk)}</div>
-      // <div><strong>SOS Def:</strong> ${formatValue(kenpomStats?.sos_drtg)}</div>
-      // <div><strong>SOS Def Rank:</strong> ${formatValue(kenpomStats?.sos_drtg_rk)}</div>
-      // <div><strong>Non-Conf Net:</strong> ${formatValue(kenpomStats?.nonconf_netrtg)}</div>
-      // <div><strong>Non-Conf Net Rank:</strong> ${formatValue(kenpomStats?.nonconf_netrtg_rk)}</div>
+// <div><strong>KenPom Net:</strong> ${formatValue(kenpomStats?.netrtg)}</div>
+// <div><strong>Off Rating:</strong> ${formatValue(kenpomStats?.ortg)}</div>
+// <div><strong>Def Rating:</strong> ${formatValue(kenpomStats?.drtg)}</div>
+// <div><strong>Adj Tempo:</strong> ${formatValue(kenpomStats?.adjtempo)}</div>
+// <div><strong>KenPom Tempo Rank:</strong> ${formatValue(kenpomStats?.adjtempo_rk)}</div>
+// <div><strong>Luck:</strong> ${formatValue(kenpomStats?.luck)}</div>
+// <div><strong>KenPom Luck Rank:</strong> ${formatValue(kenpomStats?.luck_rk)}</div>
+// <div><strong>SOS Net:</strong> ${formatValue(kenpomStats?.sos_netrtg)}</div>
+// <div><strong>SOS Off:</strong> ${formatValue(kenpomStats?.sos_ortg)}</div>
+// <div><strong>SOS Off Rank:</strong> ${formatValue(kenpomStats?.sos_ortg_rk)}</div>
+// <div><strong>SOS Def:</strong> ${formatValue(kenpomStats?.sos_drtg)}</div>
+// <div><strong>SOS Def Rank:</strong> ${formatValue(kenpomStats?.sos_drtg_rk)}</div>
+// <div><strong>Non-Conf Net:</strong> ${formatValue(kenpomStats?.nonconf_netrtg)}</div>
+// <div><strong>Non-Conf Net Rank:</strong> ${formatValue(kenpomStats?.nonconf_netrtg_rk)}</div>
 
 export default function TeamPopoverButton({ team, bracketRank }) {
   const buttonRef = useRef(null);
@@ -62,13 +63,25 @@ export default function TeamPopoverButton({ team, bracketRank }) {
     }
   }, [team]);
 
+  const kenpomLookupName = useMemo(() => {
+    return (
+      team?.alias ||
+      team?.school ||
+      team?.location ||
+      team?.shortName ||
+      team?.shortDisplayName ||
+      team?.name ||
+      ""
+    );
+  }, [team]);
+
   const kenpomStats = useMemo(() => {
-    if (!team?.name) {
+    if (!kenpomLookupName) {
       return null;
     }
 
-    return kenpomByTeam[canonicalizeTeamName(team.name)] ?? null;
-  }, [team?.name]);
+    return kenpomByTeam[canonicalizeTeamName(kenpomLookupName)] ?? null;
+  }, [kenpomLookupName]);
 
   useEffect(() => {
     if (!buttonRef.current || !team?.name) {
