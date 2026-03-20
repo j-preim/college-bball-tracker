@@ -131,6 +131,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                     fontSize: "x-small",
                     cursor: "pointer",
                     width: "auto",
+                    display: pick.result === "pending" ? "" : "none",
                   }}
                 >
                   Remove
@@ -181,6 +182,7 @@ function PickHistory({ entryId, picks = [], onRemovePick, isMobile }) {
                       ...buttonStyle(isMobile),
                       width: "auto",
                       fontSize: "smaller",
+                      display: pick.result === "pending" ? "" : "none",
                     }}
                   >
                     Remove
