@@ -70,6 +70,8 @@ const MASCOT_SUFFIXES = [
   "Hawkeyes",
   "Knights",
   "Sharks",
+  "Mountain Hawks",
+  "Retrievers",
 ];
 
 function extractSchoolName(fullName = "") {

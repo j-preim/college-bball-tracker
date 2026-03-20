@@ -7,8 +7,10 @@ export function normalizeTeamName(name = "") {
     .replace(/['’]/g, "")
     .replace(/[^\w\s()-]/g, "")
     .replace(/\bsaint\b/g, "st")
+    .replace(/\bstate\b/g, "st")
     .replace(/\buniversity\b/g, "")
     .replace(/[()]/g, " ")
+    .replace(/\./g, "")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -80,6 +82,8 @@ export const TEAM_ALIASES = {
   "tennessee state": "tennessee state",
   "utah state": "utah state",
   iowa: "iowa",
+  umbc: "umbc",
+  lehigh: "lehigh",
 };
 
 export function canonicalizeTeamName(name = "") {
