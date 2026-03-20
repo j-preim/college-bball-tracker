@@ -47,7 +47,11 @@ function StatusBadge({ status, isMobile }) {
           ? { background: "#dbeafe", color: "#166534" }
           : normalized === "invalid"
             ? { background: "#fef3c7", color: "#92400e" }
-            : { background: "#374151", color: "#f3f4f6", outline: "1px solid #6b7280" };
+            : {
+                background: "#374151",
+                color: "#f3f4f6",
+                outline: "1px solid #6b7280",
+              };
 
   return (
     <span
@@ -510,85 +514,25 @@ export default function Entries({
 
       <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
-          Pick Editor
-        </h4>
-        {selectedEntryId ? (
-        <div style={{ marginTop: -8, marginBottom: 20 }}>
-          <button
-            onClick={() => handleDeleteEntry(selectedEntryId)}
-            style={{
-              ...buttonStyle(isMobile),
-              background: "#fee2e2",
-              color: "#991b1b",
-              border: "1px solid #fecaca",
-            }}
-          >
-            Delete Selected Entry
-          </button>
-        </div>
-      ) : null}
-      </div>
-
-      <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
-        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
-          Add New Entry
-        </h4>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(240px, 1fr) auto",
-            gap: 12,
-            alignItems: "end",
-          }}
-        >
-          <div>
-            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
-              Entry Name
+          <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
+            Pick Editor
+          </h4>
+          {selectedEntryId ? (
+            <div style={{ marginTop: -8, marginBottom: 20 }}>
+              <button
+                onClick={() => handleDeleteEntry(selectedEntryId)}
+                style={{
+                  ...buttonStyle(isMobile),
+                  background: "#fee2e2",
+                  color: "#991b1b",
+                  border: "1px solid #fecaca",
+                }}
+              >
+                Delete Selected Entry
+              </button>
             </div>
-            <input
-              type="text"
-              value={newEntryName}
-              onChange={(e) => {
-                setNewEntryName(e.target.value);
-                if (entryError) setEntryError("");
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleAddEntry();
-                }
-              }}
-              placeholder="Enter a new entry name"
-              style={inputStyle}
-            />
-          </div>
-
-          <div>
-            <button
-              onClick={handleAddEntry}
-              style={{
-                ...buttonStyle(isMobile),
-                width: isMobile ? "100%" : "auto",
-              }}
-            >
-              Add Entry
-            </button>
-          </div>
+          ) : null}
         </div>
-
-        {entryError ? (
-          <div
-            style={{
-              marginTop: 10,
-              fontSize: 13,
-              color: "#fecaca",
-            }}
-          >
-            {entryError}
-          </div>
-        ) : null}
-      </div>
 
         <div
           style={{
@@ -695,6 +639,66 @@ export default function Entries({
           This entry has been eliminated. New picks are disabled.
         </div>
       ) : null}
+
+      <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
+          <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
+            Add New Entry
+          </h4>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "minmax(240px, 1fr) auto",
+              gap: 12,
+              alignItems: "end",
+            }}
+          >
+            <div>
+              <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
+                Entry Name
+              </div>
+              <input
+                type="text"
+                value={newEntryName}
+                onChange={(e) => {
+                  setNewEntryName(e.target.value);
+                  if (entryError) setEntryError("");
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleAddEntry();
+                  }
+                }}
+                placeholder="Enter a new entry name"
+                style={inputStyle}
+              />
+            </div>
+
+            <div>
+              <button
+                onClick={handleAddEntry}
+                style={{
+                  ...buttonStyle(isMobile),
+                  width: isMobile ? "100%" : "auto",
+                }}
+              >
+                Add Entry
+              </button>
+            </div>
+          </div>
+
+          {entryError ? (
+            <div
+              style={{
+                marginTop: 10,
+                fontSize: 13,
+                color: "#fecaca",
+              }}
+            >
+              {entryError}
+            </div>
+          ) : null}
+        </div>
 
       <div
         style={{
