@@ -862,13 +862,12 @@ export default function Entries({
                 </div>
 
                 <div>
-                  <div style={{ fontSize: isMobile ? 11 : 12 }}>Opponent</div>
+                  <div style={{ fontSize: isMobile ? 11 : 12 }}>Seed Total</div>
                   <div style={{ fontWeight: 600 }}>
-                    <span className="seed">
-                      {entry.currentPick?.opponentSeed}
-                    </span>
-                    &nbsp;&nbsp;
-                    {entry.currentPick?.opponentName}
+                    {(entry.picks || []).reduce(
+                      (total, pick) => total + Number(pick.pickedSeed ?? 0),
+                      0,
+                    )}
                   </div>
                 </div>
 
