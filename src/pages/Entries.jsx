@@ -507,9 +507,49 @@ export default function Entries({
           </h4>
         </div>
 
-        <button onClick={refreshTournamentData} style={buttonStyle(isMobile)}>
+        {/* <button onClick={refreshTournamentData} style={buttonStyle(isMobile)}>
           Refresh
-        </button>
+        </button> */}
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile
+            ? "1fr"
+            : "repeat(auto-fit, minmax(180px, 1fr))",
+          gap: 12,
+          marginBottom: 20,
+        }}
+      >
+        <div
+          style={{
+            ...sectionCardStyle(isMobile),
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <div style={{ fontSize: 13 }}>Total Entries</div>
+            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
+              {summary.totalEntries}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize: 13 }}>Active</div>
+            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
+              {summary.activeEntries}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize: 13 }}>Eliminated</div>
+            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
+              {summary.eliminatedEntries}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
@@ -518,7 +558,7 @@ export default function Entries({
             Pick Editor
           </h4>
           {selectedEntryId ? (
-            <div style={{ marginTop: -8, marginBottom: 20 }}>
+            <div style={{ marginBottom: "0.5rem" }}>
               <button
                 onClick={() => handleDeleteEntry(selectedEntryId)}
                 style={{
@@ -641,103 +681,63 @@ export default function Entries({
       ) : null}
 
       <div style={{ ...sectionCardStyle(isMobile), marginBottom: 20 }}>
-          <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
-            Add New Entry
-          </h4>
+        <h4 style={{ marginTop: 0, fontSize: isMobile ? 16 : 20 }}>
+          Add New Entry
+        </h4>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "minmax(240px, 1fr) auto",
-              gap: 12,
-              alignItems: "end",
-            }}
-          >
-            <div>
-              <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
-                Entry Name
-              </div>
-              <input
-                type="text"
-                value={newEntryName}
-                onChange={(e) => {
-                  setNewEntryName(e.target.value);
-                  if (entryError) setEntryError("");
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleAddEntry();
-                  }
-                }}
-                placeholder="Enter a new entry name"
-                style={inputStyle}
-              />
-            </div>
-
-            <div>
-              <button
-                onClick={handleAddEntry}
-                style={{
-                  ...buttonStyle(isMobile),
-                  width: isMobile ? "100%" : "auto",
-                }}
-              >
-                Add Entry
-              </button>
-            </div>
-          </div>
-
-          {entryError ? (
-            <div
-              style={{
-                marginTop: 10,
-                fontSize: 13,
-                color: "#fecaca",
-              }}
-            >
-              {entryError}
-            </div>
-          ) : null}
-        </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: isMobile
-            ? "1fr"
-            : "repeat(auto-fit, minmax(180px, 1fr))",
-          gap: 12,
-          marginBottom: 20,
-        }}
-      >
         <div
           style={{
-            ...sectionCardStyle(isMobile),
-            display: "flex",
-            justifyContent: "space-between",
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(240px, 1fr) auto",
+            gap: 12,
+            alignItems: "end",
           }}
         >
           <div>
-            <div style={{ fontSize: 13 }}>Total Entries</div>
-            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
-              {summary.totalEntries}
+            <div style={{ fontSize: isMobile ? 11 : 12, marginBottom: 6 }}>
+              Entry Name
             </div>
+            <input
+              type="text"
+              value={newEntryName}
+              onChange={(e) => {
+                setNewEntryName(e.target.value);
+                if (entryError) setEntryError("");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleAddEntry();
+                }
+              }}
+              placeholder="Enter a new entry name"
+              style={inputStyle}
+            />
           </div>
 
           <div>
-            <div style={{ fontSize: 13 }}>Active</div>
-            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
-              {summary.activeEntries}
-            </div>
-          </div>
-
-          <div>
-            <div style={{ fontSize: 13 }}>Eliminated</div>
-            <div style={{ fontSize: isMobile ? 18 : 20, fontWeight: 700 }}>
-              {summary.eliminatedEntries}
-            </div>
+            <button
+              onClick={handleAddEntry}
+              style={{
+                ...buttonStyle(isMobile),
+                width: isMobile ? "100%" : "auto",
+              }}
+            >
+              Add Entry
+            </button>
           </div>
         </div>
+
+        {entryError ? (
+          <div
+            style={{
+              marginTop: 10,
+              fontSize: 13,
+              color: "#fecaca",
+            }}
+          >
+            {entryError}
+          </div>
+        ) : null}
       </div>
 
       {resolvedEntries.length === 0 ? (
