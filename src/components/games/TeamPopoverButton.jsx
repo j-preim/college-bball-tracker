@@ -2,9 +2,74 @@ import { useEffect, useMemo, useRef } from "react";
 import { Popover } from "bootstrap";
 import { getTeamStats } from "../../hooks/getTeamStats";
 import kenpomData from "../../data/kenpom.json";
-import { buildTeamLookup, canonicalizeTeamName } from "../../utils/teamNameUtils";
+import {
+  buildTeamLookup,
+  canonicalizeTeamName,
+} from "../../utils/teamNameUtils";
 
 const kenpomByTeam = buildTeamLookup(kenpomData, "team");
+
+const MASCOT_SUFFIXES = [
+  "Aggies",
+  "Bears",
+  "Bison",
+  "Boilermakers",
+  "Billikens",
+  "Blue Devils",
+  "Broncos",
+  "Bulldogs",
+  "Cardinals",
+  "Cavaliers",
+  "Commodores",
+  "Cougars",
+  "Crimson Tide",
+  "Cyclones",
+  "Fighting Illini",
+  "Gators",
+  "Gaels",
+  "Gamecocks",
+  "Hawks",
+  "Hurricanes",
+  "Huskies",
+  "Jayhawks",
+  "Lancers",
+  "Longhorns",
+  "Mustangs",
+  "Owls",
+  "Paladins",
+  "Panthers",
+  "Pride",
+  "Raiders",
+  "Razorbacks",
+  "Rebels",
+  "Red Raiders",
+  "Red Storm",
+  "RedHawks",
+  "Royals",
+  "Spartans",
+  "Tigers",
+  "Trojans",
+  "Volunteers",
+  "Wildcats",
+  "Wolverines",
+  "Wolfpack",
+  "Zips",
+];
+
+function extractSchoolName(fullName = "") {
+  const trimmed = String(fullName).trim();
+  const sortedSuffixes = [...MASCOT_SUFFIXES].sort(
+    (a, b) => b.length - a.length,
+  );
+
+  for (const suffix of sortedSuffixes) {
+    if (trimmed.endsWith(` ${suffix}`)) {
+      return trimmed.slice(0, -(suffix.length + 1)).trim();
+    }
+  }
+
+  return trimmed;
+}
 
 function formatValue(value) {
   return value ?? "-";
@@ -64,16 +129,8 @@ export default function TeamPopoverButton({ team, bracketRank }) {
   }, [team]);
 
   const kenpomLookupName = useMemo(() => {
-    return (
-      team?.alias ||
-      team?.school ||
-      team?.location ||
-      team?.shortName ||
-      team?.shortDisplayName ||
-      team?.name ||
-      ""
-    );
-  }, [team]);
+    return extractSchoolName(team?.name || "");
+  }, [team?.name]);
 
   const kenpomStats = useMemo(() => {
     if (!kenpomLookupName) {
@@ -84,17 +141,12 @@ export default function TeamPopoverButton({ team, bracketRank }) {
   }, [kenpomLookupName]);
 
   // 🔍 TEMP DEBUG
-if (team?.alias) {
-  const key = canonicalizeTeamName(team.alias);
-  const match = kenpomByTeam[key];
-
-  if (!match) {
-    console.log("KENPOM MISS:", {
-      name: team.name,
-      alias: team.alias,
-      normalized: key,
-    });
-  }
+  if (team?.name && !kenpomStats) {
+  console.log("KENPOM MISS:", {
+    name: team.name,
+    extracted: extractSchoolName(team.name),
+    normalized: canonicalizeTeamName(extractSchoolName(team.name)),
+  });
 }
 
   useEffect(() => {
