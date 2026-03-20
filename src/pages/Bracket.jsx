@@ -190,10 +190,6 @@ export default function Bracket({
                           >
                             <div className="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
                               <h6 className="mb-0">{bracket.bracketName}</h6>
-                              <span className="badge text-bg-secondary">
-                                {bracket.bracketGames.length} game
-                                {bracket.bracketGames.length === 1 ? "" : "s"}
-                              </span>
                             </div>
 
                             <div className="d-grid gap-2">
