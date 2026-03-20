@@ -43,7 +43,9 @@ export const TEAM_ALIASES = {
   pitt: "pittsburgh",
 
   "miami fl": "miami",
+  "miami fl": "miami fl",
   "miami florida": "miami",
+  "miami florida": "miami fl",
   "miami oh": "miami oh",
   "miami ohio": "miami oh",
 
@@ -73,6 +75,7 @@ export const TEAM_ALIASES = {
   vcu: "virginia commonwealth",
 
   liu: "long island university",
+  liu: "liu",
   ucla: "ucla",
   ucf: "central florida",
   "california baptist": "cal baptist",
