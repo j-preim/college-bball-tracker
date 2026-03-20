@@ -52,6 +52,23 @@ export const TEAM_ALIASES = {
 
   "southern cal": "usc",
   usc: "usc",
+
+  penn: "pennsylvania",
+  tcu: "texas christian",
+  "south florida": "south florida",
+  "michigan state": "michigan state",
+  "north dakota state": "north dakota state",
+  "north carolina": "north carolina",
+  "ohio state": "ohio state",
+  wisconsin: "wisconsin",
+  nebraska: "nebraska",
+  kennesaw: "kennesaw state",
+  idaho: "idaho",
+  siena: "siena",
+  mcneese: "mcneese",
+  hawaii: "hawaii",
+  "hawaii rainbow warriors": "hawaii",
+  vcu: "virginia commonwealth",
 };
 
 export function canonicalizeTeamName(name = "") {
