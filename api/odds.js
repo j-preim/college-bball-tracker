@@ -28,6 +28,7 @@ const TEAM_ALIASES = {
   utsa: "texas san antonio",
   "uc san diego": "california san diego",
   "southern miss": "southern mississippi",
+  "miami (fl)": "miami",
 };
 
 function canonicalizeTeamName(name = "") {

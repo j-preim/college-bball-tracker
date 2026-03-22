@@ -43,7 +43,7 @@ export const TEAM_ALIASES = {
   pitt: "pittsburgh",
 
   "miami fl": "miami",
-  "miami fl": "miami fl",
+  "miami": "miami fl",
   "miami florida": "miami",
   "miami florida": "miami fl",
   "miami oh": "miami oh",
